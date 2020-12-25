@@ -9,6 +9,7 @@ class ReservationReceiptSchema extends Schema {
       table.increments()
       table.integer('total_places_price').notNullable()
       table.integer('total_luggages_price').notNullable()
+      table.integer('total__price').notNullable()
       table.integer('tickets_id').unsigned()
       table.foreign('tickets_id').references('tickets.id')
       table.timestamps()

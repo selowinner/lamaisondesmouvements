@@ -4,6 +4,12 @@
 const Model = use('Model')
 
 class PriceOfWithdrawalsAndDelivery extends Model {
+
+
+    company () {
+        return this.belongsTo('App/Models/Company')
+    }
+
 }
 
 module.exports = PriceOfWithdrawalsAndDelivery

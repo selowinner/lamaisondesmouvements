@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class ReservationReceipt extends Model {
+
+    tickets () {
+        return this.belongsTo('App/Models/Ticket')
+    }
+
 }
 
 module.exports = ReservationReceipt

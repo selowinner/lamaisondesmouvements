@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class CompanyUseOption extends Model {
+
+    company () {
+        return this.hasMany('App/Models/Company')
+    }
+
 }
 
 module.exports = CompanyUseOption

@@ -4,6 +4,23 @@
 const Model = use('Model')
 
 class Travel extends Model {
+
+    users () {
+        return this.belongsTo('App/Models/User')
+    }
+
+    company () {
+      return this.belongsTo('App/Models/Company')
+    }
+
+    travelPlace () {
+      return this.hasMany('App/Models/TravelPlace')
+    }
+
+    tickets () {
+      return this.hasMany('App/Models/Ticket')
+    }
+
 }
 
 module.exports = Travel

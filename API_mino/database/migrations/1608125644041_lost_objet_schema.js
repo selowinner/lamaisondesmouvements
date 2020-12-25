@@ -13,8 +13,12 @@ class LostObjetSchema extends Schema {
       table.text('picture')
       table.text('description').notNullable()
       table.integer('contact').notNullable()
-      table.string('ticket_number_or_identification').notNullable()
+      table.string('ticket_number_or_identification')
+      table.time('departure_time')
+      table.string('departure_place')
       table.boolean('declaration_state').defaultTo(false)
+      table.integer('company_id').unsigned()
+      table.foreign('company_id').references('companies.id')
       table.timestamps()
     })
   }

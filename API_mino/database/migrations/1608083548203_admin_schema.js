@@ -11,6 +11,8 @@ class AdminSchema extends Schema {
       table.string('email', 254).notNullable().unique()
       table.string('password', 60).notNullable()
       table.timestamps()
+
+      // Ce Schema a été Annulé, parcequ'un admin est considé désormais comme un User, avec un rôle différent.
     })
   }
 

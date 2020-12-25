@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class TicketState extends Model {
+
+    tickets () {
+        return this.hasMany('App/Models/Ticket')  
+    }
 }
 
 module.exports = TicketState
