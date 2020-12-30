@@ -1,7 +1,9 @@
 'use strict'
 
 const { validateAll } = use('Validator')
-const Stocks = use('App/Models/Stock')
+const Travels = use('App/Models/Travel')
+const Tickets = use('App/Models/Ticket')
+const ReservationReceipt = use('App/Models/ReservationReceipt')
 
 
 
@@ -12,22 +14,19 @@ class ReservationController {
 
 
 
+
     async add({request, response}){
 
         //GET DATA
         const body = request.all()
-        
 
-         // CREATE SUPPLIER
-         const supplier = new Object()
-         supplier.denomination = body.denomination
-         supplier.registration_number = body.registration_number
-         supplier.location = body.location
-         supplier.email = body.email
-         supplier.contact = body.contact
-         supplier.phone_number = body.phone_number
+
+        // ADD A RESERVATION
+        const reservation = new Object()
+        reservation.denomination = body.denomination
+        reservation.registration_number = body.registration_number
          
-         const supplierdataVaidation = await validateAll(supplier, {denomination: 'required|unique:suppliers,denomination'})
+        const supplierdataVaidation = await validateAll(supplier, {denomination: 'required|unique:suppliers,denomination'})
         
         if (supplierdataVaidation.fails()) {
              response.json({ message: 'Le fournisseur exite déjà',})

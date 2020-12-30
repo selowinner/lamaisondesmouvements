@@ -28,5 +28,6 @@ Route.get('/', () => {
 -----------------------------
 */
 
-// Product
+// Reservation
+Route.get('reservation/TravelListe', 'Travel/TravelController.getListForAReservation')
 Route.post('reservation/add', 'General/ReservationController.add')
