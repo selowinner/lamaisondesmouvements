@@ -19,3 +19,14 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+
+
+/*
+----------------------------
+----- RESERVATION MANAGEMENT ----
+-----------------------------
+*/
+
+// Product
+Route.post('reservation/add', 'General/ReservationController.add')
