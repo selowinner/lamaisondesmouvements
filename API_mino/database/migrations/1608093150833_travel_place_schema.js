@@ -7,7 +7,7 @@ class TravelPlaceSchema extends Schema {
   up () {
     this.create('travel_places', (table) => {
       table.increments()
-      table.integer('place').notNullable().unique()
+      table.integer('place').notNullable()
       table.boolean('reservation_state').defaultTo(false)
       table.integer('travel_id').unsigned()
       table.foreign('travel_id').references('travels.id')

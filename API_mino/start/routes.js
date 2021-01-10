@@ -31,3 +31,26 @@ Route.get('/', () => {
 // Reservation
 Route.get('reservation/TravelListe', 'Travel/TravelController.getListForAReservation')
 Route.post('reservation/add', 'General/ReservationController.add')
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+---------------------------------
+----- ALL ROUTES WITH PARAMS ----
+---------------------------------
+*/
+
+// RESERVATION MANAGEMENT
+
+/*-----Reservation-----*/
+Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListForAReservation')

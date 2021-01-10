@@ -9,6 +9,10 @@ class LuggagePriceByWeightAndSize extends Model {
         return this.belongsTo('App/Models/LuggageType')
     }
 
+    ticketLuggageANDLuggagePriceByRelation () {
+        return this.hasMany('App/Models/TicketLuggageTypeLuggagePriceBy')
+    }
+
 }
 
 module.exports = LuggagePriceByWeightAndSize

@@ -21,6 +21,10 @@ class Ticket extends Model {
         return this.hasOne('App/Models/ReservationReceipt')
     }
 
+    ticketLuggageANDLuggagePriceByRelation () {
+        return this.hasMany('App/Models/TicketLuggageTypeLuggagePriceBy')
+    }
+
 
 }
 

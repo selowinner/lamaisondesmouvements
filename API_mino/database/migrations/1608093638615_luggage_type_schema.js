@@ -9,7 +9,7 @@ class LuggageTypeSchema extends Schema {
       table.increments()
       table.string('denomination').notNullable()
       table.text('description').notNullable()
-      table.integer('company_id').unsigned()
+      table.integer('Luggages').unsigned()
       table.foreign('company_id').references('companies.id')
       table.timestamps()
     })
