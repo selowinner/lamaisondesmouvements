@@ -28,12 +28,61 @@ Route.get('/', () => {
 -----------------------------
 */
 
-// Reservation
+// Reservation For Client
 Route.get('reservation/TodayCountryTravelListe', 'Travel/TravelController.getTodayListOfCountryForAReservation')
 Route.get('reservation/WeekCountryTravelListe', 'Travel/TravelController.getWeekListOfCountryForAReservation')
 Route.get('reservation/TravelListe', 'Travel/TravelController.getListForAReservation')
 Route.post('reservation/add', 'General/ReservationController.add')
 Route.post('reservation/remove', 'General/ReservationController.remove')
+
+
+
+
+
+
+
+
+
+
+
+/*
+----------------------------
+----- LOST OBJETS MANAGEMENT ----
+-----------------------------
+*/
+
+// Lost objet declaratiion For Client
+Route.post('lostObjet/add', 'LostObjet/DeclarationController.add')
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+----------------------------
+----- RATING MANAGEMENT ----
+-----------------------------
+*/
+
+// Companies rating by client
+Route.post('rating/add', 'Rating/RatingController.add')
+
+
+
+
+
+
+
+
+
 
 
 
