@@ -29,8 +29,11 @@ Route.get('/', () => {
 */
 
 // Reservation
+Route.get('reservation/TodayCountryTravelListe', 'Travel/TravelController.getTodayListOfCountryForAReservation')
+Route.get('reservation/WeekCountryTravelListe', 'Travel/TravelController.getWeekListOfCountryForAReservation')
 Route.get('reservation/TravelListe', 'Travel/TravelController.getListForAReservation')
 Route.post('reservation/add', 'General/ReservationController.add')
+Route.post('reservation/remove', 'General/ReservationController.remove')
 
 
 

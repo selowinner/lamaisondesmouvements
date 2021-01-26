@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class TicketLuggageTypeLuggagePriceBySchema extends Schema {
   up () {
-    this.create('ticket_luggage', (table) => {
+    this.create('ticket_luggage_type_luggage_price_bies', (table) => {
       table.increments()
       table.integer('ticket_id').unsigned()
       table.foreign('ticket_id').references('tickets.id')
@@ -18,7 +18,7 @@ class TicketLuggageTypeLuggagePriceBySchema extends Schema {
   }
 
   down () {
-    this.drop('ticket_luggage')
+    this.drop('ticket_luggage_type_luggage_price_bies')
   }
 }
 

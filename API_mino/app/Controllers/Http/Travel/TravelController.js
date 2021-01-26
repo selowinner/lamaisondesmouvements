@@ -35,7 +35,31 @@ class TravelController {
         }
 
 
-        // TIME INTERVAL CALCULATION
+        // VERIFY IF LE INPUT TIME IS NOT A PASSED TIME OR PASSED DATE
+        // Convert input date to second
+        const departureDate = body.departure_date + "T" + body.departure_time
+        const TotaldepartureDate = new Date(departureDate);
+        const TotaldepartureDateInTime = Math.round(TotaldepartureDate.getTime() / 1000)
+        // Currente time in second
+        const CurrentDate =  new Date()
+        const CurrentDateInTime = Math.round(CurrentDate.getTime() / 1000)
+        // verification
+        if (CurrentDateInTime > TotaldepartureDateInTime) {
+            
+            // response
+            response.json({
+                message: 'Les départs pour de cette heure ont déjà été effectués',
+            })
+            console.log(CurrentDateInTime + " :::::: " + TotaldepartureDateInTime)
+
+
+
+
+        }else{
+
+
+
+            // TIME INTERVAL CALCULATION
         const departure_time = body.departure_time 
         const heure = departure_time.substr(0, 2)
         const departure_time_proposition_limit = parseInt(heure) + 1 + departure_time.substr(2)
@@ -43,12 +67,12 @@ class TravelController {
          // GET THE PRINCIPAL TRAVEL LIST
         const pricipalTravelListeNotInJson = await Travels
         .query()
+        .innerJoin('Companies', 'companies.id', 'Travels.company_id')
         .where('departure_date', body.departure_date)
         .where('departure_place', body.departure_place)
         .where('destination', body.destination)
         .whereBetween('departure_time', [departure_time,  departure_time_proposition_limit])
-        .with('company')
-        .select('id', 'place_price')
+        .select('Travels.id', 'Travels.place_price', 'companies.denomination')
         .fetch() 
         // chercher à parfaire la requête pour limité la liste des informations pour chaque voyage
 
@@ -58,12 +82,12 @@ class TravelController {
         // GET THE TRAVEL LIST SUGGESTION
         const SuggestionTravelListeNotInJson = await Travels
         .query()
+        .innerJoin('Companies', 'Companies.id', 'Travels.company_id')
         .where('departure_date', body.departure_date)
         .where('departure_place', body.departure_place)
         .where('destination', body.destination)
         .whereNotBetween('departure_time', [departure_time,  departure_time_proposition_limit])
-        .with('company')
-        .select('id', 'place_price')
+        .select('Travels.id', 'Travels.place_price', 'Travels.departure_time', 'Companies.denomination')
         .fetch() 
 
         const SuggestionTtravelListe = SuggestionTravelListeNotInJson.toJSON()
@@ -80,11 +104,65 @@ class TravelController {
         })
 
 
+        }
+
+
         
     }
 
 
 
+
+    async getTodayListOfCountryForAReservation({response}){
+
+        // Currente time
+        const CurrentDate =  new Date() 
+        const kkk = CurrentDate.getFullYear() + "-" + CurrentDate.getMonth()+1  + "-" + CurrentDate.getDate() 
+       
+        // GET THE TRAVEL LIST SUGGESTION
+        const ListOfCountryNotInJson = await Travels
+        .query()
+        .where('departure_date', kkk)
+        .select('departure_place')
+        .groupBy('departure_place')
+        .fetch()
+
+        const ListOfCountry = ListOfCountryNotInJson.toJSON()
+
+        response.json({
+            message: 'success',
+            data: ListOfCountry
+        })
+        
+
+        
+    }
+
+
+    async getWeekListOfCountryForAReservation({response}){
+
+        // Currente time
+        const CurrentDate =  new Date() 
+        const CurrentDateInTime = CurrentDate.getFullYear() + "-" + CurrentDate.getMonth()+1  + "-" + CurrentDate.getDate() 
+       
+        // GET THE TRAVEL LIST SUGGESTION
+        const ListOfCountryNotInJson = await Travels
+        .query()
+        .whereBetween('departure_date', [CurrentDateInTime,  "2050-07-05"])
+        .select('departure_place')
+        .groupBy('departure_place')
+        .fetch()
+
+        const ListOfCountry = ListOfCountryNotInJson.toJSON()
+
+        response.json({
+            message: 'success',
+            data: ListOfCountry
+        })
+        
+
+        
+    }
 
 
 }
