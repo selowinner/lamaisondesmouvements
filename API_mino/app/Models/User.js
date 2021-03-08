@@ -43,6 +43,10 @@ class User extends Model {
     return this.belongsTo('App/Models/UserRole')
   }
 
+  CompaniesStations () {
+    return this.hasMany('App/Models/CompaniesStation')
+}
+
 
 }
 

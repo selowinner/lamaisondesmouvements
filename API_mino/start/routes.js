@@ -88,6 +88,28 @@ Route.post('rating/add', 'Rating/RatingController.add')
 
 
 
+/*
+----------------------------
+----- EXPEDITION MANAGEMENT ----
+-----------------------------
+*/
+
+// Add Expedition for Client
+Route.get('expedition/listOfLuggage', 'Luggage/LuggageController.getListOfLuggageNature')
+Route.post('expedition/addstep1', 'Expedition/ExpeditionController.addstep1')
+Route.post('expedition/listOfLuggagePrices', 'Luggage/LuggageController.getListOfLuggagePrice')
+Route.post('expedition/addstep2', 'Expedition/ExpeditionController.addstep2')
+
+
+
+
+
+
+
+
+
+
+
 
 
 

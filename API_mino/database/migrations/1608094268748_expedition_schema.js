@@ -20,8 +20,8 @@ class ExpeditionSchema extends Schema {
       table.integer('package_weight').notNullable()
       table.integer('package_size').notNullable()
       table.text('package_picture').notNullable()
-      table.date('delivery_date').notNullable() // vérifier le type
-      table.string('package_withdrawal_code').notNullable()
+      table.date('delivery_date')
+      table.string('package_withdrawal_code')
       table.integer('expedition_price')
       table.integer('recipient_delivery_man_id').unsigned()
       table.foreign('recipient_delivery_man_id').references('delivery_men.id')

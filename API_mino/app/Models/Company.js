@@ -47,6 +47,11 @@ class Company extends Model {
     }
 
 
+    CompaniesStations () {
+        return this.hasMany('App/Models/CompaniesStation')
+    }
+
+
 }
 
 module.exports = Company
