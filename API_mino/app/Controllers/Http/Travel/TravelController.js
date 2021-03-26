@@ -117,8 +117,9 @@ class TravelController {
 
         // Currente time
         const CurrentDate =  new Date() 
-        const kkk = CurrentDate.getFullYear() + "-" + CurrentDate.getMonth()+1  + "-" + CurrentDate.getDate() 
-       
+        const currentMonthPlusOne = CurrentDate.getMonth()+1
+        const kkk = CurrentDate.getFullYear() + "-" + currentMonthPlusOne  + "-" + CurrentDate.getDate() 
+ 
         // GET THE TRAVEL LIST SUGGESTION
         const ListOfCountryNotInJson = await Travels
         .query()
@@ -143,7 +144,8 @@ class TravelController {
 
         // Currente time
         const CurrentDate =  new Date() 
-        const CurrentDateInTime = CurrentDate.getFullYear() + "-" + CurrentDate.getMonth()+1  + "-" + CurrentDate.getDate() 
+        const currentMonthPlusOne = CurrentDate.getMonth()+1
+        const CurrentDateInTime = CurrentDate.getFullYear() + "-" + currentMonthPlusOne  + "-" + CurrentDate.getDate() 
        
         // GET THE TRAVEL LIST SUGGESTION
         const ListOfCountryNotInJson = await Travels
