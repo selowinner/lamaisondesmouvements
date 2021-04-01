@@ -2,8 +2,8 @@
 
 const { validateAll } = use('Validator')
 const Travels = use('App/Models/Travel')
-const Tickets = use('App/Models/Ticket')
-const ReservationReceipt = use('App/Models/ReservationReceipt')
+const TravelIntermadiateStations = use('App/Models/TravelIntermadiateStation')
+
 
 
 
@@ -111,8 +111,6 @@ class TravelController {
     }
 
 
-
-
     async getTodayListOfCountryForAReservation({response}){
 
         // Currente time
@@ -166,6 +164,35 @@ class TravelController {
         
     }
 
+
+    async getListIntermadiateStationForAReservation({request, response}){
+
+        const body = request.only(['travel_id'])
+
+       // GET THE TRAVEL INTERMADIATES STATIONS LIST SUGGESTION
+       const IntermadiateStationNotInJson = await TravelIntermadiateStations
+       .query()
+       .where('travel_id', body.travel_id)
+       .select('id', 'station_name')
+       .fetch()
+
+       const IntermadiateStation = IntermadiateStationNotInJson.toJSON()
+
+       response.json({
+           message: 'success',
+           data: IntermadiateStation
+       })
+
+        
+
+        
+    }
+    
+
+
+
+
+    
 
 }
 

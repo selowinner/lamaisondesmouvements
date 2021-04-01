@@ -9,6 +9,10 @@ class Ticket extends Model {
         return this.belongsTo('App/Models/Travel')
     }
 
+    tavelsItermadiateStation () {
+        return this.belongsTo('App/Models/TravelIntermadiateStation')
+    }
+
     ticketStates () {
         return this.belongsTo('App/Models/TicketState')
     }

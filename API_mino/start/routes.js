@@ -32,6 +32,7 @@ Route.get('/', () => {
 Route.get('reservation/TodayCountryTravelListe', 'Travel/TravelController.getTodayListOfCountryForAReservation')
 Route.get('reservation/WeekCountryTravelListe', 'Travel/TravelController.getWeekListOfCountryForAReservation')
 Route.get('reservation/TravelListe', 'Travel/TravelController.getListForAReservation')
+Route.post('reservation/TravelIntermadiateStationListe', 'Travel/TravelController.getListIntermadiateStationForAReservation')
 Route.post('reservation/add', 'General/ReservationController.add')
 Route.post('reservation/remove', 'General/ReservationController.remove')
 
@@ -126,5 +127,5 @@ Route.post('expedition/addstep2', 'Expedition/ExpeditionController.addstep2')
 
 // RESERVATION MANAGEMENT
 
-/*-----Reservation-----*/
+/*----- Client Reservation-----*/
 Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListForAReservation')

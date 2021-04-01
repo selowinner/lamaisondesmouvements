@@ -30,7 +30,7 @@ class ReservationController {
             // luggage_type_id: 'required',
             // luggage_price_by_weight_and_size_id: 'required',
             total_places_price: 'required',
-            total_luggages_price: 'required',
+            // total_luggages_price: 'required',
             total__price: 'required'
         }
         const bodyValidation = await validateAll(body, rules)
@@ -43,7 +43,7 @@ class ReservationController {
         // MAKE A RESERVATION
 
         /* Verify the number of not reserves place */
-        const availablePlaceCount = await TravelsPlaces.query().where('travel_id', body.travel_id).where('reservation_state', 0).count()
+        const availablePlaceCount = await TravelsPlaces.query().where('travel_id', body.travel_id).where('reservation_state', 1).count()
         const availablePlace = availablePlaceCount[0]['count(*)']
 
         if (body.number_of_places > availablePlace) {
@@ -54,8 +54,8 @@ class ReservationController {
         /* Reserved a place */
         const indexLimit = parseInt(body.number_of_places) + 1
         for (let index = 1; index < indexLimit; index++) {
-            const PLaceNotReserved = await TravelsPlaces.query().where('travel_id', body.travel_id).where('reservation_state', 0).first()   
-            PLaceNotReserved.reservation_state = 1
+            const PLaceNotReserved = await TravelsPlaces.query().where('travel_id', body.travel_id).where('reservation_state', 1).first()   
+            PLaceNotReserved.reservation_state = 2
     
             await PLaceNotReserved.save()   
         }
@@ -86,7 +86,11 @@ class ReservationController {
             ticket.number_of_places = body.number_of_places
             ticket.client_complet_name = body.client_complet_name
             ticket.travel_id = body.travel_id
-            ticket.ticket_state_id = 1
+            ticket.ticket_state_id = 2
+
+            if (body.travel_intermadiate_station) {
+                ticket.travel_intermadiate_station = body.travel_intermadiate_station
+            }
 
             newTicket = await Tickets.create(ticket)
            
@@ -100,7 +104,7 @@ class ReservationController {
             ticket.client_complet_name = body.client_complet_name
             ticket.travel_id = body.travel_id
             ticket.number_luggage = body.number_luggage
-            ticket.ticket_state_id = 1
+            ticket.ticket_state_id = 2
 
             newTicket = await Tickets.create(ticket)
 
@@ -120,10 +124,14 @@ class ReservationController {
         // ADD NEW RESERVATION RECEIPT
         const reservationReceipt = new Object()
         reservationReceipt.total_places_price = body.total_places_price
-        reservationReceipt.total_luggages_price = body.total_luggages_price
         reservationReceipt.total__price = body.total__price
         reservationReceipt.tickets_id = newTicket.id
-
+        if (body.total_luggages_price) {
+            reservationReceipt.total_luggages_price = body.total_luggages_price
+        } else {
+            reservationReceipt.total_luggages_price = 0
+        }
+        
         const newReservationReceipt = await ReservationReceipts.create(reservationReceipt)
     
         
@@ -160,7 +168,7 @@ class ReservationController {
 
         // VERIFY
         // Annulation time
-        const GetTheTicket = await Tickets.query().where('matriculation', body.matriculation).where('ticket_state_id', 1).first()
+        const GetTheTicket = await Tickets.query().where('matriculation', body.matriculation).where('ticket_state_id', 2).first()
         const TravelInfo = await Travels.query().where('id', GetTheTicket.travel_id).select('departure_date', 'departure_time').first()
         const departureDateToString = TravelInfo.departure_date.toString()
         const AddDepartureTimeToDepartureDate = departureDateToString.replace("00:00:00", TravelInfo.departure_time)
@@ -181,7 +189,7 @@ class ReservationController {
         } else{
 
              // CANCELLATION OF TICKET
-            const cancellation = await Tickets.query().where('matriculation', body.matriculation).update({ticket_state_id: 0})
+            const cancellation = await Tickets.query().where('matriculation', body.matriculation).update({ticket_state_id: 1})
             
 
             // RELEASE PLACE RESERVED
@@ -194,8 +202,8 @@ class ReservationController {
                 // cancel cancelling
                 const indexLimit = placeToCancel.number_of_places + 1
                 for (let index = 1; index < indexLimit; index++) {
-                    const PLaceNotReserved = await TravelsPlaces.query().where('travel_id', placeToCancel.travel_id).where('reservation_state', 1).first()   
-                    PLaceNotReserved.reservation_state = 0
+                    const PLaceNotReserved = await TravelsPlaces.query().where('travel_id', placeToCancel.travel_id).where('reservation_state', 2).first()   
+                    PLaceNotReserved.reservation_state = 1
             
                     await PLaceNotReserved.save()
                 }

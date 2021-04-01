@@ -16,6 +16,10 @@ class Travel extends Model {
     travelPlace () {
       return this.hasMany('App/Models/TravelPlace')
     }
+    
+    travelIntermadiateStation () {
+      return this.hasMany('App/Models/TravelIntermadiateStation')
+    }
 
     tickets () {
       return this.hasMany('App/Models/Ticket')
