@@ -37,8 +37,8 @@ Route.post('reservation/add', 'General/ReservationController.add')
 Route.post('reservation/remove', 'General/ReservationController.remove')
 
 
-
-
+// Reservation For Companies
+Route.post('travel/add', 'Travel/TravelController.addTravel')
 
 
 

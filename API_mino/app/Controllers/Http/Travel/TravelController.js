@@ -3,6 +3,7 @@
 const { validateAll } = use('Validator')
 const Travels = use('App/Models/Travel')
 const TravelIntermadiateStations = use('App/Models/TravelIntermadiateStation')
+const TravelPlaces = use('App/Models/TravelPlace')
 
 
 
@@ -11,9 +12,9 @@ const TravelIntermadiateStations = use('App/Models/TravelIntermadiateStation')
 
 class TravelController {
 
-    ///////////////////////////
-    /* FOR PLACE RESERVATION */
-    //////////////////////////
+    /////////////////////////////////////////////
+    /* FOR PLACE RESERVATION IN THE MOBILE APP */
+    ////////////////////////////////////////////
 
     async getListForAReservation({request, response}){
 
@@ -50,7 +51,7 @@ class TravelController {
             response.json({
                 message: 'Les départs pour de cette heure ont déjà été effectués',
             })
-            console.log(CurrentDateInTime + " :::::: " + TotaldepartureDateInTime)
+            // console.log(CurrentDateInTime + " :::::: " + TotaldepartureDateInTime)
 
 
 
@@ -192,7 +193,149 @@ class TravelController {
 
 
 
-    
+    ///////////////////////////////////////////////////////////
+    /* FOR TRAVEL DECLARATION IN THE COMPANIES SOFTWARE TOOL */
+    ///////////////////////////////////////////////////////////
+
+    async addTravel({request, response}){
+
+
+        const body = request.all
+        
+        // DATA VALIDATION
+        const rules = {
+            car_informations: 'required',
+            car_matriculation: 'required',
+            departure_place: 'required',
+            destination: 'required',
+            departure_time: 'required',
+            departure_date: 'required',
+            // place_to_sell_by_mino_number: 'required',
+            total_car_place_number: 'required',
+            place_price: 'required',
+            // annulation_of_reservation_Limit_Time: 'required',
+            company_id: 'required',
+            user_id: 'required'
+        }
+        const bodyValidation = await validateAll(body, rules)
+
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué de remplir un champs' }
+        }
+
+
+        if (body.place_to_sell_by_mino_number) {
+            const option1Travel = new Object()
+            option1Travel.car_informations = body.car_informations
+            option1Travel.car_matriculation = body.car_matriculation
+            option1Travel.departure_place = body.departure_place
+            option1Travel.destination = body.destination
+            option1Travel.departure_time = body.departure_time
+
+            option1Travel.departure_date = body.departure_date
+            option1Travel.place_to_sell_by_mino_number = body.place_to_sell_by_mino_number
+            option1Travel.total_car_place_number = body.total_car_place_number
+            option1Travel.place_price = body.place_price
+
+            option1Travel.annulation_of_reservation_Limit_Time = "10:00:00"
+            option1Travel.company_id = body.company_id
+            option1Travel.user_id = body.user_id
+
+            newoption1Travel = await Travels.create(option1Travel)
+
+
+
+            // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
+
+
+
+            // ICI
+
+
+            
+
+            // RESPONSE
+            response.json({
+                message: 'success',
+                data: {newoption1Travel}
+            })
+
+
+        } else {
+
+
+            const option1Travel = new Object()
+            option2Travel.car_informations = body.car_informations
+            option2Travel.car_matriculation = body.car_matriculation
+            option2Travel.departure_place = body.departure_place
+            option2Travel.destination = body.destination
+            option2Travel.departure_time = body.departure_time
+
+            option2Travel.departure_date = body.departure_date
+            option2Travel.place_to_sell_by_mino_number = body.total_car_place_number
+            option2Travel.total_car_place_number = body.total_car_place_number
+            option2Travel.place_price = body.place_price
+
+            option2Travel.annulation_of_reservation_Limit_Time = "20:00:00"
+            option2Travel.company_id = body.company_id
+            option2Travel.user_id = body.user_id
+
+            newoption2Travel = await Travels.create(option2Travel)
+
+               // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
+
+
+                // ICI
+
+
+
+             // RESPONSE
+             response.json({
+                message: 'success',
+                data: {newoption2Travel}
+            })
+            
+        }
+
+        
+
+
+        
+    }
+
+
+    async getListeOfTravel({params, response}){
+
+ 
+        // GET THE TRAVEL LIST 
+        const ListOfTravelNotInJson = await Travels
+        .query()
+        .where('company_id', params.id)
+        .fetch()
+
+        const ListOfTravel = ListOfTravelNotInJson.toJSON()
+
+        for (let i = 0; i < ListOfTravel.length; i++) {
+            const reservedPlaceNumber = await TravelPlaces
+                .query()
+                .where('travel_id', ListOfTravel[i].id)
+                .where('reservation_state', 1)
+                .count()
+
+            ListOfTravel[i].reservedPlaceNumber = reservedPlaceNumber[0]['count(*)']      
+            
+        }
+
+        response.json({
+            message: 'success',
+            data: ListOfTravel
+        })
+        
+
+        
+    }
+
+
 
 }
 
