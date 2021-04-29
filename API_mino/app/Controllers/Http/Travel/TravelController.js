@@ -241,16 +241,23 @@ class TravelController {
             option1Travel.company_id = body.company_id
             option1Travel.user_id = body.user_id
 
-            newoption1Travel = await Travels.create(option1Travel)
+            const newoption1Travel = await Travels.create(option1Travel)
 
 
 
             // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
 
+            for (let index = 1; index < place_to_sell_by_mino_number; index++) {
+                const element = array[index];
 
+                let travelPlace = new Object()
+                travelPlace.place = index
+                travelPlace.travel_id = newoption1Travel.id
 
-            // ICI
+                const newTravelPlace = await TravelPlaces.create(travelPlace)
 
+                
+            }
 
             
 
@@ -280,12 +287,22 @@ class TravelController {
             option2Travel.company_id = body.company_id
             option2Travel.user_id = body.user_id
 
-            newoption2Travel = await Travels.create(option2Travel)
+            const newoption2Travel = await Travels.create(option2Travel)
 
-               // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
+            // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
 
 
-                // ICI
+            for (let index = 1; index < place_to_sell_by_mino_number; index++) {
+            const element = array[index];
+
+            let travelPlace = new Object()
+            travelPlace.place = index
+            travelPlace.travel_id = newoption2Travel.id
+
+            const newTravelPlace = await TravelPlaces.create(travelPlace)
+
+            
+            }
 
 
 
