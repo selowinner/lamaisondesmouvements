@@ -21,9 +21,9 @@ class Company extends Model {
         return this.hasMany('App/Models/Expedition')
     }
 
-    rating () {
-        return this.hasMany('App/Models/Rating')
-    }
+    // rating () {
+    //     return this.hasMany('App/Models/Rating')
+    // }
 
     priceOfWithdrawalsAndDelivery () {
         return this.hasMany('App/Models/PriceOfWithdrawalsAndDelivery')
@@ -47,9 +47,13 @@ class Company extends Model {
     }
 
 
-    CompaniesStations () {
-        return this.hasMany('App/Models/CompaniesStation')
+    CompaniesCentral () {
+        return this.belongsTo('App/Models/CompaniesCentral')
     }
+
+    // CompaniesStations () {
+    //     return this.hasMany('App/Models/CompaniesStation')
+    // }
 
 
 }

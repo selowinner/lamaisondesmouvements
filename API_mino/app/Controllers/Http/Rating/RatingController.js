@@ -47,7 +47,7 @@ class RatingController {
         const rating = new Object()
         rating.matriculation = body.matriculation
         rating.rating = body.rating
-        rating.company_id = body.company_id
+        rating.companyCentral_id = body.company_id
 
         const newRating= await Ratings.create(rating)
          if (newRating) {

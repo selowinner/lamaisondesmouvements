@@ -6,8 +6,8 @@ const Model = use('Model')
 class Rating extends Model {
 
 
-    company () {
-        return this.belongsTo('App/Models/Company')
+    CompaniesCentral () {
+        return this.belongsTo('App/Models/CompaniesCentral')
     }
 
 }

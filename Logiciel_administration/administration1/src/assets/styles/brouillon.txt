@@ -1,0 +1,232 @@
+<template>
+
+    <p class="mainGreenColor dialogTitle">Bilan voyages éffectués</p>
+    <div class="mainGreenColor dialogWrapper">
+      <div class="imgAndTitle">
+      </div>
+      <p class="subtitle">FC EXPERTISE REGARDE LES AUTRES GRANDIR</p>
+      <div class="backBoad">
+        <div class="basicInfo">
+          <p><v-icon> mdi-arrow-right </v-icon> 03/031/2021</p>
+          <p><v-icon> mdi-arrow-right </v-icon> 08:00</p>
+          <p><v-icon> mdi-arrow-right </v-icon> SBTA</p>
+          <p><v-icon> mdi-arrow-right </v-icon> Full option</p>
+        </div>
+        <div class="travelResume">
+          <div class="part">
+            <p> <span>70</span><br>tickets à vendre</p>
+            <p> <span>10</span><br>tickets annulés</p>
+            <p> <span>150 000 FCFA</span><br>gain total des ventes</p>
+          </div>
+            <div class="part">
+            <p> <span>50</span><br>tickets vendus</p>
+            <p> <span>10</span><br>tickets restants</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</template>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+export default {
+  name: "TravelBalanceSheet",
+  components: {
+    
+  },
+
+  data: () => ({
+    
+    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+    search: '',
+    headers: [
+        {
+          text: 'IDENTIFIANT',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'DATE', value: 'date' },
+        { text: 'HEURE', value: 'heure' },
+        { text: 'DETAILS', value: 'actions', sortable: false },
+      ],
+    desserts: [
+      {
+        name: 'Frozen Yogurt',
+        date: '21-01-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Ice cream sandwich',
+        date: '01-01-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Eclair',
+        date: '25-03-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Cupcake',
+        date: '25-03-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Gingerbread',
+        date: '25-04-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Jelly bean',
+        date: '25-03-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Lollipop',
+        date: '25-03-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Honeycomb',
+        date: '15-02-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'Donut',
+        date: '25-03-2021',
+        heure: '09:00',
+      },
+      {
+        name: 'KitKat',
+        date:'25-03-2021',
+        heure: '09:00',
+      },
+    ],
+
+
+
+    dialog: false,
+
+  }),
+
+  methods: {
+    editItem: function (item) {
+       // this.editedIndex = this.desserts.indexOf(item)
+      // this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+
+  }
+
+};
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<style scoped>
+
+
+.dialogTitle{
+    margin: 0;
+    display: inline-block;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    font-size: 13px;
+}
+.dialogWrapper{
+  width: 100%;
+  margin: 0px;
+  padding: 5px;
+  border-radius: 0px 0px 5px 5px;
+}
+
+
+
+.imgAndTitle{
+  margin: 0px 0px;
+  height: 220px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  background: linear-gradient(180deg, rgb(0 0 0 / 0%),rgb(0 0 0 / 19%), rgb(0 0 0)), url(../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.subtitle{
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  font-size: 13px;
+  text-align: center;
+  margin: 5px 0px;
+}
+
+.backBoad{
+  background: var(--backgroundTree);
+  color: var(--Important-font-color);
+}
+.basicInfo{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-bottom: solid 1px var(--Important-font-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.basicInfo p{
+  width: 130px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.travelResume{
+  width: 100%;
+  display: flex;
+}
+.part{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.part p{
+  margin: 10px 0px;
+}
+.part span{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+</style>

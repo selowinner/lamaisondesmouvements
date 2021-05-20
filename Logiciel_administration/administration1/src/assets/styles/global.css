@@ -1,0 +1,231 @@
+/*--- INFORMATION----
+
+THIS IS THE PRICIPAL STYLE FILE OF THE APP
+=> IN THERE YOU CAN FIND ALL COMMONS COMPONENT OF ALL PAGES
+=> LIKE PRINCIPAL COLOR OR FONT OF THE APP 
+
+*/
+
+
+
+
+/*----------------------
+    ---- VARIABLES---- 
+------------------------*/
+:root{
+    /* Fonts */
+    --Principal-font:'Poppins', sans-serif;
+
+    /* Background-color */
+    --main-black-color: #1e2126;
+    --profilNaV-black: #1b1c21;
+    --backgroundTree: #292e32;
+    
+    /* Important-color */
+    --main-green-color : #4c5d70;
+    --Important-font-color:  #7d7e80 ;
+   
+    /* Font color */
+    --font-color:  #3e886d;
+    --font-gray:#a4a5a6;
+    /* Other Color */
+      
+}
+
+/*-------END------------*/
+
+
+
+
+
+/*------------------------------
+    ---- OTHER CONFIGURATION---- 
+-------------------------------*/
+html {
+    overflow-y: scroll;
+}
+html::-webkit-scrollbar{
+    width: 20px;
+  }
+html::-webkit-scrollbar-track {
+    background: var(--main-black-color);
+  }
+  
+html::-webkit-scrollbar-thumb {
+    background-color: var(--main-green-color);
+    border-radius: 30px;
+    border: 7px solid var(--main-black-color);
+  }
+
+
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-family: var(--Principal-font);
+    color: var(--font-color);
+    background: var(--main-black-color);
+}
+
+*:focus{
+	outline: none;
+}
+/*-------END------------*/
+
+
+
+
+
+/*------------------------
+    ---COMMON ELEMENTS--- 
+--------------------------*/
+
+/*++++++++++++++++
+===> CONTENT BOX <===
++++++++++++++++++*/
+.bodyBox{
+    margin-top: 20vh;
+    height: 60vh;
+    width: 85vw;
+    margin-left: 13.5%;
+    padding: 0px 7vw;
+}
+.TheBoxBody{
+    width: 75vw;
+    height: 59vh;
+}
+
+
+
+/*++++++++++++++++
+===> TITLES <===
++++++++++++++++++*/
+.sectionTitle{
+    margin: 0;
+    margin-bottom: -5px !important;
+    margin-left: 15px !important;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--Important-font-color);
+    margin-left: 15px;
+}
+
+
+
+
+/*++++++++++++++++
+===> BUTTONS <===
++++++++++++++++++ */
+
+
+/*-------END------------*/
+
+
+
+
+
+/*++++++++++++++++
+===> MAIN CONTENTE <===
++++++++++++++++++ */
+/*----HEADER-----*/
+
+
+
+/*-------END------------*/
+
+
+
+
+/*---------------------------------
+    ---- VUETIFY CUSTOMISATION---- 
+----------------------------------*/
+
+.v-application{
+    font-family: var(--Principal-font);
+}
+
+.v-application a{
+    text-decoration: none;
+}
+
+.theme--light.v-application {
+    background: var(--main-white-color);
+    color: var(--font-color);
+}
+
+.v-application p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    /* margin-top: 0px; */
+}
+
+/*-- Input Customisation --*/
+
+.theme--light.v-label {
+    color: var(--Important-font-color);
+}
+.v-text-field--outlined fieldset {
+    border-collapse: collapse;
+    border-color: var( --Important-font-color);
+    border-width: 2px;
+}
+
+
+
+/*-- POP UP --*/
+.v-dialog {
+    box-shadow: none;
+}
+
+
+
+
+/*-- Data Table Customisation --*/
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th{
+    font-size: 15px;
+    font-weight: bold;
+}
+.theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+    color:  var(--Important-font-color);
+}
+.theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row){
+    border-bottom: thin solid rgba(0, 0, 0, 0) !important;
+}
+.theme--light.v-data-table {
+    color: var(--Important-font-color);
+}
+/* .v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none;
+}
+.v-sheet.v-card {
+    border-radius: 10px;
+}
+.theme--light.v-card {
+    background: var(--splx-White);
+}
+
+
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+    font-weight: bold;
+}
+
+.theme--light.v-data-table {
+    background-color: var(--splx-White);
+    color: var(--Title-color);
+} */
+
+
+
+
+
+/* MODIFICATION DU MIN-WIDTH DE MD ORIGINELEMENT FIXE A  1185PX, A MAINTENANT 1000PX DU FAIT DU MARGIN APPLIQUE AU WRAPPER
+DES DIFFERENTS CONTENUS (BODY). CE QUI PERMET DE GARDER L'APECT CENTRER DU CONTENU, PROPRE A V-CONTAINER*/ 
+/* @media (min-width: 1264px){
+    .container {
+        max-width: 1000px;
+    }
+} */
+
+/*-------END------------*/
