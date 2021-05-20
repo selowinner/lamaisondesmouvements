@@ -51,7 +51,9 @@ class DeclarationController {
                     lostObjetPicture = `lostObjetsIMG/${fileName}`
                 }    
                 
-        }
+        }else{
+            lostObjetPicture = null
+         }
        
 
          /* Declaration Adding */

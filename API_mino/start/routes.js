@@ -112,6 +112,25 @@ Route.post('expedition/addstep2', 'Expedition/ExpeditionController.addstep2')
 
 
 
+/*
+----------------------------
+----- USER MANAGEMENT ----
+-----------------------------
+*/
+
+// Add User for Blooraid Super Admin
+Route.post('user/add', 'User/UserController.add')
+Route.put('user/profilUpdate', 'User/UserController.updateProfil')
+Route.post('user/login', 'User/UserController.login')
+Route.post('user/logout', 'User/UserController.logout')
+
+
+
+
+
+
+
+
 
 
 
