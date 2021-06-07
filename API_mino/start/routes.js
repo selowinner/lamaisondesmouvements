@@ -24,7 +24,7 @@ Route.get('/', () => {
 
 /*
 ----------------------------
------ RESERVATION MANAGEMENT ----
+----- TRAVEL AND RESERVATION MANAGEMENT ----
 -----------------------------
 */
 
@@ -37,12 +37,13 @@ Route.post('reservation/add', 'General/ReservationController.add')
 Route.post('reservation/remove', 'General/ReservationController.remove')
 
 
-// Reservation For Companies
+// Travel For Companies
 Route.post('travel/add', 'Travel/TravelController.addTravel')
-
-
-
-
+Route.get('travel/Liste', 'Travel/TravelController.getListeOfTravel')
+Route.put('travel/update', 'Travel/TravelController.updateTravel')
+Route.put('travel/cancellation', 'Travel/TravelController.travelCancellation')
+//------------ Travel reimbursement for companies
+Route.get('reimbursement/Liste', 'General/ReimbursementController.getReimbursementListe')
 
 
 
@@ -148,3 +149,6 @@ Route.post('user/logout', 'User/UserController.logout')
 
 /*----- Client Reservation-----*/
 Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListForAReservation')
+
+// Reservation For Companies
+Route.get('travel/Liste/:id', 'Travel/TravelController.getListeOfTravel')

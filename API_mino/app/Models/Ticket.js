@@ -29,6 +29,10 @@ class Ticket extends Model {
         return this.hasMany('App/Models/TicketLuggageTypeLuggagePriceBy')
     }
 
+    ClientReimbursement () {
+        return this.hasOne('App/Models/ClientReimbursement')
+    }
+
 
 }
 

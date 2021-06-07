@@ -6,6 +6,7 @@ const TravelsPlaces = use('App/Models/TravelPlace')
 const Tickets = use('App/Models/Ticket')
 const ReservationReceipts = use('App/Models/ReservationReceipt')
 const Travels = use('App/Models/Travel')
+const Reimbursements = use('App/Models/ClientReimbursement')
 
 
 
@@ -157,7 +158,8 @@ class ReservationController {
 
         // DATA VALIDATION
         const rules = {
-            matriculation: 'required', 
+            matriculation: 'required',
+            reimbursement_Method: 'required', 
             // client_complet_name: 'required',
         }
         const bodyValidation = await validateAll(body, rules)
@@ -177,6 +179,8 @@ class ReservationController {
         // Currente time
         const CurrentDate =  new Date()
         const CurrentDateInTime = Math.round(CurrentDate.getTime() / 1000)
+
+        
 
         console.log(CurrentDateInTime + " :::::::: " + annulationDateInTime + " :::::::: " + GetTheTicket.travel_id);
         // verification
@@ -199,7 +203,7 @@ class ReservationController {
                 .where('matriculation', body.matriculation)
                 .select('number_of_places', 'travel_id').first()
 
-                // cancel cancelling
+                // cancelling the reservation of places reserved
                 const indexLimit = placeToCancel.number_of_places + 1
                 for (let index = 1; index < indexLimit; index++) {
                     const PLaceNotReserved = await TravelsPlaces.query().where('travel_id', placeToCancel.travel_id).where('reservation_state', 2).first()   
@@ -208,10 +212,73 @@ class ReservationController {
                     await PLaceNotReserved.save()
                 }
 
-                // response
-                response.json({
-                    message: 'annulation effectuée',
-                })   
+                // get  some rembursement information
+                const rembursementInfo = await ReservationReceipts.query()
+                .innerJoin('Tickets', 'Tickets.id', 'reservation_receipts.tickets_id')
+                .select('Tickets.id', 'Tickets.client_complet_name', 'Tickets.client_call_number', 'total__price')
+                .where('matriculation', body.matriculation)
+                .first()
+                
+
+                const rembursementCompanyInfo01 = await Tickets.query()
+                .select('travel_id').where('id', rembursementInfo.id).first()
+                
+                const rembursementCompanyInfo = await Travels.query()
+                .select('company_id').where('id', rembursementCompanyInfo01.travel_id).first()
+                
+                let newreimbursement
+
+                if (body.reimbursement_Method == 'mobile_money' ) {
+
+                    const reimbursement = new Object()
+                    reimbursement.client_call_number = rembursementInfo.client_call_number 
+                    reimbursement.money_to_pay_back = rembursementInfo.total__price
+                    reimbursement.client_complet_name = rembursementInfo.client_complet_name 
+                    reimbursement.pay_back_delai = 720000 // à définir
+                    reimbursement.pay_back_method_id = 1 
+                    reimbursement.company_id = rembursementCompanyInfo.company_id 
+                    reimbursement.tickets_id = rembursementInfo.id 
+        
+        
+                    newreimbursement = await Reimbursements.create(reimbursement)
+                    // response
+                    response.json({
+                        message: 'annulation effectuée, voici le bon d_achat',
+                        data: {newreimbursement}
+                    })
+
+
+                }else{
+
+
+                    /* Coupon Generated*/
+                    const words = ['HHJH', 'YUAPEI', 'AZNSB', 'WJKDH', 'FNGQO', 'MANGER', 'POUET', 'ADORAR', 'OTHER']
+                    const codes = ['12@J40', '4U5#8', '96&O5', '58%A4', '6X52$', '6X!52']
+                    var today = new Date()
+
+                    const Coupon = 'TRAVEL' + today.getSeconds() + wordGeneration() + codeGeneration() + today.getHours()
+
+                    function wordGeneration() {return words[Math.round(Math.random()*8)]}
+                    function codeGeneration() {return codes[Math.round(Math.random()*5)]}
+
+                    const reimbursement = new Object()
+                    reimbursement.client_call_number = rembursementInfo.client_call_number 
+                    reimbursement.money_to_pay_back = rembursementInfo.total__price
+                    reimbursement.client_complet_name = rembursementInfo.client_complet_name 
+                    reimbursement.pay_back_delai = 10 // à définir
+                    reimbursement.coupon_code = Coupon 
+                    reimbursement.pay_back_method_id = 2 
+                    reimbursement.company_id = rembursementCompanyInfo.company_id 
+                    reimbursement.tickets_id = rembursementInfo.id 
+
+                    newreimbursement = await Reimbursements.create(reimbursement)
+                    // response
+                    response.json({
+                        message: 'annulation effectuée',
+                        data: {newreimbursement}
+                    })   
+                }
+                
 
             } else {
                 // response

@@ -50,7 +50,10 @@ class Company extends Model {
     CompaniesCentral () {
         return this.belongsTo('App/Models/CompaniesCentral')
     }
-
+    
+    ClientReimbursement () {
+        return this.hasMany('App/Models/ClientReimbursement')
+    }
     // CompaniesStations () {
     //     return this.hasMany('App/Models/CompaniesStation')
     // }

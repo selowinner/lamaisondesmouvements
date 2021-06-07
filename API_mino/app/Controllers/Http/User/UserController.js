@@ -96,7 +96,7 @@ class UserController {
 
         await auth.user.save()
 
-        return response.route('AdminAuthorView')
+        // return response.route('AdminAuthorView')
     }
 
 
@@ -106,11 +106,11 @@ class UserController {
         
         try {
             await auth.remember(!!remember).attempt(pseudo, password)
-            return response.route('AdminDashboad')
+            // return response.route('AdminDashboad')
 
         } catch (error) {
             session.flash({ authentificated: "We couldn't verify your credentials" })
-            return response.redirect('back') 
+            // return response.redirect('back') 
         }
    
     }
@@ -120,7 +120,7 @@ class UserController {
     async logout ({auth, response}){
 
         await auth.logout()
-        return response.route('Login')
+        // return response.route('Login')
     }
 
 }

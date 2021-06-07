@@ -11,8 +11,8 @@ class TravelSchema extends Schema {
       table.text('car_matriculation')
       table.string('departure_place').notNullable()
       table.string('destination').notNullable()
-      table.time('departure_time').notNullable() // le type de donnée est à vérifier
-      table.date('departure_date') // le type de donnée est à vérifier
+      table.time('departure_time').notNullable() 
+      table.date('departure_date') 
       table.integer('place_to_sell_by_mino_number').notNullable()
       table.integer('total_car_place_number').notNullable()
       table.integer('place_price').notNullable()

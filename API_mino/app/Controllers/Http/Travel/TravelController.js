@@ -4,7 +4,8 @@ const { validateAll } = use('Validator')
 const Travels = use('App/Models/Travel')
 const TravelIntermadiateStations = use('App/Models/TravelIntermadiateStation')
 const TravelPlaces = use('App/Models/TravelPlace')
-
+const Tickets = use('App/Models/Ticket')
+const companies = use('App/Models/Company')
 
 
 
@@ -72,6 +73,7 @@ class TravelController {
         .where('departure_date', body.departure_date)
         .where('departure_place', body.departure_place)
         .where('destination', body.destination)
+        .where('annulation_state', 0) /*Nouveau pas teste*/
         .whereBetween('departure_time', [departure_time,  departure_time_proposition_limit])
         .select('Travels.id', 'Travels.place_price', 'companies.denomination')
         .fetch() 
@@ -87,6 +89,7 @@ class TravelController {
         .where('departure_date', body.departure_date)
         .where('departure_place', body.departure_place)
         .where('destination', body.destination)
+        .where('annulation_state', 0) /*Nouveau pas teste*/
         .whereNotBetween('departure_time', [departure_time,  departure_time_proposition_limit])
         .select('Travels.id', 'Travels.place_price', 'Travels.departure_time', 'Companies.denomination')
         .fetch() 
@@ -193,6 +196,7 @@ class TravelController {
 
 
 
+
     ///////////////////////////////////////////////////////////
     /* FOR TRAVEL DECLARATION IN THE COMPANIES SOFTWARE TOOL */
     ///////////////////////////////////////////////////////////
@@ -200,7 +204,7 @@ class TravelController {
     async addTravel({request, response}){
 
 
-        const body = request.all
+        const body = request.all()
         
         // DATA VALIDATION
         const rules = {
@@ -223,6 +227,7 @@ class TravelController {
             return { message: 'vous avez manqué de remplir un champs' }
         }
 
+        
 
         if (body.place_to_sell_by_mino_number) {
             const option1Travel = new Object()
@@ -243,13 +248,12 @@ class TravelController {
 
             const newoption1Travel = await Travels.create(option1Travel)
 
-
+            let placeToCreateLimite = parseInt(body.place_to_sell_by_mino_number) + 1
 
             // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
 
-            for (let index = 1; index < place_to_sell_by_mino_number; index++) {
-                const element = array[index];
-
+            for (let index = 1; index < placeToCreateLimite; index++) {
+            
                 let travelPlace = new Object()
                 travelPlace.place = index
                 travelPlace.travel_id = newoption1Travel.id
@@ -270,8 +274,7 @@ class TravelController {
 
         } else {
 
-
-            const option1Travel = new Object()
+            const option2Travel = new Object()
             option2Travel.car_informations = body.car_informations
             option2Travel.car_matriculation = body.car_matriculation
             option2Travel.departure_place = body.departure_place
@@ -289,21 +292,17 @@ class TravelController {
 
             const newoption2Travel = await Travels.create(option2Travel)
 
+            let placeToCreateLimite1 = parseInt(option2Travel.place_to_sell_by_mino_number) + 1
             // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
+            
+            for (let index = 1; index < placeToCreateLimite1; index++) {
+                let travelPlace1 = new Object()
+                travelPlace1.place = index
+                travelPlace1.travel_id = newoption2Travel.id
 
-
-            for (let index = 1; index < place_to_sell_by_mino_number; index++) {
-            const element = array[index];
-
-            let travelPlace = new Object()
-            travelPlace.place = index
-            travelPlace.travel_id = newoption2Travel.id
-
-            const newTravelPlace = await TravelPlaces.create(travelPlace)
-
+                const newTravelPlace = await TravelPlaces.create(travelPlace1)
             
             }
-
 
 
              // RESPONSE
@@ -328,6 +327,7 @@ class TravelController {
         const ListOfTravelNotInJson = await Travels
         .query()
         .where('company_id', params.id)
+        .select('id', 'departure_date', 'departure_time', 'place_price')
         .fetch()
 
         const ListOfTravel = ListOfTravelNotInJson.toJSON()
@@ -338,8 +338,15 @@ class TravelController {
                 .where('travel_id', ListOfTravel[i].id)
                 .where('reservation_state', 1)
                 .count()
+            
+            const canceledReservationNumber = await Tickets
+                .query()
+                .where('travel_id', ListOfTravel[i].id)
+                .where('ticket_state_id', 1)
+                .count()
 
-            ListOfTravel[i].reservedPlaceNumber = reservedPlaceNumber[0]['count(*)']      
+            ListOfTravel[i].reservedPlaceNumber = reservedPlaceNumber[0]['count(*)']
+            ListOfTravel[i].canceledReservationNumber = canceledReservationNumber[0]['count(*)']
             
         }
 
@@ -353,6 +360,152 @@ class TravelController {
     }
 
 
+    async updateTravel({request, response}){
+
+
+        const body = request.all()
+        
+        // DATA VALIDATION
+        const rules = {
+            id: 'required'
+        }
+        const bodyValidation = await validateAll(body, rules)
+
+        // let dataToUpdate = body
+        // console.log(dataToUpdate);
+
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué de de reseigner le le ID du voayge' }
+        }
+
+        if (body.destination || body.departure_time || body.departure_date || body.place_price ) {
+
+            /* Verify if is not alway existe a revservation for this travel */
+            const travelReservation = await Tickets.query().where('travel_id', body.id).where('ticket_state_id', 1).count()
+            const TravelReservationNumber = travelReservation[0]['count(*)']
+
+            if (TravelReservationNumber > 0) {
+                return { message: 'des reservations ont déjà été faites pour ce voyage, la modification la modification du départ, de la date et du prix  n est donc plus possible' }
+            }
+    
+            
+        }
+
+        let numberOfPlaceTosell = new Object()
+        if (body.place_to_sell_by_mino_number) {
+             /* Verify if is possible to change the number of place */
+             const travelReservation = await TravelPlaces.query().where('travel_id', body.id).where('reservation_state', 1).count()
+             const TravelReservationNumber = travelReservation[0]['count(*)']
+            /* Get the travel place to sell by Mino */
+            numberOfPlaceTosell = await Travels.query().where('id', body.id).select('place_to_sell_by_mino_number', 'company_id').first()
+            
+            // PAS ENCORE TESTE 
+             if (TravelReservationNumber > body.place_to_sell_by_mino_number) {
+                 return { message: 'Impossible ! le nouveau nombre de place à ajouter inférieur au nombre de place déjà reservée' }
+             }else if ((body.place_to_sell_by_mino_number > TravelReservationNumber  ) && (body.place_to_sell_by_mino_number < numberOfPlaceTosell.place_to_sell_by_mino_number )){
+                 /* reduction of place de to sell */
+                 console.log('poplplpoop');
+                 const removeplaceNumber = (numberOfPlaceTosell.place_to_sell_by_mino_number - parseInt(body.place_to_sell_by_mino_number)) + 1
+                 for (let index = 1; index < removeplaceNumber; index++) {       
+                    const PLaceNotReserved = await TravelPlaces.query().where('travel_id', body.id).where('reservation_state', 0).first() 
+                    await PLaceNotReserved.delete()   
+                }
+                 
+             }else if (body.place_to_sell_by_mino_number > numberOfPlaceTosell.place_to_sell_by_mino_number ){
+                const addNewplaceNumber = (parseInt(body.place_to_sell_by_mino_number) - numberOfPlaceTosell.place_to_sell_by_mino_number) + 1
+                // FAIRE UN AJOUT MULTIPLE DE CHAQUE PLACE
+                console.log('zeaaaaaahhh');
+                for (let index = 1; index < addNewplaceNumber; index++) {
+                    let travelPlace1 = new Object()
+                    travelPlace1.place = index
+                    travelPlace1.travel_id = body.id
+
+                    const newTravelPlace = await TravelPlaces.create(travelPlace1)
+                
+                }
+            }
+            
+        } 
+
+
+        //  CHECK TO SEE IF IT IS NECESSARY TO UPDATE THE GENERAL NUMBER OF PLACE
+        const CompagnieOption = await companies.query().where('id', numberOfPlaceTosell.company_id).select('use_option_id').first()
+        if (CompagnieOption.use_option_id == 1) {
+            body.total_car_place_number = body.place_to_sell_by_mino_number
+        }
+
+        const TheTravel = await Travels.find(body.id)
+        TheTravel.merge(body)
+        await TheTravel.save()
+        return { message: 'les modification ont été prises en compte' }
+
+
+        //  ENCLENCHER LA PROCEDURE DE REMBOURSEMENT
+
+        
+    }
+
+
+
+    async travelCancellation({request, response}){
+
+        const body = request.all()
+        
+        // DATA VALIDATION
+        const rules = {
+            travel_id: 'required'
+        }
+        const bodyValidation = await validateAll(body, rules)
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué de de renseigner le le ID du voayge' }
+        }
+
+        // CANCELLATION
+        /*initialisation de l'objet à fusionner pour la modification de l'etat d'annulation, 
+         qui est mis à 1 en cas d'annulation*/
+        let annulation = new Object()
+        annulation.annulation_state = 1
+        
+        const travelReservation = await Tickets.query().where('travel_id', body.travel_id).where('ticket_state_id', 2).count()
+        const TravelReservationNumber = travelReservation[0]['count(*)']
+
+        if ((TravelReservationNumber > 0) && body.comfirmation) {
+            // annulation avec remboursement
+            const TheTravel = await Travels.find(body.travel_id)
+            TheTravel.merge(annulation)
+            await TheTravel.save()
+            // liste des clients à rembourser --- ON POURRA Y AJOUTER UN SYST7ME DE MESSAGERIE POUR LES CLIENTS CONCERNES
+            const ListOfclientToReimburseNotInJSON = await Tickets.query()
+                        .where('travel_id', body.travel_id)
+                        .where('ticket_state_id', 2)
+                        .select('client_complet_name', 'client_call_number')
+                        .fetch()
+            const ListOfclientToReimburse = ListOfclientToReimburseNotInJSON.toJSON()                 
+            response.json({
+                message: 'success',
+                data: ListOfclientToReimburse
+            })
+
+        }else if (TravelReservationNumber > 0) {
+            console.log(TravelReservationNumber);
+            // demande de confirmation d'annulation
+            return { message: 'des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés' }
+        
+        }else if (TravelReservationNumber == 0) {
+            // annlation simple, simple remboursement
+            const TheTravel = await Travels.find(body.travel_id)
+            TheTravel.merge(annulation)
+            await TheTravel.save()
+            response.json({
+                message: 'les modification ont été prises en compte'
+            })
+         }
+
+
+        //  ENCLENCHER LA PROCEDURE DE REMBOURSEMENT
+
+        
+    }
 
 }
 
