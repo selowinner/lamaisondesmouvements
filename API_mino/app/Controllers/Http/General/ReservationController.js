@@ -91,7 +91,7 @@ class ReservationController {
 
             if (body.travel_intermadiate_station) {
                 ticket.travel_intermadiate_station = body.travel_intermadiate_station
-            }
+            } //embarquer dans un lieu autre que la gare, néccessite de na pas avoir de bagage
 
             newTicket = await Tickets.create(ticket)
            
@@ -265,7 +265,7 @@ class ReservationController {
                     reimbursement.client_call_number = rembursementInfo.client_call_number 
                     reimbursement.money_to_pay_back = rembursementInfo.total__price
                     reimbursement.client_complet_name = rembursementInfo.client_complet_name 
-                    reimbursement.pay_back_delai = 10 // à définir
+                    reimbursement.pay_back_delai = 240000 // à définir
                     reimbursement.coupon_code = Coupon 
                     reimbursement.pay_back_method_id = 2 
                     reimbursement.company_id = rembursementCompanyInfo.company_id 

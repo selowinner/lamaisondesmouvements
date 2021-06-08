@@ -39,6 +39,7 @@ Route.post('reservation/remove', 'General/ReservationController.remove')
 
 // Travel For Companies
 Route.post('travel/add', 'Travel/TravelController.addTravel')
+Route.post('IntermadiateStation/add', 'Travel/TravelController.addTravel')
 Route.get('travel/Liste', 'Travel/TravelController.getListeOfTravel')
 Route.put('travel/update', 'Travel/TravelController.updateTravel')
 Route.put('travel/cancellation', 'Travel/TravelController.travelCancellation')

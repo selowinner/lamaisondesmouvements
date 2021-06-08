@@ -5,7 +5,9 @@ const Travels = use('App/Models/Travel')
 const TravelIntermadiateStations = use('App/Models/TravelIntermadiateStation')
 const TravelPlaces = use('App/Models/TravelPlace')
 const Tickets = use('App/Models/Ticket')
+const ReservationReceipts = use('App/Models/ReservationReceipt')
 const companies = use('App/Models/Company')
+const Reimbursements = use('App/Models/ClientReimbursement')
 
 
 
@@ -227,8 +229,23 @@ class TravelController {
             return { message: 'vous avez manqué de remplir un champs' }
         }
 
-        
+        // ADD INTERMADIATE STATION
+        body.Intemediatestation = [
+            {
+              station_name: 'Akouedo',
+              travel_id: 1,
+            },
+            {
+              station_name: 'n_douci',
+              travel_id: 1,
+            }
+          ]
 
+        if (body.Intemediatestation) {
+            const newTravelIntermadiateStation = await TravelIntermadiateStations.createMany(body.Intemediatestation)
+        }
+        
+        // ADD THE OTHER INTERMADIATE STATION
         if (body.place_to_sell_by_mino_number) {
             const option1Travel = new Object()
             option1Travel.car_informations = body.car_informations
@@ -475,15 +492,51 @@ class TravelController {
             TheTravel.merge(annulation)
             await TheTravel.save()
             // liste des clients à rembourser --- ON POURRA Y AJOUTER UN SYST7ME DE MESSAGERIE POUR LES CLIENTS CONCERNES
-            const ListOfclientToReimburseNotInJSON = await Tickets.query()
-                        .where('travel_id', body.travel_id)
-                        .where('ticket_state_id', 2)
-                        .select('client_complet_name', 'client_call_number')
-                        .fetch()
-            const ListOfclientToReimburse = ListOfclientToReimburseNotInJSON.toJSON()                 
+            // const ListOfclientToReimburseNotInJSON = await Tickets.query()
+            //             .where('travel_id', body.travel_id)
+            //             .where('ticket_state_id', 2)
+            //             .select('client_complet_name', 'client_call_number')
+            //             .fetch()
+            // const ListOfclientToReimburse = ListOfclientToReimburseNotInJSON.toJSON()                 
+            // response.json({
+            //     message: 'success',
+            //     data: ListOfclientToReimburse
+            // })
+
+            // Initialisation de la list des client
+            let reimbursementList = []
+
+            // get  some rembursement information
+            const rembursementInfo = await ReservationReceipts.query()
+            .innerJoin('Tickets', 'Tickets.id', 'reservation_receipts.tickets_id')
+            .select('Tickets.id', 'Tickets.client_complet_name', 'Tickets.client_call_number', 'total__price')
+            .where('Tickets.travel_id', body.travel_id)
+            .where('Tickets.ticket_state_id', 2)
+            .fetch()
+            const rembursementInfos = rembursementInfo.toJSON()
+            // get  the compagny id
+            const company_id = await companies.query().select('id').first()
+            // add some other information  to each row
+            for (let index = 0; index < rembursementInfos.length; index++) {
+                // rembursementInfos[index].company_id  = company_id.id
+                // rembursementInfos[index].pay_back_delai  = 240000
+                // rembursementInfos[index].pay_back_method_id  = 1
+                let leo = new Object()
+                reimbursementList.push(leo)
+                reimbursementList[index].company_id = company_id.id
+                reimbursementList[index].pay_back_delai = 240000
+                reimbursementList[index].pay_back_method_id  = 1
+                reimbursementList[index].client_call_number = rembursementInfos[index].client_call_number
+                reimbursementList[index].money_to_pay_back = rembursementInfos[index].total__price
+                reimbursementList[index].client_complet_name  = rembursementInfos[index].client_complet_name
+                reimbursementList[index].tickets_id  = rembursementInfos[index].id
+            }
+
+            const newreimbursement = await Reimbursements.createMany(reimbursementList)
+            
             response.json({
                 message: 'success',
-                data: ListOfclientToReimburse
+                data: {newreimbursement}
             })
 
         }else if (TravelReservationNumber > 0) {

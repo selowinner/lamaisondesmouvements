@@ -21,31 +21,20 @@ class ReimbursementController {
     async getReimbursementListe({response}){
 
  
-        // GET THE REIMBURSEMENT LIST SUGGESTION
-        const ListOfReimbursementNotInJson = await Reimbursements.query().fetch()
+        // GET THE REIMBURSEMENT LIST
+        const ListOfReimbursementNotInJson = await Reimbursements.all()
         let ListOfReimbursement = ListOfReimbursementNotInJson.toJSON()
 
         /* reservation receipt for each reimbursement */
-        const indexLimit = ListOfReimbursement.length + 1
-        let copie = []
-
-
-        for (let index = 1; index < indexLimit; index++) {
-            console.log(index);
-            let hh = 0
-            hh = hh + 1
-            let i = ListOfReimbursement[hh]
-            let receiptseach = await ReservationReceipts.query().where('tickets_id', i.tickets_id).first()
-            i.receiptseach = receiptseach.toJSON()
-
-            // ListOfReimbursement[index].receiptseach = receiptseach 
+        for (let index = 0; index < ListOfReimbursement.length ; index++) {            
+            let receiptseach = await ReservationReceipts.query().where('tickets_id', ListOfReimbursement[index].tickets_id).first()
+            ListOfReimbursement[index].receiptseach = receiptseach.toJSON() 
         }
 
-        console.log(ListOfReimbursement);
-        // response.json({
-        //     message: 'success',
-        //     data: ListOfReimbursementNotInJson
-        // })
+        response.json({
+            message: 'success',
+            data: ListOfReimbursementNotInJson
+        })
         
 
         
