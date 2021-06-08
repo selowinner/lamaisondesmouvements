@@ -7,6 +7,8 @@ const Tickets = use('App/Models/Ticket')
 const ReservationReceipts = use('App/Models/ReservationReceipt')
 const Travels = use('App/Models/Travel')
 const Reimbursements = use('App/Models/ClientReimbursement')
+const TravelIntermadiateStations = use('App/Models/TravelIntermadiateStation')
+
 
 
 
@@ -148,8 +150,6 @@ class ReservationController {
     }
 
 
-
-    
 
     async remove({request, response}){
 
@@ -295,6 +295,76 @@ class ReservationController {
     }
 
 
+
+
+    ///////////////////////////////////////////////////////////
+    /* FOR TRAVELER EMBARCATION VERIFICATION IN THE CONVEYOR TABLET */
+    ///////////////////////////////////////////////////////////
+    async getListeOfTraveler({params, response}){
+
+        // GET ALL TRAVELS OF THE DAY
+        //---- get current date
+        const today =  new Date()
+        const CurrentDate = today.getFullYear()+'-'+(today.getMonth()+1) +'-'+today.getDate()
+        //------do the request
+        const ListOfTravelNotInJson = await Travels
+        .query()
+        .where('company_id', params.id)
+        .where('departure_date', CurrentDate)
+        .select('id', 'car_matriculation', 'departure_place', 'destination', 'departure_time', 'place_to_sell_by_mino_number').fetch()
+        const ListOfTravel = ListOfTravelNotInJson.toJSON()
+        // GET THE TRAVELER LIST FOR EACH TRAVEL
+        for (let index = 0; index < ListOfTravel.length; index++) {
+            const ListOfTravelerNotInJson = await Tickets
+            .query()
+            .where('travel_id', ListOfTravel[index].id)
+            .select('id','client_complet_name', 'matriculation', 'number_of_places', 'travel_intermadiate_station')
+            .fetch()
+
+            ListOfTravel[index].travelerlist = ListOfTravelerNotInJson.toJSON()
+            //---- get the station name
+            for (let i = 0; i < ListOfTravel[index].travelerlist.length; i++) {
+               if (ListOfTravel[index].travelerlist[i].travel_intermadiate_station != null) {
+                const TravelIntermadiateStationNotInJson = await TravelIntermadiateStations
+                .query()
+                .where('id', ListOfTravel[index].travelerlist[i].travel_intermadiate_station)
+                .select('station_name')
+                .first()
+                const TravelIntermadiateStation = TravelIntermadiateStationNotInJson.toJSON()
+                ListOfTravel[index].travelerlist[i].travel_intermadiate_station = TravelIntermadiateStation
+               }
+            }
+        }
+
+        response.json({
+            message: 'success',
+            data: ListOfTravel
+        })
+        
+        
+
+        
+    }
+
+
+    async updateTravelerEmbarcationStatut({params, response}){
+
+        // GET ALL TRAVELS OF THE DAY
+        //------ initialisation of the object to merge
+        const newticketState = new Object()
+        newticketState.ticket_state_id = 3 
+        //------do the request 
+        const theTicket = await Tickets.find(params.id)
+        theTicket.merge(newticketState)
+        const newStatut = await theTicket.save()
+
+        response.json({
+            message: 'success',
+            data: newStatut
+        })
+        
+        
+    }
 
 
 

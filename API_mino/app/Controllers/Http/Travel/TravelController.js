@@ -491,17 +491,6 @@ class TravelController {
             const TheTravel = await Travels.find(body.travel_id)
             TheTravel.merge(annulation)
             await TheTravel.save()
-            // liste des clients à rembourser --- ON POURRA Y AJOUTER UN SYST7ME DE MESSAGERIE POUR LES CLIENTS CONCERNES
-            // const ListOfclientToReimburseNotInJSON = await Tickets.query()
-            //             .where('travel_id', body.travel_id)
-            //             .where('ticket_state_id', 2)
-            //             .select('client_complet_name', 'client_call_number')
-            //             .fetch()
-            // const ListOfclientToReimburse = ListOfclientToReimburseNotInJSON.toJSON()                 
-            // response.json({
-            //     message: 'success',
-            //     data: ListOfclientToReimburse
-            // })
 
             // Initialisation de la list des client
             let reimbursementList = []

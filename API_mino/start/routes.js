@@ -48,6 +48,7 @@ Route.get('reimbursement/Liste', 'General/ReimbursementController.getReimburseme
 
 
 
+
 /*
 ----------------------------
 ----- LOST OBJETS MANAGEMENT ----
@@ -153,3 +154,6 @@ Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListFo
 
 // Reservation For Companies
 Route.get('travel/Liste/:id', 'Travel/TravelController.getListeOfTravel')
+//------------ Traveler list  for conveyor
+Route.get('traveler/Liste/:id', 'General/ReservationController.getListeOfTraveler')
+Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTravelerEmbarcationStatut')
