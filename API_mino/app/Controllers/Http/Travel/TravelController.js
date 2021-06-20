@@ -344,7 +344,7 @@ class TravelController {
         const ListOfTravelNotInJson = await Travels
         .query()
         .where('company_id', params.id)
-        .select('id', 'departure_date', 'departure_time', 'place_price')
+        .select('id', 'departure_date', 'departure_time', 'place_price', 'destination', 'place_to_sell_by_mino_number')
         .fetch()
 
         const ListOfTravel = ListOfTravelNotInJson.toJSON()

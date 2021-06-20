@@ -1,11 +1,17 @@
 <template>
   <v-app>
-    <MinoProfilBar></MinoProfilBar>
-    <MinoTopBar></MinoTopBar>
-    <v-content>
+    <div v-if="$route.meta.plainLayout">
       <router-view></router-view>
-    </v-content>
-    <MinoBottonNavBar></MinoBottonNavBar>
+    </div>
+    <div v-if="!$route.meta.plainLayout">
+      <MinoProfilBar></MinoProfilBar>
+      <MinoTopBar></MinoTopBar>
+      <v-content>
+        <router-view></router-view>
+      </v-content>
+      <MinoBottonNavBar></MinoBottonNavBar>
+    </div>
+    
   </v-app>
 </template>
 
@@ -31,5 +37,9 @@ export default {
   data: () => ({
     //
   }),
+
+
+ 
+
 };
 </script>

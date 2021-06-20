@@ -3,7 +3,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import Axios from 'axios'
+
 import './assets/styles/global.css';
+
+
+
+Vue.prototype.$http = Axios
 
 Vue.config.productionTip = false;
 

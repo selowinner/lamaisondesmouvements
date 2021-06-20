@@ -4,6 +4,8 @@ import Dashboard from "../views/Dashboard.vue";
 import TravelDeclaration from "../views/TravelDeclaration.vue";
 import TravelBalanceSheet from "../views/TravelBalanceSheet.vue";
 
+import testePage from "../components/testPage.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -22,6 +24,16 @@ const routes = [
     name: "TravelBalanceSheet",
     component: TravelBalanceSheet,
   },
+  {
+    path: "/testePage",
+    name: "testePage",
+    component: testePage,
+    meta: {
+      plainLayout: true,
+    },
+  },
+
+  
 ];
 
 const router = new VueRouter({

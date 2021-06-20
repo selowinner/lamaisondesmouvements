@@ -87,7 +87,7 @@
                 </v-card>
               </v-dialog>
 
-              <v-data-table dense :headers="headers" :items="desserts" :search="search"  hide-default-footer>
+              <v-data-table dense :headers="headers" :items="Travels" :search="search"  hide-default-footer>
                 <!-- FOR SEE DETAILS AND STATISTIC DIALOG -->
                 <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
                 <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-arrow-right </v-icon> voir details</v-btn>
@@ -120,6 +120,9 @@
 
 
 <script>
+import { mapGetters } from "vuex";
+
+
 export default {
   name: "TravelBalanceSheet",
   components: {
@@ -131,143 +134,24 @@ export default {
     search: '',
     headers: [
         {
-          text: 'IDENTIFIANT',
+          text: 'DESTINATION',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'destination',
         },
-        { text: 'DATE', value: 'date' },
-        { text: 'HEURE', value: 'heure' },
+        { text: 'DEPARTURE DATE', value: 'departure_date' },
+        { text: 'DEPARTURE HEURE', value: 'departure_time' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
     desserts: [
-      {
-        name: 'Frozen Yogurt',
-        date: '21-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Ice cream sandwich',
-        date: '01-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Cupcake',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        date: '25-04-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        date: '15-02-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        date:'25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
+     
     ],
 
 
       editedItem: {
-        name: '',
-        date:'',
-        heure: '',
+        destination: '',
+        departure_date:'',
+        departure_time: '',
         details:{
           vendus: 0,
           aVendre: 0,
@@ -290,6 +174,21 @@ export default {
       this.dialog = true
       console.log(item.name);
     },
+  },
+
+
+  computed:{
+    ...mapGetters([
+      'Travels'
+    ])
+    // travels () {
+    //   return this.$store.getters.travels
+    // }
+  },
+
+  created(){
+    console.log('poulet');
+    this.$store.dispatch('init_travelListe')
   }
 
 };
