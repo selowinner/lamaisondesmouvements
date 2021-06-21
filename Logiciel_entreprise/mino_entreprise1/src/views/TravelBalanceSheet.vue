@@ -90,7 +90,14 @@
               <v-data-table dense :headers="headers" :items="Travels" :search="search"  hide-default-footer>
                 <!-- FOR SEE DETAILS AND STATISTIC DIALOG -->
                 <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-                <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-arrow-right </v-icon> voir details</v-btn>
+                <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
+                <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-lead-pencil </v-icon></v-btn>
+                </template>
+                <template v-slot:[`item.destination`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                <v-icon dense color="mainGreenColor"> mdi-map-marker </v-icon> <span style="color: mainGreenColor;">{{item.destination}}</span>
+                </template>
+                <template v-slot:[`item.departure_time`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                <v-icon small> mdi-arrow-right </v-icon> {{item.departure_time}}
                 </template>
               </v-data-table>
 
@@ -172,7 +179,6 @@ export default {
     editItem: function (item) {
       this.editedItem = Object.assign({}, item)
       this.dialog = true
-      console.log(item.name);
     },
   },
 
@@ -181,13 +187,9 @@ export default {
     ...mapGetters([
       'Travels'
     ])
-    // travels () {
-    //   return this.$store.getters.travels
-    // }
   },
 
   created(){
-    console.log('poulet');
     this.$store.dispatch('init_travelListe')
   }
 
@@ -220,8 +222,8 @@ export default {
 <style scoped>
 
 .TheBoxBody{
-    height: 58vh;
-    margin-top: -20px;
+    height: 60vh;
+    margin-top: 0px;
 }
 .ForTravelDeclaration{
   background: white;

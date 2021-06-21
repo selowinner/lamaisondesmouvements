@@ -245,7 +245,7 @@ class TravelController {
             const newTravelIntermadiateStation = await TravelIntermadiateStations.createMany(body.Intemediatestation)
         }
         
-        // ADD THE OTHER INTERMADIATE STATION
+        // ADD THE OTHER INFORMATIONS
         if (body.place_to_sell_by_mino_number) {
             const option1Travel = new Object()
             option1Travel.car_informations = body.car_informations

@@ -17,25 +17,25 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix"  color="red" type="text" :rules="[() => !!prix]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.departure_place" ref="dep_place"  color="red" type="text" :rules="[() => !!prix]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" type="text" :rules="[() => !!prix]"  label="Destination" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.destination" ref="dest_place" type="text" :rules="[() => !!prix]"  label="Destination" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="heure" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.departure_time" ref="dep_time" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="quantity" ref="quantity" type="number" :rules="[() => !!quantity ]"  label="Nombre de place à vendre" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.car_informations" ref="car_infos" type="text" :rules="[() => !!prix]"  label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" type="text" :rules="[() => !!prix]"  label="type de car" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.car_matriculation" ref="car_matri" type="text" :rules="[() => !!prix ]"  label="Matricule du car" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="quantity" ref="prix" type="number" :rules="[() => !!prix]"  label="Prix du ticket"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.place_price" ref="pl_price" type="number" :rules="[() => !!prix]"  label="Prix du ticket"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
                      <v-btn large depressed color="mainGreenColor">Enregistrer</v-btn>
@@ -48,28 +48,28 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix"  color="red" type="text" :rules="[() => !!prix ]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.departure_place" ref="dep_place_2"  color="red" type="text" :rules="[() => !!prix ]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" type="text" :rules="[() => !!prix ]"  label="Destination" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.destination" ref="dest_place_2" type="text" :rules="[() => !!prix ]"  label="Destination" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="heure" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.departure_time" ref="dep_time_2" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="quantity" ref="quantity" type="number" :rules="[() => !!quantity ]"  label="Nombre de place à vendre" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.departure_date" ref="dep_date_2" type="date" :rules="[() => !!quantity ]"  label="date départ" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.total_car_place_number" ref="pl_num_2" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" type="text" :rules="[() => !!prix ]"  label="type de car" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.car_informations" ref="car_info_2" type="text" :rules="[() => !!prix ]"  label="type de car" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="quantity" ref="prix" type="number" :rules="[() => !!prix ]"  label="Prix du ticket"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.car_matriculation" ref="car_mat_2" type="text" :rules="[() => !!prix ]"  label="Matricule du car" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="date" type="date" :rules="[() => !!prix]"  label="date départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.place_price" ref="pl_price_2" type="number" :rules="[() => !!prix ]"  label="Prix du ticket"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
                      <v-btn large depressed color="mainGreenColor">Enregistrer</v-btn>
@@ -103,9 +103,41 @@ export default {
   },
 
   data: () => ({
-    
+
     row: "check",
-    DayType: true
+    DayType: true,
+
+    newTravel_1:{
+      car_informations : '',
+      car_matriculation : '',
+      departure_place : 'Abidjan',
+      destination : '',
+      departure_time : '',
+
+      departure_date : 'get now date in the method for toomorow',
+      // place_to_sell_by_mino_number : '',
+      total_car_place_number : '',
+      place_price : '',
+
+      company_id : '1',
+      user_id : '1',
+    },
+    newTravel_2:{
+      car_informations : '',
+      car_matriculation : '',
+      departure_place : 'Abidjan',
+      destination : '',
+      departure_time : '',
+
+      departure_date : '',
+      // place_to_sell_by_mino_number : '',
+      total_car_place_number : '',
+      place_price : '',
+
+      company_id : '1',
+      user_id : '1',
+    }
+
     
   }),
 
@@ -131,7 +163,7 @@ export default {
 <style scoped>
 
 .TheBoxBody{
-    height: 58vh;
+    height: 60vh;
     margin-top: -20px;
 }
 

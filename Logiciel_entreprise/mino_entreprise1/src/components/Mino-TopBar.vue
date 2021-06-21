@@ -57,7 +57,7 @@ export default {
 
 .header1{
     height: 8vh;
-    margin-bottom: 15vh;
+    margin-bottom: 12vh;
     width: 85%;
     margin-left: 230px;
     display: flex;

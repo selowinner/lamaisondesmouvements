@@ -9,11 +9,26 @@ const state = {
 const getters = {
     Travels: state => {
         let travelListe = state.travels.map(travel => {
+            // convert the depparture time
+            let dayInLetter = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
+            let MonthInLetter = ['', 'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+            var date = new Date(travel.departure_date);
+            // For the day
+            var dayInNum = date.getDate()
+            var dayInNumber = date.getDay()
+            var day = dayInLetter[dayInNumber]
+            // For the month
+            var month = MonthInLetter[date.getMonth()+1]
+
+            var year = date.getFullYear();
+            // var month = date.getMonth()+1;
+            var date_of_departure= day+" "+dayInNum+" "+month+" "+year;
+
             let gain = travel.place_price * travel.reservedPlaceNumber
             let restPlace = travel.place_to_sell_by_mino_number - travel.reservedPlaceNumber
             return {
                 destination: travel.destination,
-                departure_date: travel.departure_date,
+                departure_date: date_of_departure,
                 departure_time: travel.departure_time,
                 details:{
                     vendus: travel.reservedPlaceNumber,
@@ -33,9 +48,7 @@ const getters = {
 const mutations = {
 
     SET_TRAVELS (state, data){
-        console.log(state.travels);
         state.travels = data
-        console.log(state.travels);
     },
 
 }
