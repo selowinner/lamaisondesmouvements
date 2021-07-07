@@ -18,7 +18,7 @@
                     GESTIONNAIRE DES TICKETS
                     <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "poulet = false">
                 </div>
-                <div>
+                <div v-on:click.stop= "poulet = false">
                     <router-link :to="{name: 'TravelDeclaration'}">
                     <div class="tab1">
                         <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
@@ -86,7 +86,6 @@ export default {
       this.isActive = true;
       this.poulet = true
 
-      console.log('paradodo');
     }
   }
 
@@ -115,7 +114,7 @@ export default {
     width: 71vw;
     position: fixed;
     top: 84.9vh;
-    left: 22vw;
+    left: 20.5vw;
     display: flex;
     align-items: center;
     border-radius: 10px 10px 0px 0px;
@@ -126,7 +125,7 @@ export default {
 .navBox{
     border-right: solid 1px var(--Important-font-color);
     height: 60%;
-    width: 180.5px;
+    width: 205px;
     display: flex;
     flex-direction: column;
     justify-content: center;

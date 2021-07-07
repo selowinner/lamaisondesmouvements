@@ -3,6 +3,9 @@
 const { validateAll } = use('Validator')
 const LostObjets = use('App/Models/LostObjet')
 const Helpers = use('Helpers')
+const Tickets = use('App/Models/Ticket')
+const Travels = use('App/Models/Travel')
+
 
 
 
@@ -90,6 +93,49 @@ class DeclarationController {
     }
 
 
+    async getListeOfLostObjet({params, response}){
+
+ 
+        // Get lost objet list
+        const lostObjetNotInJson = await LostObjets
+        .query()
+        .where('company_id', params.id)
+        .orderBy('created_at', 'desc')
+        .fetch()
+
+        const lostObjetList = lostObjetNotInJson.toJSON()
+        // const ClientTicket = []
+        for (let index = 0; index < lostObjetList.length; index++) {
+            if (lostObjetList[index].ticket_number_or_identification) {
+                // Get the Travel id
+                const ClientTicket = await Tickets
+                .query()
+                .where('matriculation', lostObjetList[index].ticket_number_or_identification)
+                .select('travel_id')
+                .first()
+                // console.log(ClientTicket.travel_id);
+                if (ClientTicket.travel_id) {
+                    // Get the car and travel detail information 
+                    const carInformation = await Travels
+                    .query()
+                    .where('id', ClientTicket.travel_id)
+                    .select('car_matriculation','departure_time')
+                    .first()
+
+                    const carInformationFire = carInformation.toJSON()
+                    lostObjetList[index].car_Information = carInformationFire
+                }
+            }
+        }
+
+        response.json({
+            message: 'success',
+            data: lostObjetList
+        })
+        
+
+        
+    }
 
 
 

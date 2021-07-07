@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+// import axios from 'axios' 
 
 import travel from "./modules/travel";
+import lostObjet from "./modules/lostObjet";
 
 
 Vue.use(Vuex);
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   actions: {},
 
   modules: {
-    travel
+    travel,
+    lostObjet
   },
 });

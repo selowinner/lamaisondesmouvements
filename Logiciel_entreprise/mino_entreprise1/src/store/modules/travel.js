@@ -1,7 +1,7 @@
 // import travel from "../../data/travel"
 import Vue from 'vue'
 const state = {
-  travels : []
+  travels : [],
 }
 
 
@@ -27,6 +27,7 @@ const getters = {
             let gain = travel.place_price * travel.reservedPlaceNumber
             let restPlace = travel.place_to_sell_by_mino_number - travel.reservedPlaceNumber
             return {
+                id: travel.id,
                 destination: travel.destination,
                 departure_date: date_of_departure,
                 departure_time: travel.departure_time,
@@ -41,7 +42,8 @@ const getters = {
         })
 
         return travelListe
-    }
+    },
+
 }
 
 

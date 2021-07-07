@@ -120,3 +120,49 @@ export default [
         }
       },
 ];
+
+
+
+
+
+// methods: {
+
+
+//   editItem: function (item) {
+//     this.editedItem = Object.assign({}, item)
+//     this.dialog = true
+//   },
+
+//   // delete a travel
+
+//   // deleteItem (item) {
+//   //   const index = this.desserts.indexOf(item)
+//   //   confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+//   // },
+//   deleteItem (item) {
+//       this.editedIndex = this.Travels.indexOf(item)
+//       this.editedItem = Object.assign({}, item)
+//       this.dialogDelete = true
+//     },
+
+//   deleteItemConfirm () {
+//     // this.Travels.splice(this.editedIndex, 1)
+//     this.closeDelete()
+//   },
+
+//   // close () {
+//   //   this.dialog = false
+//   //   this.$nextTick(() => {
+//   //     this.editedItem = Object.assign({}, this.defaultItem)
+//   //     this.editedIndex = -1
+//   //   })
+//   // },
+
+//   closeDelete () {
+//     this.dialogDelete = false
+//     this.editedItem = Object.assign({}, this.defaultItem)
+//     this.editedIndex = -1
+//     console.log(this.editedItem);      
+//   },
+
+// },

@@ -58,7 +58,7 @@ export default {
 .header1{
     height: 8vh;
     margin-bottom: 12vh;
-    width: 85%;
+    width: 87%;
     margin-left: 230px;
     display: flex;
     justify-content: space-between;
@@ -94,7 +94,7 @@ export default {
     width: 85vw;
     margin-left: 230px;
     position: fixed;
-    top: -250px;
+    top: -270px;
     left: 0;
     /* background: red; */
     display: flex;
@@ -104,7 +104,7 @@ export default {
 .Header2logoBox{
     height: 400px;
     /* margin-top: -30vh; */
-    width: 400px;
+    width: 450px;
     background: white;
     display: flex;
     justify-content: center;

@@ -1,21 +1,19 @@
 <template>
 
 
-  <div class="bodyBox">
+ <div class="bodyBox">
       <div class="TheBoxBody ForTravelDeclaration">
-          <p class="MaintTitle">GESTION DES TICKETS </p>
+          <p class="MaintTitle">GESTION DES OBJETS </p>
 
           <div>
-            <h1>Bilan des voyages </h1>
+            <h1>Bilan des objets egarés </h1>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit reprehenderit atque voluptatem animi architecto nihil, iste, rerum maiores.</p>
           </div>
-
-           <allTravelList></allTravelList>
-
+          <allLostObjectList></allLostObjectList>   
       </div>
   </div>
-  
-  
+
+    
 </template>
 
 
@@ -28,22 +26,15 @@
 
 
 
-
-
-
-
-
-
-
 <script>
-import allTravelList from '../components/travelListe/allTravelList.vue'
+import allLostObjectList from '../components/lostObjetList/allLostObjetList.vue'
 
 
 export default {
 
-  name: "TravelBalanceSheet",
+  name: "lostObjectList",
   components: {
-    allTravelList
+    allLostObjectList
   },
 
 
@@ -89,15 +80,7 @@ export default {
 
 
 
-
-
-
-
-
-
-
 <style scoped>
-
 .TheBoxBody{
     height: 60vh;
     margin-top: 0px;
@@ -115,6 +98,4 @@ export default {
   font-size: 17px;
   margin-top: 0px;
 }
-
-
 </style>

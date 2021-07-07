@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import TravelDeclaration from "../views/TravelDeclaration.vue";
 import TravelBalanceSheet from "../views/TravelBalanceSheet.vue";
+import lostObjectList from "../views/lostObjectList.vue";
 
 import testePage from "../components/testPage.vue";
 
@@ -23,6 +24,11 @@ const routes = [
     path: "/TravelBalanceSheet",
     name: "TravelBalanceSheet",
     component: TravelBalanceSheet,
+  },
+  {
+    path: "/lostObjectList",
+    name: "lostObjectList",
+    component: lostObjectList,
   },
   {
     path: "/testePage",

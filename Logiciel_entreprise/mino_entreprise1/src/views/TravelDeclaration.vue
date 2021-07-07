@@ -17,28 +17,33 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.departure_place" ref="dep_place"  color="red" type="text" :rules="[() => !!prix]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.departure_place" ref="dep_place"  color="red" type="text"   value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.destination" ref="dest_place" type="text" :rules="[() => !!prix]"  label="Destination" persistent-hint required></v-text-field>
+                    <v-text-field v-on:click= "dateGeneration"  outlined v-model="newTravel_1.destination" ref="dest_place" type="text"   label="Destination" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.departure_time" ref="dep_time" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.departure_time" ref="dep_time" type="time"   label="Heure départ" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.car_informations" ref="car_infos" type="text" :rules="[() => !!prix]"  label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.car_informations" ref="car_infos" type="text"   label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.car_matriculation" ref="car_matri" type="text" :rules="[() => !!prix ]"  label="Matricule du car" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.car_matriculation" ref="car_matri" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.place_price" ref="pl_price" type="number" :rules="[() => !!prix]"  label="Prix du ticket"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_1.place_price" ref="pl_price" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
                   </v-col>
+
                   <v-col cols="12" md="4" lg="4">
-                     <v-btn large depressed color="mainGreenColor">Enregistrer</v-btn>
+                    <v-text-field  outlined v-model="newTravel_1.Intemediatestation" ref="st_inter" type="text"   label="atation intermediaires"  persistent-hint required></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" md="4" lg="4">
+                     <v-btn large depressed color="mainGreenColor" v-on:click.prevent="submit1">Enregistrer</v-btn>
                   </v-col>
                 </v-row>
 
@@ -48,28 +53,28 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.departure_place" ref="dep_place_2"  color="red" type="text" :rules="[() => !!prix ]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.departure_place" ref="dep_place_2"  color="red" type="text"   value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.destination" ref="dest_place_2" type="text" :rules="[() => !!prix ]"  label="Destination" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.destination" ref="dest_place_2" type="text"   label="Destination" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.departure_time" ref="dep_time_2" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.departure_time" ref="dep_time_2" type="time"   label="Heure départ" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.departure_date" ref="dep_date_2" type="date" :rules="[() => !!quantity ]"  label="date départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.departure_date" ref="dep_date_2" type="date"   label="date départ" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.total_car_place_number" ref="pl_num_2" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.total_car_place_number" ref="pl_num_2" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.car_informations" ref="car_info_2" type="text" :rules="[() => !!prix ]"  label="type de car" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.car_informations" ref="car_info_2" type="text"   label="type de car" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.car_matriculation" ref="car_mat_2" type="text" :rules="[() => !!prix ]"  label="Matricule du car" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.car_matriculation" ref="car_mat_2" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.place_price" ref="pl_price_2" type="number" :rules="[() => !!prix ]"  label="Prix du ticket"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newTravel_2.place_price" ref="pl_price_2" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
                      <v-btn large depressed color="mainGreenColor">Enregistrer</v-btn>
@@ -80,6 +85,12 @@
             </v-form>
 
         </div>
+        <transition name="slide"> 
+        <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor"> Voyage ajouté avec succes</v-alert>
+        </transition>
+        <transition name="slide"> 
+        <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error"> {{traveladdingResponse.message}}</v-alert>
+        </transition>
     </div>
   
   
@@ -96,6 +107,8 @@
 
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: "TravelDeclaration",
   components: {
@@ -107,6 +120,9 @@ export default {
     row: "check",
     DayType: true,
 
+
+
+    // FOR FORM SENDING
     newTravel_1:{
       car_informations : '',
       car_matriculation : '',
@@ -114,10 +130,11 @@ export default {
       destination : '',
       departure_time : '',
 
-      departure_date : 'get now date in the method for toomorow',
+      departure_date : '',
       // place_to_sell_by_mino_number : '',
       total_car_place_number : '',
       place_price : '',
+      Intemediatestation: '',
 
       company_id : '1',
       user_id : '1',
@@ -136,14 +153,60 @@ export default {
 
       company_id : '1',
       user_id : '1',
-    }
+    },
+    traveladdingResponse: "",
+    addingSuccess: false,
+    addingfalse : false
 
     
-  }),
+  }), 
 
   methods: {
     
-  }
+    submit1(){
+      // for intermadiate station 
+      if ( this.newTravel_1.Intemediatestation) {
+        this.newTravel_1.Intemediatestation = this.newTravel_1.Intemediatestation.split(' ');
+        for (let index = 0; index < this.newTravel_1.Intemediatestation.length; index++) {
+          this.newTravel_1.Intemediatestation[index] = {station_name: this.newTravel_1.Intemediatestation[index]};
+        }
+      }
+
+      Vue.prototype.$http.post('http://127.0.0.1:3333/travel/add', this.newTravel_1)
+                .then(response =>{
+                  this.traveladdingResponse = response.data
+                  console.log(response.data);
+                  if (this.traveladdingResponse.message == "success" ) {
+                    this.addingSuccess = !this.addingSuccess
+                    setTimeout(() => {
+                        this.addingSuccess = !this.addingSuccess
+                    }, 3000);
+                  } else {
+                    this.addingfalse = !this.addingfalse
+                    setTimeout(() => {
+                        this.addingfalse = !this.addingfalse
+                    }, 3000);
+                  }
+                })
+                .catch(error => {
+                  this.traveladdingResponse = error.message;
+                  console.error("There was an error!", error);
+               });
+
+      this.newTravel_1.Intemediatestation = ''
+    },
+
+    dateGeneration(){
+      const CurrentDate =  new Date()
+      var day= CurrentDate.getDate()+1 
+      var year = CurrentDate.getFullYear();
+      var month = CurrentDate.getMonth()+1;
+      this.newTravel_1.departure_date= year+"-"+month+"-"+day;
+    }
+
+
+
+  },
 
 };
 
@@ -209,9 +272,33 @@ export default {
     padding: 0 19.5555555556px;
     color: white;
 }
+
+.alert{
+  position: absolute;
+  top: -90px;
+  left: 82%;
+}
 /* .theme--light.v-btn {
     
 } */
+
+
+
+.slide-enter{
+  transform: translateX(-500px)
+}
+.slide-enter-active{
+  transform: translateX(500px)
+}
+.slide-leave{
+/* transform: translateX(0) */
+}
+.slide-leave-active{
+  transform: translateX(-20px)
+}
+
+
+
 
 @media (min-width: 960px){
   .col-md-4 {

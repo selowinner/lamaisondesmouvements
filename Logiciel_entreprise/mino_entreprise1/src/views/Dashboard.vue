@@ -6,7 +6,7 @@
             <div class="sectionAccesRapide">
                 <div class="RBox">DECLARATION DE VOYAGES</div>
                 <div class="RBox">BILAN DU DERNIER VOYAGE</div>
-                <div class="RBox">AUTRE</div>
+                <div class="RBox">LISTE DES REMBOURSEMENTS</div>
             </div>
 
             <p class="sectionTitle title2">Les services</p>
@@ -66,6 +66,7 @@ export default {
 .sectionTitle{
     margin: 0;
     margin-bottom: 5px;
+    margin-top: 50px;
     font-size: 20px;
     font-weight: bold;
 }

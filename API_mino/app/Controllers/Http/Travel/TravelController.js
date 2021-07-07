@@ -229,21 +229,30 @@ class TravelController {
             return { message: 'vous avez manqué de remplir un champs' }
         }
 
-        // ADD INTERMADIATE STATION
-        body.Intemediatestation = [
-            {
-              station_name: 'Akouedo',
-              travel_id: 1,
-            },
-            {
-              station_name: 'n_douci',
-              travel_id: 1,
-            }
-          ]
-
-        if (body.Intemediatestation) {
-            const newTravelIntermadiateStation = await TravelIntermadiateStations.createMany(body.Intemediatestation)
+        // VERIFY IF THE TRAVEL HAVE ALREADY ADDED
+        const verifyTravel = await Travels.query()
+            .where('destination', body.destination)
+            .where('departure_date', body.departure_date)
+            .where('departure_time', body.departure_time)
+            .count()
+        const verifyNumber = verifyTravel[0]['count(*)']
+        if (verifyNumber > 0) {
+            return { message: 'ce voyage à déjà été ajouté' }
         }
+
+        // ADD INTERMADIATE STATION
+        // body.Intemediatestation = [
+        //     {
+        //       station_name: 'Akouedo',
+        //       travel_id: 1,
+        //     },
+        //     {
+        //       station_name: 'n_douci',
+        //       travel_id: 1,
+        //     }
+        //   ]
+
+        
         
         // ADD THE OTHER INFORMATIONS
         if (body.place_to_sell_by_mino_number) {
@@ -280,6 +289,14 @@ class TravelController {
                 
             }
 
+            // ADD INTERMADIATE STATION
+            if (body.Intemediatestation) {
+                for (let index = 0; index < body.Intemediatestation.length; index++) {
+                    body.Intemediatestation[index].travel_id = newoption2Travel.id;
+                }
+                const newTravelIntermadiateStation = await TravelIntermadiateStations.createMany(body.Intemediatestation)
+            }
+
             
 
             // RESPONSE
@@ -290,7 +307,7 @@ class TravelController {
 
 
         } else {
-
+            
             const option2Travel = new Object()
             option2Travel.car_informations = body.car_informations
             option2Travel.car_matriculation = body.car_matriculation
@@ -306,7 +323,7 @@ class TravelController {
             option2Travel.annulation_of_reservation_Limit_Time = "20:00:00"
             option2Travel.company_id = body.company_id
             option2Travel.user_id = body.user_id
-
+           
             const newoption2Travel = await Travels.create(option2Travel)
 
             let placeToCreateLimite1 = parseInt(option2Travel.place_to_sell_by_mino_number) + 1
@@ -320,11 +337,21 @@ class TravelController {
                 const newTravelPlace = await TravelPlaces.create(travelPlace1)
             
             }
-
-
+            
+              // ADD INTERMADIATE STATION
+              console.log(body.Intemediatestation);
+              if (body.Intemediatestation) {
+                // console.log('je suis féé');
+                for (let index = 0; index < body.Intemediatestation.length; index++) {
+                    body.Intemediatestation[index].travel_id = newoption2Travel.id;
+                }
+                // console.log( body.Intemediatestation);
+                const newTravelIntermadiateStation = await TravelIntermadiateStations.createMany(body.Intemediatestation)
+            }
+            
              // RESPONSE
              response.json({
-                message: 'success',
+                message: 'success',         
                 data: {newoption2Travel}
             })
             
@@ -340,11 +367,13 @@ class TravelController {
     async getListeOfTravel({params, response}){
 
  
-        // GET THE TRAVEL LIST 
+        // GET THE TRAVEL LIST WITHOUT CANCELLING TRAVELS
         const ListOfTravelNotInJson = await Travels
         .query()
         .where('company_id', params.id)
+        .where('annulation_state', 0)
         .select('id', 'departure_date', 'departure_time', 'place_price', 'destination', 'place_to_sell_by_mino_number')
+        .orderBy('departure_date', 'desc')
         .fetch()
 
         const ListOfTravel = ListOfTravelNotInJson.toJSON()
@@ -474,7 +503,7 @@ class TravelController {
         }
         const bodyValidation = await validateAll(body, rules)
         if (bodyValidation.fails()) {
-            return { message: 'vous avez manqué de de renseigner le le ID du voayge' }
+            return { message: 'vous avez manqué de de renseigner le ID du voayge' }
         }
 
         // CANCELLATION
@@ -539,7 +568,7 @@ class TravelController {
             TheTravel.merge(annulation)
             await TheTravel.save()
             response.json({
-                message: 'les modification ont été prises en compte'
+                message: 'Annulation effectuée'
             })
          }
 
