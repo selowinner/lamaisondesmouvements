@@ -2,87 +2,67 @@
 
     <div class="bodyBox">
         <div class="TheBoxBody ForTravelDeclaration">
-            <p class="MaintTitle">GESTION DES TICKETS</p>
-            <div>
-              <h1>Déclaration de voyage</h1>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit reprehenderit atque voluptatem animi architecto nihil, iste, rerum maiores.</p>
-            </div>
-            <div class="formRadio">
-              <v-radio-group v-model="row" row dense mandatory>
-                <v-radio label="JOUR D'APRES" value="radio-1" v-on:click= "DayType = true"></v-radio>
-                <v-radio label="AUTRE JOUR" value="radio-2" v-on:click= "DayType = false"></v-radio>
-              </v-radio-group>
-            </div>
-            <v-form v-if="DayType">
-              <v-container fluid>
-                <v-row>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.departure_place" ref="dep_place"  color="red" type="text"   value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field v-on:click= "dateGeneration"  outlined v-model="newTravel_1.destination" ref="dest_place" type="text"   label="Destination" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.departure_time" ref="dep_time" type="time"   label="Heure départ" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.car_informations" ref="car_infos" type="text"   label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.car_matriculation" ref="car_matri" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.place_price" ref="pl_price" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
-                  </v-col>
+            <p class="sectionTitle">Déclaration de voyage</p>
+            <v-row>
+              <v-col cols="12" md="9" lg="9">
+                 <v-form>
+                  <v-container fluid class="lolplp">
+                    <v-row>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field  solo label="Append" append-icon="mdi-map-marker" height="70" v-model="newTravel_1.departure_place" ref="dep_place"   type="text"   value="Lieu de départ"  persistent-hint required disabled></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field background-color="#3e886d4a" solo  height="70" v-model="newTravel_1.departure_date" ref="dep_date"   type="date"   value="" label="Date de départ" persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.destination" ref="dest_place" type="text"   label="Destination" persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field  background-color="#3e886d4a" solo  height="70"  v-model="newTravel_1.departure_time" ref="dep_time" type="time"   label="Heure départ" persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field  background-color="#3e886d4a" solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.car_informations" ref="car_infos" type="text"   label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.car_matriculation" ref="car_matri" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field  background-color="#3e886d4a" solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.place_price" ref="pl_price" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
+                      </v-col>
 
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_1.Intemediatestation" ref="st_inter" type="text"   label="atation intermediaires"  persistent-hint required></v-text-field>
-                  </v-col>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.Intemediatestation" ref="st_inter" type="text"   label="atation intermediaires"  persistent-hint required></v-text-field>
+                      </v-col>
 
-                  <v-col cols="12" md="4" lg="4">
-                     <v-btn large depressed color="mainGreenColor" v-on:click.prevent="submit1">Enregistrer</v-btn>
-                  </v-col>
-                </v-row>
+                      <v-col cols="12" md="6" lg="6">
+                        <v-btn large depressed color="mainGreenColor" v-on:click.prevent="submit1">Enregistrer</v-btn>
+                      </v-col>
+                    </v-row>
 
-              </v-container>
-            </v-form>
-            <v-form v-if="!DayType">
-              <v-container fluid>
-                <v-row>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.departure_place" ref="dep_place_2"  color="red" type="text"   value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.destination" ref="dest_place_2" type="text"   label="Destination" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.departure_time" ref="dep_time_2" type="time"   label="Heure départ" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.departure_date" ref="dep_date_2" type="date"   label="date départ" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.total_car_place_number" ref="pl_num_2" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.car_informations" ref="car_info_2" type="text"   label="type de car" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.car_matriculation" ref="car_mat_2" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="newTravel_2.place_price" ref="pl_price_2" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" lg="4">
-                     <v-btn large depressed color="mainGreenColor">Enregistrer</v-btn>
-                  </v-col>
-                </v-row>
-
-              </v-container>
-            </v-form>
+                  </v-container>
+                </v-form>
+              </v-col>
+              <v-col cols="12" md="3" lg="3" class="leftNumber">
+                <div class="stat1">
+                  <div class="N-icon">
+                      <v-icon color="mainGreenColor">mdi-bus</v-icon>
+                  </div>
+                  <h1>46</h1>
+                  <h5>voyages declarés</h5>
+                </div>
+                 <div class="stat1">
+                  <div class="N-icon">
+                      <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
+                  </div>
+                  <h1>22</h1>
+                  <h5>voyages Annulés</h5>
+                </div>
+              </v-col>
+            </v-row>
+           
 
         </div>
         <transition name="slide"> 
@@ -196,13 +176,13 @@ export default {
       this.newTravel_1.Intemediatestation = ''
     },
 
-    dateGeneration(){
-      const CurrentDate =  new Date()
-      var day= CurrentDate.getDate()+1 
-      var year = CurrentDate.getFullYear();
-      var month = CurrentDate.getMonth()+1;
-      this.newTravel_1.departure_date= year+"-"+month+"-"+day;
-    }
+    // dateGeneration(){
+    //   const CurrentDate =  new Date()
+    //   var day= CurrentDate.getDate()+1 
+    //   var year = CurrentDate.getFullYear();
+    //   var month = CurrentDate.getMonth()+1;
+    //   this.newTravel_1.departure_date= year+"-"+month+"-"+day;
+    // }
 
 
 
@@ -225,32 +205,36 @@ export default {
 
 <style scoped>
 
-.TheBoxBody{
+/* .TheBoxBody{
     height: 60vh;
-    margin-top: -20px;
-}
+   
+} */
 
 .ForTravelDeclaration{
-  background: white;
-  text-align: center;
+  /* background: red; */
 }
 
-.MaintTitle{
-  background:  var(--main-green-color);
-  line-height: 40px;
-  text-align: center;
-  font-weight: bold;
-  color: var(--main-white-color);
-  font-size: 17px;
+.sectionTitle{
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    /* text-align: start; */
 }
 
-.ForTravelDeclaration > div:nth-child(2){
+/* .ForTravelDeclaration > div:nth-child(2){
   border-bottom: solid 0.5px var(--font-color);
   margin: 0 45px;
-}
+} */
 
-.v-form{
+/* .v-form{
   padding: 0 35px;
+} */
+
+.lolplp{
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .col-lg-4, .col-md-4{
@@ -262,10 +246,10 @@ export default {
   justify-content: center;
 }
 
-.v-input--selection-controls {
+/* .v-input--selection-controls {
     margin-top: 20px;
     padding-top: 0px;
-}
+} */
 .v-btn:not(.v-btn--round).v-size--large {
     height: 58px;
     min-width: 100%;
@@ -273,36 +257,71 @@ export default {
     color: white;
 }
 
-.alert{
-  position: absolute;
-  top: -90px;
-  left: 82%;
-}
+
 /* .theme--light.v-btn {
     
 } */
 
+.stat1{
+  background: white;
+  height: 250px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.N-icon{
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3e886d4a;
+    border-radius: 100px;
+}
+.stat1 h1{
+    margin-bottom: -15px;
+    font-size: 50px;
+}
+.stat1 h5{
+    color:  var(--font-color);
+}
 
 
-.slide-enter{
-  transform: translateX(-500px)
-}
-.slide-enter-active{
-  transform: translateX(500px)
-}
-.slide-leave{
-/* transform: translateX(0) */
-}
-.slide-leave-active{
-  transform: translateX(-20px)
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 @media (min-width: 960px){
-  .col-md-4 {
-    height:75px;
+  .col-md-6 {
+    height:100px;
 }
 }
 

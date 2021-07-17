@@ -7,10 +7,11 @@
             </div>
             <p>John Connor</p>
             <p>Loremipsum@gmail.com</p>
+            <p>Deconnexion</p>
         </div>
         <div class="timeBox">
-            <p>en ligne il y a</p>
-            <p>30 min</p>
+            <img src="@/assets/icone/settingsB.png" alt="" srcset="">
+            <p>Paramètre</p>
         </div>
         <div class="footerBox">
             <div class="locationBox">
@@ -118,6 +119,15 @@ export default {
     margin-top: -15px;
     color: var(--font-color);
 }
+.profilBox p:nth-child(4){
+    /* font-size: 13px; */
+    margin-top: -5px;
+    padding: 8px;
+    border-radius: 5px;
+    color: white;
+    background: var(--main-green-color);
+    cursor: pointer;
+}
 
 
 
@@ -130,14 +140,15 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.timeBox p:nth-child(1){
-    font-size: 13px;
-    margin-bottom: -8px;
-    color: var(--font-color);
+.timeBox img:nth-child(1){
+    height: 60px;
+    width: 60px;
+    margin-bottom: 3px;
 }
 .timeBox p:nth-child(2){
-    font-size: 30px;
-    margin-top: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
     color: var(--Important-font-color);
 }
 

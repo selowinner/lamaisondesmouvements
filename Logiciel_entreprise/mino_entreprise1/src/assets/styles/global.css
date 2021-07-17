@@ -57,6 +57,23 @@ body{
 /*-------END------------*/
 
 
+/*------------------------------
+    ---- OTHER CONFIGURATION---- 
+-------------------------------*/
+.slide-enter{
+    transform: translateX(-500px)
+}
+.slide-enter-active{
+transform: translateX(500px)
+}
+.slide-leave{
+/* transform: translateX(0) */
+}
+.slide-leave-active{
+transform: translateX(-20px)
+}
+/*-------END------------*/
+
 
 
 
@@ -70,15 +87,21 @@ body{
 .bodyBox{
     height: 60vh;
     width: 85vw;
-    margin-left: 230px;
+    margin-left: 225px;
     padding: 0px 7vw;
 }
 .TheBoxBody{
-    width: 71vw;
-    height: 59vh;
+    width: 73vw;
+    /* height: 65vh; */
+    margin-top: 150px;
+    /* background: red; */
 }
 
-
+.alert{
+    position: absolute;
+    top: 20px;
+    left: 82%;
+  }
 
 /*++++++++++++++++
 ===> TITLES <===

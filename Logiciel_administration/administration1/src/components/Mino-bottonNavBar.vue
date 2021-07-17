@@ -21,14 +21,18 @@
                   </router-link>
               </v-col>
                 <v-col cols="12" md="3" lg="3" class="box">
-                  <div class="boxWrapper">
-                      <span>HISTORIQUE <br> DES OBJETS EGARES</span>
-                  </div>
+                  <router-link :to="{name: 'LostObjectManagement'}"> 
+                    <div class="boxWrapper">
+                        <span>HISTORIQUE <br> DES OBJETS EGARES</span>
+                    </div>
+                  </router-link>
               </v-col>
                 <v-col cols="12" md="3" lg="3" class="box">
-                  <div class="boxWrapper">
-                      <span>HISTORIQUE <br> DES COLIS ENVOYES</span>
-                  </div>
+                  <router-link :to="{name: 'ExpeditionManagement'}"> 
+                    <div class="boxWrapper">
+                        <span>HISTORIQUE <br> DES COLIS ENVOYES</span>
+                    </div>
+                  </router-link>
               </v-col>
           </v-row>
       </v-container>

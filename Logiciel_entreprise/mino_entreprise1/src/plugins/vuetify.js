@@ -17,11 +17,11 @@ export default new Vuetify({
               secondary: '#b0bec5',
               accent: '#8c9eff',
               error: '#b71c1c',
-              essaie:'#374b6b',
+              essaie:'#4c5d70',
   
               /* Background-color */
               PricipalBackgroundLight: '#f1f3fb',
-              otherFont:'#FFFDE7',
+              otherFont:'#b6bbc2',
       
               /* Important-color */
               Importantcolor : '#613dea',

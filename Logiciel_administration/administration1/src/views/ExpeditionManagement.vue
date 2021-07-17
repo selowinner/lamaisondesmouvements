@@ -1,7 +1,7 @@
 <template>
 
     <div class="bodyBox">
-        <MinoTravelsHome></MinoTravelsHome>
+        <MinoExpeditionsHome></MinoExpeditionsHome>
     </div>
   
   
@@ -18,12 +18,12 @@
 
 
 <script>
-import  MinoTravelsHome  from "../components/travel/mino-travelHome.vue";
+import  MinoExpeditionsHome  from "../components/expedition/mino-ExpeditionHome.vue";
 
 export default {
-  name: "TravelManagement",
+  name: "ExpeditionManagement",
   components: {
-    MinoTravelsHome,
+    MinoExpeditionsHome,
   },
 
   // data: () => ({

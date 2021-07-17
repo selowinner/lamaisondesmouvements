@@ -4,6 +4,11 @@ import Dashboard from "../views/Dashboard.vue";
 import TravelDeclaration from "../views/TravelDeclaration.vue";
 import TravelBalanceSheet from "../views/TravelBalanceSheet.vue";
 import lostObjectList from "../views/lostObjectList.vue";
+import TravelStat from "../views/travelStat.vue";
+import Livreurs from "../views/Expedition1Management.vue";
+import ExpeditionSheet from "../views/Expedition2Management.vue";
+
+
 
 import testePage from "../components/testPage.vue";
 
@@ -29,6 +34,21 @@ const routes = [
     path: "/lostObjectList",
     name: "lostObjectList",
     component: lostObjectList,
+  },
+  {
+    path: "/TravelStat",
+    name: "TravelStat",
+    component: TravelStat,
+  },
+  {
+    path: "/Livreurs",
+    name: "Livreurs",
+    component: Livreurs,
+  },
+  {
+    path: "/ExpeditionSheet",
+    name: "ExpeditionSheet",
+    component: ExpeditionSheet,
   },
   {
     path: "/testePage",

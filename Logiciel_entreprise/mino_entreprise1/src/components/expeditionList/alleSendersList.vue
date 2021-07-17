@@ -108,7 +108,7 @@ import { mapGetters } from "vuex";
 
 
 export default {
-  name: "allLostObjectList",
+  name: "alleExpeditionList",
   components: {
     
   },

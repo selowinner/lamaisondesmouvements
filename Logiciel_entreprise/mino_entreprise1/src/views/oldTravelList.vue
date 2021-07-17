@@ -147,14 +147,6 @@
         </v-card>
         </v-dialog>
 
-        <!-- THE SEACH BAR -->
-        <v-row>
-          <v-col  cols="12" md="5" lg="5">
-            <v-text-field v-model="search" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
-          </v-col>
-        </v-row>
-        <!-- START DATA TABLE -->
-        <div class="dataWrapper">
         <v-data-table dense :headers="headers" :items="Travels" :search="search"  :items-per-page="-1" hide-default-footer>
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
@@ -169,16 +161,7 @@
         <v-icon small> mdi-arrow-right </v-icon> {{item.departure_time}}
         </template>
         </v-data-table>
-        </div>
-        <!--  END DATA TABLE -->
-        
-        <!-- ALERT -->
-        <transition name="slide"> 
-        <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor"> Voyage ajouté avec succes</v-alert>
-        </transition>
-        <transition name="slide"> 
-        <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error"> poulet</v-alert>
-        </transition>
+
     </div>
     
 </template>
@@ -222,9 +205,8 @@ export default {
      
     ],
 
-    // for alerte
-     addingSuccess: false,
-    addingfalse : false,
+    // for table re-rendering
+    // componentKey: 0,
 
     // For travel deleted
     dialogDelete: false,
@@ -319,16 +301,15 @@ export default {
                   console.log(response.data);
 
                   if (this.travelDeleteResponse.message == "success" ) {
-                    // Annulation effectuée
-                    this.addingSuccess = !this.addingSuccess
-                    setTimeout(() => {
-                        this.addingSuccess = !this.addingSuccess
-                        this.forceRerender()
-                    }, 3000);
+          
+                    this.$store.dispatch('init_travelListe')
                     
-                    
+                    console.log("patiiii coooll");
+                    // this.addingSuccess = !this.addingSuccess
+                    // setTimeout(() => {
+                    //     this.addingSuccess = !this.addingSuccess
+                    // }, 3000);
                   } else {
-                     
                     // this.addingfalse = !this.addingfalse
                     // setTimeout(() => {
                     //     this.addingfalse = !this.addingfalse
@@ -349,11 +330,6 @@ export default {
       this.editedItem = Object.assign({}, this.defaultItem)
       this.editedIndex = -1 
     },
-    
-    // For table re-render after delete or update an item
-    forceRerender() {
-        this.$store.state.travelcomponentKey += 1
-      }
 
   },
 
@@ -394,32 +370,10 @@ export default {
 
 
 .tableWrapperDiv{
-  height: 514px;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 25px;
-}
-.dataWrapper{
-  height: 100%;
+  height: 63%;
   overflow-y: scroll;
-  background: #ffffff;
-  padding: 0;
 }
-.dataWrapper::-webkit-scrollbar{
-  width: 20px;
-}
-.dataWrapper::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
-.dataWrapper::-webkit-scrollbar-thumb {
-  background-color: var(--main-green-color);
-  border-radius: 30px;
-  border: 7px solid #ffffff;
-}
-
-/* .tableWrapperDiv::-webkit-scrollbar{
+.tableWrapperDiv::-webkit-scrollbar{
   width: 20px;
 }
 .tableWrapperDiv::-webkit-scrollbar-track {
@@ -430,12 +384,12 @@ export default {
   background-color: var(--main-green-color);
   border-radius: 30px;
   border: 7px solid rgb(255, 255, 255);
-} */
+}
 
 .v-data-table {
   line-height: 1.5;
   max-width: 100%;
-  /* margin: 0px 45px; */
+  margin: 0px 45px;
 }
 .v-btn {
     font-weight: bold;
@@ -443,10 +397,6 @@ export default {
     text-transform: none;
 }
 
-.theSeachBar{
-  /* margin-left: 50px; */
-  margin-bottom: 10px;
-}
 
 
 
@@ -519,7 +469,7 @@ export default {
   margin-bottom: 35px;
 }
 .updateForm{
-    height: 250px;
+    height: 300px;
     width: 110%;
     overflow-y: scroll;
 }
@@ -541,6 +491,8 @@ export default {
   padding-bottom: 0px ;
   padding-top: 0px ;
 }
+
+
 
 
 </style>

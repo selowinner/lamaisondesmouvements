@@ -171,14 +171,6 @@
         </v-data-table>
         </div>
         <!--  END DATA TABLE -->
-        
-        <!-- ALERT -->
-        <transition name="slide"> 
-        <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor"> Voyage ajouté avec succes</v-alert>
-        </transition>
-        <transition name="slide"> 
-        <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error"> poulet</v-alert>
-        </transition>
     </div>
     
 </template>
@@ -198,7 +190,7 @@ import { mapGetters } from "vuex";
 
 
 export default {
-  name: "allTravelList",
+  name: "allExpeditionList",
   components: {
     
   },
@@ -222,9 +214,8 @@ export default {
      
     ],
 
-    // for alerte
-     addingSuccess: false,
-    addingfalse : false,
+    // for table re-rendering
+    // componentKey: 0,
 
     // For travel deleted
     dialogDelete: false,
@@ -319,16 +310,15 @@ export default {
                   console.log(response.data);
 
                   if (this.travelDeleteResponse.message == "success" ) {
-                    // Annulation effectuée
-                    this.addingSuccess = !this.addingSuccess
-                    setTimeout(() => {
-                        this.addingSuccess = !this.addingSuccess
-                        this.forceRerender()
-                    }, 3000);
+          
+                    this.$store.dispatch('init_travelListe')
                     
-                    
+                    console.log("patiiii coooll");
+                    // this.addingSuccess = !this.addingSuccess
+                    // setTimeout(() => {
+                    //     this.addingSuccess = !this.addingSuccess
+                    // }, 3000);
                   } else {
-                     
                     // this.addingfalse = !this.addingfalse
                     // setTimeout(() => {
                     //     this.addingfalse = !this.addingfalse
@@ -349,11 +339,6 @@ export default {
       this.editedItem = Object.assign({}, this.defaultItem)
       this.editedIndex = -1 
     },
-    
-    // For table re-render after delete or update an item
-    forceRerender() {
-        this.$store.state.travelcomponentKey += 1
-      }
 
   },
 
@@ -394,7 +379,7 @@ export default {
 
 
 .tableWrapperDiv{
-  height: 514px;
+  height: 62%;
   background: white;
   border-radius: 10px;
   overflow: hidden;

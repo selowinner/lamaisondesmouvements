@@ -3,7 +3,7 @@
 
   <div class="bodyBox">
       <div class="TheBoxBody ForTravelDeclaration">
-          <p class="sectionTitle">Gestion des voyages</p>
+          <p class="sectionTitle">Bilan des voyages</p>
           <v-row>
             <v-col cols="12" md="3" lg="3" class="leftNumber">
               <div class="stat1">
@@ -18,11 +18,11 @@
                     <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
                 </div>
                 <h1>32</h1>
-                <h5>voyages mannulés</h5>
+                <h5>voyages annulés</h5>
               </div>
             </v-col>
             <v-col cols="12" md="9" lg="9">
-             <allTravelList :key="forceRerender"></allTravelList>
+             <allExpeditionList></allExpeditionList>
             </v-col>
           </v-row>
 
@@ -50,21 +50,20 @@
 
 
 <script>
-import allTravelList from '../components/travelListe/allTravelList.vue'
+import allExpeditionList from '../components/expeditionList/allExpeditionList.vue'
 
 
 export default {
 
-  name: "TravelBalanceSheet",
+  name: "ExpeditionSheet",
   components: {
-    allTravelList
+    allExpeditionList
   },
 
 
   data() {
     return {
       
-      // componentKey: 0,
 
     };
   },
@@ -73,20 +72,14 @@ export default {
   methods: {
 
   // ------------------------
-    // RE-RENDER CHILD  COMPONENT
+    // Show Travel infomation
   // ------------------------
-    // forceRerender() {
-    //     this.componentKey = this.$store.state.travelcomponentKey;
-    //     // console.log(this.componentKey);
-    //   }
+  
   },
 
 
    computed:{
-    forceRerender() {
-        return this.$store.state.travelcomponentKey;
-        // console.log(this.componentKey);
-      }
+    
   },
 
 

@@ -2,25 +2,63 @@
 
     <div class="bodyBox">
         <div class="TheBoxBody">
-            <p class="sectionTitle">Accès rapides</p>
-            <div class="sectionAccesRapide">
-                <div class="RBox">DECLARATION DE VOYAGES</div>
-                <div class="RBox">BILAN DU DERNIER VOYAGE</div>
-                <div class="RBox">LISTE DES REMBOURSEMENTS</div>
-            </div>
-
-            <p class="sectionTitle title2">Les services</p>
-            <div class="sectionAccesRapide">
-                <div class="SBox SBox1">
-                    <p>GESTION DES TICKETS</p>
-                </div>
-                <div class="SBox SBox2">
-                    <p>GESTION DES OBJETS EGARES</p>
-                </div>
-                <div class="SBox SBox3">
-                    <p>GESTION DES COLIS</p>
-                </div>
-            </div>
+            <p class="sectionTitle">Chiffres Importants</p>
+            <v-container fluid class="pouletBr">
+                <v-row>
+                    <v-col cols="12" md="3" lg="3">
+                        <div class="numberWrapper">
+                            <div class="N-icon">
+                                <v-icon color="mainGreenColor">mdi-calendar</v-icon>
+                            </div>
+                            <h1>45.k</h1>
+                            <h5>voyages declarés</h5>
+                        </div>
+                    </v-col>
+                    <v-col cols="12" md="3" lg="3">
+                        <div class="numberWrapper">
+                            <div class="N-icon">
+                                <v-icon color="mainGreenColor">mdi-account-group</v-icon>
+                            </div>
+                            <h1>45.k</h1>
+                            <h5>clients</h5>
+                        </div>
+                    </v-col>
+                    <v-col cols="12" md="3" lg="3">
+                        <div class="numberWrapper">
+                            <div class="N-icon">
+                                <v-icon color="mainGreenColor">mdi-archive</v-icon>
+                            </div>
+                            <h1>45.k</h1>
+                            <h5>objets trouvés</h5>
+                        </div>
+                    </v-col>
+                    <v-col cols="12" md="3" lg="3">
+                        <div class="numberWrapper">
+                            <div class="N-icon">
+                                <v-icon color="mainGreenColor">mdi-truck-delivery</v-icon>
+                            </div>
+                            <h1>45.k</h1>
+                            <h5>colis expédiés</h5>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12" md="9" lg="9">
+                        <p class="sectionTitle">Statistique</p>
+                        <div class="statWrapper">
+                            <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
+                        </div>
+                    </v-col>
+                    <v-col cols="12" md="3" lg="3">
+                        <div class="statWrapper1">
+                            <h4>Notes clients</h4>
+                            <div class="noteWrapper">
+                                <apexchart height="100%" :options="chartOptions2" :series="series2"></apexchart>
+                            </div>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-container>
         </div>
     </div>
   
@@ -46,6 +84,81 @@ export default {
     // HelloWorld
   },
 
+data: () => ({
+    /* FOR  SERVICE STATS */
+    series: [{
+    name: 'series7',
+    data: [31, 40, 28, 51, 42, 109, 100]
+    },
+    {
+    name: 'series2',
+    data: [11, 32, 45, 32, 34, 52, 41]
+    },
+    {
+    name: 'series3',
+    data: [20, 50, 10, 83, 56, 22, 38]
+    }],
+
+    chartOptions: {
+    chart: {
+        type: 'area',
+        sparkline: {
+        enabled: true,
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    colors:['#3e886d', '#4c5d70', '#b6bbc2'],
+    stroke: {
+        curve: 'smooth'
+    },
+    xaxis: {
+        type: 'datetime',
+        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+    },
+    tooltip: {
+        x: {
+        format: 'dd/MM/yy HH:mm'
+        },
+    },
+    },
+
+
+    /* FOR SERVICE MARCK */
+    series2: [44, 55, 67],
+
+    chartOptions2: {
+    chart: {
+        type: 'radialBar',
+    },
+    plotOptions: {
+        radialBar:{
+            dataLabels: {
+                name: {
+                fontSize: '16px',
+                },
+                value: {
+                fontSize: '16px',
+                },
+                total: {
+                    show: true,
+                    label: 'Total', 
+                    formatter: function () {
+                    return 249
+                    }
+                },
+            },
+        },
+    },
+    
+    
+    colors:['#3e886d', '#4c5d70', '#b6bbc2'],
+    labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
+    },
+  }),
+  
+
 };
 
 
@@ -66,63 +179,83 @@ export default {
 .sectionTitle{
     margin: 0;
     margin-bottom: 5px;
-    margin-top: 50px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
-.title2{
-    margin-top: 60px;
-}
-
-.sectionAccesRapide{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    /* margin-bottom: 50px; */
-}
-.RBox{
-    margin-top: 5px;
-    height: 80px;
-    width: 290px;
-    font-size: 17px;
-    border-radius: 7px;
-    border-left: solid 10px var(--main-green-color);
+.numberWrapper{
+    height: 190px;
+    border-radius: 10px;
     background: white;
-    text-align: center;
-    line-height: 85px;
-    font-weight: bold;
-    box-shadow: 2px 6px 20px -1px rgb(206 204 204 / 50%);
-
-}
-
-.SBox{
-    height: 200px;
-    width: 310px;
-    border-radius: 7px;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.SBox > p{
-    font-size: 21px;
-    font-weight: bold;
+.N-icon{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3e886d4a;
+    border-radius: 100px;
+}
+.numberWrapper h1{
+    margin-bottom: -15px;
+    font-size: 50px;
+}
+.numberWrapper h5{
+    color:  var(--font-color);
+}
+
+
+
+
+.statWrapper{
+    height: 270px;
+    border-radius: 10px;
+    background: white;
+}
+.statWrapper1{
+    height: 300px;
+    border-radius: 10px;
+    padding-top: 10px;
+    background: white;
+}
+.statWrapper1 h4{
     margin-left: 10px;
-    color: white;
 }
-.SBox1{
-    background: linear-gradient(180deg, rgb(0 0 0 / 0%),rgb(0 0 0 / 0%), rgb(0 0 0)), url(../assets/img/traffic-vehicle-urban-reflections-city.jpg);
-    background-position: center;
-    background-size: cover;
+.noteWrapper{
+    margin-top: 5%;
+    height: 80%;
 }
-.SBox2{
-    background: linear-gradient(180deg, rgb(0 0 0 / 0%),rgb(0 0 0 / 0%), rgb(0 0 0)), url(../assets/img/pexels-veerasak-piyawatanakul-1170187.jpg);
-    background-position: center;
-    background-size: cover;
-}
-.SBox3{
-    background: linear-gradient(180deg, rgb(0 0 0 / 0%),rgb(0 0 0 / 0%), rgb(0 0 0)), url(../assets/img/an-army-of-robots-efficiently-sorting-hundreds-of-parcels-per-hour-automated-guided-vehicle-agv.jpg);
-    background-position: center;
-    background-size: cover;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </style>

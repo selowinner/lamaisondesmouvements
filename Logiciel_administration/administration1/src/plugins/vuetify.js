@@ -26,7 +26,7 @@ export default new Vuetify({
               otherFont:'#FFFDE7',
       
               /* Important-color */
-              Importantcolor : '#613dea',
+              Importantcolor : '#1b1c21',
             
               /* Font color */
               Titlecolor: '#374b6b',

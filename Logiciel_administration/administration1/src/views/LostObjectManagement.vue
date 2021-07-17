@@ -1,7 +1,7 @@
 <template>
 
     <div class="bodyBox">
-        <MinoTravelsHome></MinoTravelsHome>
+        <MinoLostObjetsHome></MinoLostObjetsHome>
     </div>
   
   
@@ -18,12 +18,12 @@
 
 
 <script>
-import  MinoTravelsHome  from "../components/travel/mino-travelHome.vue";
+import  MinoLostObjetsHome  from "../components/lostObjet/mino-lostObjet.vue";
 
 export default {
-  name: "TravelManagement",
+  name: "LostObjectManagement",
   components: {
-    MinoTravelsHome,
+    MinoLostObjetsHome,
   },
 
   // data: () => ({

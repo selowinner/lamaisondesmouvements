@@ -4,7 +4,7 @@
 
     <div class="bottonNavBar">
         <router-link :to="{name: 'Dashboard'}">
-            <div class="navBox" style="border-radius: 10px 0 0 0;"  v-on:click= "isActive = false">
+            <div class="navBox" style="border-radius: 10px 0 0 0;"  v-on:click= "UnactiveMenu">
                 <img src="@/assets/icone/dashboardB.png" alt="" srcset="">
                 <p>Dashboard</p>
             </div>
@@ -12,13 +12,13 @@
         <!-- v-on:click= "isActive = !isActive" :class="{naVBox2Active: isActive}" -->
         <div class="navBox" v-on:click= "activeMenu" :class="{naVBox2Active: isActive}">
             <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
-            <p>Gestion des tickets</p>
-            <div class="menuBox" v-if="poulet">
+            <p>Gestion des voyages</p>
+            <div class="menuBox" v-if="travelMenuClick">
                 <div class="menuTitle">
-                    GESTIONNAIRE DES TICKETS
-                    <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "poulet = false">
+                    GESTIONNAIRE DES VOYAGES
+                    <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "travelMenuClick = false">
                 </div>
-                <div v-on:click.stop= "poulet = false">
+                <div v-on:click.stop= "travelMenuClick = false">
                     <router-link :to="{name: 'TravelDeclaration'}">
                     <div class="tab1">
                         <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
@@ -34,22 +34,42 @@
                 </div>
             </div>
         </div>
-        <div class="navBox" v-on:click= "isActive = false">
-            <img src="@/assets/icone/targetB.png" alt="" srcset="">
-            <p>Gestion des objets <br> égarés</p>
-        </div>
-        <div class="navBox">
-            <img src="@/assets/icone/colisB.png" alt="" srcset="">
+        <router-link :to="{name: 'lostObjectList'}">
+            <div class="navBox" v-on:click= "UnactiveMenu">
+                <img src="@/assets/icone/targetB.png" alt="" srcset="">
+                <p>Gestion des objets <br> égarés</p>
+            </div>
+        </router-link>
+        <div class="navBox" v-on:click= "activeMenu2" :class="{naVBox2Active1: isActive2}">
+            <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
             <p>Gestion des colis</p>
+            <div class="menuBox" v-if="expeditionMenuClick">
+                <div class="menuTitle">
+                    GESTIONNAIRE DES COLIS
+                    <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "expeditionMenuClick = false">
+                </div>
+                <div v-on:click.stop= "expeditionMenuClick = false">
+                    <router-link :to="{name: 'ExpeditionSheet'}">
+                    <div class="tab1">
+                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                        <p>GESION DES EXPEDITIONS</p>
+                    </div>
+                    </router-link>
+                    <router-link :to="{name: 'Livreurs'}">
+                    <div class="tab1">
+                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                        <p>GESTION DES LIVREURS</p>
+                    </div>
+                    </router-link>
+                </div>
+            </div>
         </div>
-        <div class="navBox">
+        <router-link :to="{name: 'TravelStat'}">
+        <div class="navBox navEnd" v-on:click= "UnactiveMenu">
             <img src="@/assets/icone/settingsB.png" alt="" srcset="">
-            <p>Paramètre</p>
+            <p>statistique voyage</p>
         </div>
-        <div class="navBox" style="border: none;">
-            <img src="@/assets/icone/logoutA.png" alt="" srcset="">
-            <p style="color: #b40808;">Deconnexion</p>
-        </div>
+        </router-link>
     </div>
        
   
@@ -76,16 +96,31 @@ export default {
 
   data: () => ({
     
+    // travel menu group
     isActive: false,
-    poulet: true,
+    travelMenuClick: true,
+
+    // Expedition menu group
+    isActive2: false,
+    expeditionMenuClick: true,
     
   }),
 
   methods: {
     activeMenu: function () {
       this.isActive = true;
-      this.poulet = true
+      this.isActive2 = false;
+      this.travelMenuClick = true
+    },
+    activeMenu2: function () {
+      this.isActive2 = true;
+      this.isActive = false;
+      this.expeditionMenuClick = true
+    },
 
+    UnactiveMenu: function () {
+      this.isActive = false;
+      this.isActive2 = false;
     }
   }
 
@@ -109,12 +144,11 @@ export default {
 
 .bottonNavBar{
     background: var(--main-white-color);
-    width: 100vw;
     height: 15vh;
-    width: 71vw;
+    width: 60vw;
     position: fixed;
     top: 84.9vh;
-    left: 20.5vw;
+    left: 25.5vw;
     display: flex;
     align-items: center;
     border-radius: 10px 10px 0px 0px;
@@ -167,6 +201,9 @@ export default {
     top: -10px;
     transform: rotate(45deg);
     /* box-shadow: 2px 6px 20px -1px rgb(206 204 204 / 90%); */
+}
+.navEnd{
+    border-right: none;
 
 }
 
@@ -205,19 +242,19 @@ export default {
 
 
 
-.naVBox2Active{
+.naVBox2Active, .naVBox2Active1{
     background: white;
     border-right: dashed 0px;
     height: 15vh;
     box-shadow: 2px 6px 20px -1px rgb(206 204 204 / 90%);
 }
-.naVBox2Active > p{
+.naVBox2Active > p, .naVBox2Active1>p{
      margin: 0;
     font-size: 14px;
     font-weight: bold;
     color: var(--Important-font-color);
 }
-.naVBox2Active::before{
+.naVBox2Active::before, .naVBox2Active1::before{
     content: "";
     height: 20px;
     width: 20px;
@@ -234,7 +271,7 @@ export default {
     display: none;
 }
 
-.naVBox2Active .menuBox{
+.naVBox2Active .menuBox, .naVBox2Active1 .menuBox{
     position: absolute;
     top: -190px;
     height: 160px;
@@ -247,7 +284,7 @@ export default {
     box-shadow: 2px 6px 20px -1px rgb(206 204 204 / 90%);
 
 }
-.naVBox2Active .menuTitle{
+.naVBox2Active .menuTitle, .naVBox2Active1 .menuTitle{
     height: 60px;
     width: 90%;
     display: flex;
@@ -258,7 +295,7 @@ export default {
     font-weight: bold;
     border-bottom: solid 1px var(--font-color);
 }
-.naVBox2Active .menuTitle > img{
+.naVBox2Active .menuTitle > img, .naVBox2Active1 .menuTitle > img{
     height: 15px;
     width: 15px;
     position: relative;
@@ -267,7 +304,7 @@ export default {
 }
 
 
-.naVBox2Active .menuBox div:last-child{
+.naVBox2Active .menuBox div:last-child, .naVBox2Active1 .menuBox div:last-child{
     margin-top: 10px;
     margin-bottom: 20px;
     width: 80%;
@@ -285,12 +322,16 @@ export default {
 }
 
 
-
-
-.router-link-exact-active > .tab1 #poulet{
+.router-link-exact-active > .tab1 #travelMenuClick{
     background: red;
 }
 
+
+
+
+
+
+/* For expedition menu */
 
 
 </style>

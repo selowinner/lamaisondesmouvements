@@ -568,7 +568,7 @@ class TravelController {
             TheTravel.merge(annulation)
             await TheTravel.save()
             response.json({
-                message: 'Annulation effectuée'
+                message: 'success'
             })
          }
 
