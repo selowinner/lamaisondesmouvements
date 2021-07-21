@@ -122,6 +122,15 @@ export default {
       this.isActive = false;
       this.isActive2 = false;
     }
+  },
+
+
+
+
+
+
+  created(){
+    this.$store.dispatch('init_analitic')
   }
 
 };

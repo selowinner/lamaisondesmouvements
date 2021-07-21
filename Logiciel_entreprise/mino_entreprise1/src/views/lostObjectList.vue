@@ -6,21 +6,21 @@
           <p class="sectionTitle">Obejts égarés</p>
           <v-row>
             <v-col cols="12" md="9" lg="9">
-            <allLostObjectList></allLostObjectList>
+            <allLostObjectList :key="forceRerender"></allLostObjectList>
             </v-col>
             <v-col cols="12" md="3" lg="3" class="leftNumber">
               <div class="stat1">
                 <div class="N-icon">
                     <v-icon color="mainGreenColor">mdi-archive-alert</v-icon>
                 </div>
-                <h1>152</h1>
+                <h1>{{Analytics.lostThingNumber}}</h1>
                 <h5>Objets declarés</h5>
               </div>
               <div class="stat1">
                 <div class="N-icon">
-                    <v-icon color="mainGreenColor">mdi-archive-arrow-up</v-icon>
+                    <v-icon color="mainGreenColor">mdi-archive</v-icon>
                 </div>
-                <h1>73</h1>
+                <h1>{{Analytics.findThingNumber}}</h1>
                 <h5>Objets retrouvés</h5>
               </div>
             </v-col>
@@ -42,6 +42,7 @@
 
 
 <script>
+import { mapGetters } from "vuex";
 import allLostObjectList from '../components/lostObjetList/allLostObjetList.vue'
 
 
@@ -71,7 +72,12 @@ export default {
 
 
    computed:{
-    
+     ...mapGetters([
+      'Analytics',
+    ]),
+    forceRerender() {
+        return this.$store.state.lostObjetcomponentKey;
+      }
   },
 
 

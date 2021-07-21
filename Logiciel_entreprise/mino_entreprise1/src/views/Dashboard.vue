@@ -8,9 +8,9 @@
                     <v-col cols="12" md="3" lg="3">
                         <div class="numberWrapper">
                             <div class="N-icon">
-                                <v-icon color="mainGreenColor">mdi-calendar</v-icon>
+                                <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
                             </div>
-                            <h1>45.k</h1>
+                            <h1>{{Analytics.declaredTravelNumber}}</h1>
                             <h5>voyages declarés</h5>
                         </div>
                     </v-col>
@@ -19,7 +19,7 @@
                             <div class="N-icon">
                                 <v-icon color="mainGreenColor">mdi-account-group</v-icon>
                             </div>
-                            <h1>45.k</h1>
+                            <h1>{{Analytics.clientsNumber}}</h1>
                             <h5>clients</h5>
                         </div>
                     </v-col>
@@ -28,7 +28,7 @@
                             <div class="N-icon">
                                 <v-icon color="mainGreenColor">mdi-archive</v-icon>
                             </div>
-                            <h1>45.k</h1>
+                            <h1>{{Analytics.findThingNumber}}</h1>
                             <h5>objets trouvés</h5>
                         </div>
                     </v-col>
@@ -37,7 +37,7 @@
                             <div class="N-icon">
                                 <v-icon color="mainGreenColor">mdi-truck-delivery</v-icon>
                             </div>
-                            <h1>45.k</h1>
+                            <h1>{{Analytics.expeditionDo}}</h1>
                             <h5>colis expédiés</h5>
                         </div>
                     </v-col>
@@ -46,7 +46,8 @@
                     <v-col cols="12" md="9" lg="9">
                         <p class="sectionTitle">Statistique</p>
                         <div class="statWrapper">
-                            <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
+                            <apexchart height="100%" :options="chartOptions" :series="Analytics.GraphData.series"></apexchart>
+                            <!-- <apexchart height="100%" :options="chartOptions" :series="series"></apexchart> -->
                         </div>
                     </v-col>
                     <v-col cols="12" md="3" lg="3">
@@ -76,8 +77,8 @@
 
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Dashboard",
   components: {
@@ -88,15 +89,15 @@ data: () => ({
     /* FOR  SERVICE STATS */
     series: [{
     name: 'series7',
-    data: [31, 40, 28, 51, 42, 109, 100]
+    data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
     },
     {
     name: 'series2',
-    data: [11, 32, 45, 32, 34, 52, 41]
+    data: [11, 32, 22, 12, 30, 52,0, 32, 45, 33, 14, 22]
     },
     {
     name: 'series3',
-    data: [20, 50, 10, 83, 56, 22, 38]
+    data: [20, 50, 10, 83, 56, 22,20, 50, 20, 19, 30, 120]
     }],
 
     chartOptions: {
@@ -114,14 +115,16 @@ data: () => ({
         curve: 'smooth'
     },
     xaxis: {
-        type: 'datetime',
-        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+        // type: 'datetime',
+        // categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct']
+        categories: monthXaxis()
+
     },
-    tooltip: {
-        x: {
-        format: 'dd/MM/yy HH:mm'
-        },
-    },
+    // tooltip: {
+    //     x: {
+    //     format: 'dd/MM/yy'
+    //     },
+    // },
     },
 
 
@@ -158,6 +161,33 @@ data: () => ({
     },
   }),
   
+
+
+
+
+
+ methods: {
+
+  // ------------------------
+    // DATA
+  // ------------------------
+    monthXaxis () { 
+        this.Analytics.GraphData.month
+    },
+
+  },
+
+
+
+
+
+
+ computed:{
+    ...mapGetters([
+      'Analytics',
+    ])
+  },
+
 
 };
 

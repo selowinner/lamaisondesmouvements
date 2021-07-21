@@ -21,20 +21,20 @@
                         <v-text-field  background-color="#3e886d4a" solo  height="70"  v-model="newTravel_1.departure_time" ref="dep_time" type="time"   label="Heure départ" persistent-hint required></v-text-field>
                       </v-col>
                       <v-col cols="12" md="6" lg="6">
-                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                        <v-text-field   solo  append-icon="mdi-car-seat" height="70"  v-model="newTravel_1.total_car_place_number" ref="pla_number" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
                       </v-col>
                       <v-col cols="12" md="6" lg="6">
-                        <v-text-field  background-color="#3e886d4a" solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.car_informations" ref="car_infos" type="text"   label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
+                        <v-text-field  background-color="#3e886d4a" solo  append-icon="mdi-clipboard-text" height="70"  v-model="newTravel_1.car_informations" ref="car_infos" type="text"   label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
                       </v-col>
                       <v-col cols="12" md="6" lg="6">
-                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.car_matriculation" ref="car_matri" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
+                        <v-text-field   solo  append-icon="mdi-numeric" height="70"  v-model="newTravel_1.car_matriculation" ref="car_matri" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
                       </v-col>
                       <v-col cols="12" md="6" lg="6">
-                        <v-text-field  background-color="#3e886d4a" solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.place_price" ref="pl_price" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
+                        <v-text-field  background-color="#3e886d4a" solo  append-icon="mdi-cash-multiple" height="70"  v-model="newTravel_1.place_price" ref="pl_price" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
                       </v-col>
 
                       <v-col cols="12" md="6" lg="6">
-                        <v-text-field   solo  append-icon="mdi-map-marker" height="70"  v-model="newTravel_1.Intemediatestation" ref="st_inter" type="text"   label="atation intermediaires"  persistent-hint required></v-text-field>
+                        <v-text-field   solo  append-icon="mdi-bus-stop" height="70"  v-model="newTravel_1.Intemediatestation" ref="st_inter" type="text"   label="atation intermediaires"  persistent-hint required></v-text-field>
                       </v-col>
 
                       <v-col cols="12" md="6" lg="6">
@@ -50,14 +50,14 @@
                   <div class="N-icon">
                       <v-icon color="mainGreenColor">mdi-bus</v-icon>
                   </div>
-                  <h1>46</h1>
+                  <h1>{{Analytics.declaredTravelNumber}}</h1>
                   <h5>voyages declarés</h5>
                 </div>
                  <div class="stat1">
                   <div class="N-icon">
                       <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
                   </div>
-                  <h1>22</h1>
+                  <h1>{{Analytics.cancellingTravelNumber}}</h1>
                   <h5>voyages Annulés</h5>
                 </div>
               </v-col>
@@ -88,6 +88,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapGetters } from "vuex";
 
 export default {
   name: "TravelDeclaration",
@@ -187,6 +188,17 @@ export default {
 
 
   },
+
+
+
+
+
+  computed:{
+    ...mapGetters([
+      'Analytics',
+    ])
+  },
+
 
 };
 

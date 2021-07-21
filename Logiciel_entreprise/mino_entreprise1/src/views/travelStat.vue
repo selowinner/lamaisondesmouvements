@@ -187,12 +187,12 @@ data: () => ({
     series: [{
     name: 'series7',
     type:'area',
-    data: [31, 40, 28, 51, 42, 109, 100]
+    data: [31, 40, 28, 51, 42, 109, 100, 40, 28, 51, 42, 109]
     },
     {
     name: 'series2',
     type:'bar',
-    data: [11, 32, 45, 32, 34, 52, 41]
+    data: [11, 32, 45, 32, 34, 52, 41, 32, 45, 32, 34, 52]
     }],
 
      productchartOptions: {
@@ -224,7 +224,7 @@ data: () => ({
           curve: 'smooth'
         },
         xaxis: {
-          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct'],
         },
         yaxis: {
           

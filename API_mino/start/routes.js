@@ -58,7 +58,8 @@ Route.get('reimbursement/Liste', 'General/ReimbursementController.getReimburseme
 // Lost objet declaratiion For Client
 Route.post('lostObjet/add', 'LostObjet/DeclarationController.add')
 
-// Lost objet For Companies
+// Lost objet For Companies Station
+Route.put('lostObjet/statUpdate', 'lostObjet/DeclarationController.updateState')
 
 
 
@@ -143,6 +144,8 @@ Route.post('user/logout', 'User/UserController.logout')
 
 
 
+
+
 /*
 ---------------------------------
 ----- ALL ROUTES WITH PARAMS ----
@@ -167,3 +170,15 @@ Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTrav
 // LOST OBJETS MANAGEMENT
 // lost Objets For Companies
 Route.get('lostObjet/Liste/:id', 'LostObjet/DeclarationController.getListeOfLostObjet')
+
+
+
+
+/*
+----------------------------
+-----ANALYTICS MANAGEMENT ----
+-----------------------------
+*/
+// For Companies Station
+Route.get('analytics/:id', 'General/ConpaniesStationStatController.getDashboadStat')
+

@@ -138,6 +138,32 @@ class DeclarationController {
     }
 
 
+    async updateState({request, response}){
+
+        // GET DATA
+        const body = request.all()
+
+        // DATA VALIDATION
+        const rules = {
+            id: 'required', 
+        }
+        const bodyValidation = await validateAll(body, rules)
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué dajouter lID de la declaration' }
+        }
+        
+        /* Declaration Adding */
+        const LostObjet = new Object()
+        LostObjet.declaration_state = 1
+        
+        const TheLostObjet = await LostObjets.find(body.id)
+        TheLostObjet.merge(LostObjet)
+        await TheLostObjet.save()
+        return { message: 'success' }
+
+    }
+
+
 
 
 

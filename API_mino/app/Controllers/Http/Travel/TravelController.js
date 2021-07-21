@@ -429,9 +429,9 @@ class TravelController {
             /* Verify if is not alway existe a revservation for this travel */
             const travelReservation = await Tickets.query().where('travel_id', body.id).where('ticket_state_id', 1).count()
             const TravelReservationNumber = travelReservation[0]['count(*)']
-
+            
             if (TravelReservationNumber > 0) {
-                return { message: 'des reservations ont déjà été faites pour ce voyage, la modification la modification du départ, de la date et du prix  n est donc plus possible' }
+                return { message: 'des reservations ont déjà été faites pour ce voyage,  la modification du départ, de la date et du prix  n est donc plus possible' }
             }
     
             
@@ -447,7 +447,7 @@ class TravelController {
             
             // PAS ENCORE TESTE 
              if (TravelReservationNumber > body.place_to_sell_by_mino_number) {
-                 return { message: 'Impossible ! le nouveau nombre de place à ajouter inférieur au nombre de place déjà reservée' }
+                 return { message: 'Impossible ! le nouveau nombre de place à ajouter est inférieur au nombre de place déjà reservée' }
              }else if ((body.place_to_sell_by_mino_number > TravelReservationNumber  ) && (body.place_to_sell_by_mino_number < numberOfPlaceTosell.place_to_sell_by_mino_number )){
                  /* reduction of place de to sell */
                  console.log('poplplpoop');
@@ -474,16 +474,20 @@ class TravelController {
         } 
 
 
+       
         //  CHECK TO SEE IF IT IS NECESSARY TO UPDATE THE GENERAL NUMBER OF PLACE
-        const CompagnieOption = await companies.query().where('id', numberOfPlaceTosell.company_id).select('use_option_id').first()
-        if (CompagnieOption.use_option_id == 1) {
-            body.total_car_place_number = body.place_to_sell_by_mino_number
-        }
-
+        // const CompagnieOption = await companies.query().where('id', numberOfPlaceTosell.company_id).select('use_option_id').first()
+        // if (CompagnieOption.use_option_id == 1) {
+        //     body.total_car_place_number = body.place_to_sell_by_mino_number
+        // }
+        console.log(body);
         const TheTravel = await Travels.find(body.id)
+        
+
         TheTravel.merge(body)
+        console.log(TheTravel);
         await TheTravel.save()
-        return { message: 'les modification ont été prises en compte' }
+        return { message: 'success' }
 
 
         //  ENCLENCHER LA PROCEDURE DE REMBOURSEMENT
@@ -514,7 +518,7 @@ class TravelController {
         
         const travelReservation = await Tickets.query().where('travel_id', body.travel_id).where('ticket_state_id', 2).count()
         const TravelReservationNumber = travelReservation[0]['count(*)']
-
+        console.log(TravelReservationNumber);
         if ((TravelReservationNumber > 0) && body.comfirmation) {
             // annulation avec remboursement
             const TheTravel = await Travels.find(body.travel_id)
@@ -560,7 +564,7 @@ class TravelController {
         }else if (TravelReservationNumber > 0) {
             console.log(TravelReservationNumber);
             // demande de confirmation d'annulation
-            return { message: 'des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés' }
+            return { message: 'confirmation' }
         
         }else if (TravelReservationNumber == 0) {
             // annlation simple, simple remboursement

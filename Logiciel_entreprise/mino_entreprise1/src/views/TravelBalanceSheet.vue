@@ -10,14 +10,14 @@
                 <div class="N-icon">
                     <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
                 </div>
-                <h1>45</h1>
-                <h5>voyages éffectués</h5>
+                <h1>{{Analytics.declaredTravelNumber}}</h1>
+                <h5>voyages Déclarés</h5>
               </div>
               <div class="stat1">
                 <div class="N-icon">
                     <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
                 </div>
-                <h1>32</h1>
+                <h1>{{Analytics.cancellingTravelNumber}}</h1>
                 <h5>voyages mannulés</h5>
               </div>
             </v-col>
@@ -50,6 +50,7 @@
 
 
 <script>
+import { mapGetters } from "vuex";
 import allTravelList from '../components/travelListe/allTravelList.vue'
 
 
@@ -83,6 +84,9 @@ export default {
 
 
    computed:{
+     ...mapGetters([
+      'Analytics',
+    ]),
     forceRerender() {
         return this.$store.state.travelcomponentKey;
         // console.log(this.componentKey);

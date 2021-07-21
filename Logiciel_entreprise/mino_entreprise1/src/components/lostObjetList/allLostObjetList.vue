@@ -8,63 +8,58 @@
             <v-card-text>
             <v-container>
                 <div class="imgAndTitle">
-                <p>GESTION DES TICKETS</p>
-                <p>Bilan des voyages-détails</p>
+                <p>GESTION DES OBJETS EGARES</p>
+                <!-- <p>Bilan des voyages-détails</p> -->
                 </div>
                 <div class="statElment">
                 <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
                     <h2>INFORMATIONS</h2>
-                    <h4>{{ editedItem.details.vendus }} </h4>
+                    <h4> {{editedItem.description}} </h4>
                 </div>
                 </div>
-                <div class="statElment">
+                <div class="statElment" v-if="editedItem.departure_place">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>PROPRIETAIRE</h2>
-                    <h4>nombre de tickets à vendre</h4>
+                    <h2>LIEU DE DEPART</h2>
+                    <h4>{{editedItem.departure_place}}</h4>
                 </div>
                 </div>
-                <div class="statElment">
+                <div class="statElment" v-if="editedItem.car_Information">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>DESCRIPTION DE L'OBJET</h2>
-                    <h4>nombre de tickets restant</h4>
+                    <h2>INFORMATION DU CAR</h2>
+                    <h4><b>Matricule :</b> {{editedItem.car_Information.car_matriculation}} </h4>
+                    <h4><b>Heure de départ :</b> {{editedItem.car_Information.departure_time}} </h4>
                 </div>
-                </div>
-                <div class="statElment statusChange">
-                 <v-radio-group class="statusChange" row  v-model="ex7"> <v-radio label="red" color="error" value="red"></v-radio> <v-radio label="success" color="mainGreenColor" value="success"></v-radio> </v-radio-group>
                 </div>
             </v-container>
             </v-card-text>
-            <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-            <v-card-text>
-            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-            </v-card-text>
-
-            <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Disagree
-            </v-btn>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Agree
-            </v-btn>
-            </v-card-actions> -->
+            
         </v-card>
         </v-dialog>
 
+        <!-- CHANGE STATE DIALOG -->
+        <v-dialog v-model="dialogChangeState" max-width="420">
+        <v-card>
+            <v-card-text>
+            <div class="confirmTitle">
+              OBJET TROUVE
+            </div>
+            <v-container>
+                <div class="CancelVerification">
+                 Nous rappelons que l'objet <b> {{editedItem.nature}}</b>, égaré par le porteur du numero <b>{{editedItem.contact}}</b>
+                  ce décrit comme <br> <b>{{editedItem.description}}</b>  <br> <br>
+                    <span style="font-weight:bold; color:#b71c1c;">Avez-vous vraiment Retrouvé <br> l'objet ?</span> 
+                </div>
+                <div class="verificationAction">
+                <v-btn color="Titlecolor" rounded depressed @click="dialogChangeState = !dialogChangeState" style="color:white">Non</v-btn>
+                <v-btn color="mainGreenColor" rounded depressed @click="UpdateConfirm" style="color:white">Oui</v-btn>
+                </div>
+            </v-container>
+            </v-card-text>
+        </v-card>
+        </v-dialog>
 
         <!-- THE SEACH BAR -->
         <v-row>
@@ -78,18 +73,30 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
         <v-btn  icon color="mainGreenColor"  @click="showItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
-        <v-btn  icon color="mainGreenColor"  @click="showItem(item)"><v-icon small> mdi-lead-pencil </v-icon></v-btn>
-        <v-btn  icon color="mainGreenColor"  @click="showItem(item)"><v-icon small> mdi-trash-can </v-icon></v-btn>
+        <v-btn  icon color="mainGreenColor"  @click="selectedItem(item)" v-if="item.declaration_state == 0"><v-icon small> mdi-list-status </v-icon></v-btn>
         </template>
-        <template v-slot:[`item.destination`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-        <v-icon dense color="mainGreenColor"> mdi-map-marker </v-icon> <span style="color: mainGreenColor;">{{item.contact}}</span>
+        <template v-slot:[`item.created_at`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+        <v-icon dense color="mainGreenColor"> mdi-calendar-clock </v-icon> <span style="color: mainGreenColor;">{{item.created_at}}</span>
         </template>
-        <template v-slot:[`item.departure_time`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-        <v-icon small> mdi-arrow-right </v-icon> {{item.departure_place}}
+        <template v-slot:[`item.contact`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+        <v-icon dense color="mainGreenColor"> mdi-cellphone-message </v-icon> {{item.contact}}
+        </template>
+        <template v-slot:[`item.declaration_state`]="{ item }">  <!-- modification avec CESINHIO -->
+            <!-- <v-chip :color="getColor(item.declaration_state)" dark>{{ item.declaration_state }}</v-chip> -->
+            <v-chip dark v-if="item.declaration_state == 0" color="#c16f6f">Pas retrouvé</v-chip>
+            <v-chip dark v-if="item.declaration_state == 1" color="#3e886db0"> <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon>Retrouvé</v-chip>
         </template>
         </v-data-table>
         </div>
 
+
+    <!-- ALERT -->
+    <transition name="slide">
+    <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor">{{this.objetUpdateResponse.message}}</v-alert>
+    </transition>
+    <transition name="slide"> 
+    <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error">{{this.objetUpdateResponse.message}}</v-alert>
+    </transition>
     </div>
     
 </template>
@@ -104,6 +111,7 @@
 
 
 <script>
+import Vue from 'vue'
 import { mapGetters } from "vuex";
 
 
@@ -119,37 +127,39 @@ export default {
     search: '',
     headers: [
         {
-          text: 'DESTINATION',
+          text: 'DATE',
           align: 'start',
           sortable: false,
-          value: 'destination',
+          value: 'created_at',
         },
-        { text: 'DEPARTURE DATE', value: 'departure_date' },
-        { text: 'DEPARTURE HEURE', value: 'departure_time' },
+        { text: 'NATURE', value: 'nature' },
+        { text: 'CONTACT', value: 'contact' },
+        { text: 'ETAT', value: 'declaration_state' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
     desserts: [
      
     ],
 
+
+    // for alerte
+     addingSuccess: false,
+    addingfalse : false,
+
+    
+
     // For travel detail
     dialog: false,
+    dialogChangeState: false,
      editedItem: {
-      destination: '',
-      departure_date:'',
-      departure_time: '',
-      details:{
-        vendus: 0,
-        aVendre: 0,
-        restant: 0,
-        annules: 0,
-        gains: 0
-      }
+      nature: '',
+      contact:'',
+      declaration_state: '',
     },
 
 
     // For lostObjet Status change
-    ex7: 'red',
+    objetUpdateResponse:'',
 
   }),
 
@@ -166,6 +176,47 @@ export default {
       this.dialog = true
     },
 
+  // ------------------------
+    // Update Travel State
+  // ------------------------
+    selectedItem (item) {
+      this.editedItem = Object.assign({}, item)
+      this.dialogChangeState = true
+    },
+
+    UpdateConfirm () {
+        Vue.prototype.$http.put('http://127.0.0.1:3333/lostObjet/statUpdate', this.editedItem)
+                .then(response =>{
+                  this.objetUpdateResponse = response.data
+                  if (this.objetUpdateResponse.message == "success" ) {
+                    // Modification effectuée
+                    this.objetUpdateResponse.message = "Etat modifié"
+                    this.addingSuccess = !this.addingSuccess
+                    setTimeout(() => {
+                        this.addingSuccess = !this.addingSuccess
+                        this.forceRerender()
+                    }, 3000);
+                  } else if (this.objetUpdateResponse.message != "success") {
+                    // Modification effectuée
+                    this.addingfalse = !this.addingfalse
+                    setTimeout(() => {
+                        this.addingfalse = !this.addingfalse
+                    }, 3000);
+                  }
+                })
+                .catch(error => {
+                  this.objetUpdateResponse = error.message;
+                  console.error("There was an error!", error);
+               });
+
+       this.dialogChangeState = !this.dialogChangeState
+    },
+
+
+    // For table re-render after delete or update an item
+    forceRerender() {
+        this.$store.state.lostObjetcomponentKey += 1
+      }
  
   },
 
@@ -296,7 +347,31 @@ export default {
 
 
 
-
+/* Confirme Delete travel */
+.confirmTitle{
+  background: var(--main-green-color);
+  color: white;
+  height: 30px;
+  font-size:18px;
+  padding: auto;
+  font-weight: bold;
+  line-height: 30px;
+  border-radius: 0px 0px 10px 10px;
+  /* margin-bottom: -30px; */
+  /* width: 420px; */
+  text-align: center;
+}
+.CancelVerification{
+  text-align: center;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+.verificationAction{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 
 
 
