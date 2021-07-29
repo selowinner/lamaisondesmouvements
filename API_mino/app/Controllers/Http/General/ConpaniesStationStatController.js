@@ -62,7 +62,7 @@ class ConpaniesStationStatController {
         analytics.lostThingNumber = lostThingNumber
 
         /* EXPEDITION DO*/
-        const expeditionClient2 = await Expeditions.query().where('company_id', params.id).where('expedition_state_id', 1).count()
+        const expeditionClient2 = await Expeditions.query().where('company_id', params.id).where('expedition_state_id', 6).count()
         const expeditionClientNumber2 = expeditionClient2[0]['count(*)']
         analytics.expeditionDo = expeditionClientNumber2
 
@@ -83,6 +83,8 @@ class ConpaniesStationStatController {
             .query()
             .innerJoin('Travels', 'travels.id', 'Tickets.travel_id')
             .where('company_id', params.id)
+            .where('annulation_state', 0)
+            .whereNot('ticket_state_id', 1)
             .whereBetween('Tickets.created_at', ['2021-01-01 00:00:00',  '2021-12-31 00:00:00'])
             .select('Tickets.id', 'Tickets.created_at')
             .fetch()

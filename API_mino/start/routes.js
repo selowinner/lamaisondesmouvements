@@ -108,6 +108,15 @@ Route.post('expedition/listOfLuggagePrices', 'Luggage/LuggageController.getListO
 Route.post('expedition/addstep2', 'Expedition/ExpeditionController.addstep2')
 
 
+// Expedition for Companies stations
+Route.put('expedition/ExpeditionStatUpdate', 'Expedition/ExpeditionController.updateExpeditionState')
+
+//  Sender for Companies stations
+Route.post('expedition/addsender', 'Expedition/DeliveryManController.add')
+Route.put('expedition/senderUpdate', 'Expedition/DeliveryManController.updateProfil')
+Route.put('expedition/senderCancel', 'Expedition/DeliveryManController.CancelSender')
+
+
 
 
 
@@ -159,6 +168,7 @@ Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListFo
 
 // Reservation For Companies
 Route.get('travel/Liste/:id', 'Travel/TravelController.getListeOfTravel')
+Route.get('travel/getTravelAnalytics/:id', 'Travel/TravelController.getTravelAnalytics')
 //------------ Traveler list  for conveyor
 Route.get('traveler/Liste/:id', 'General/ReservationController.getListeOfTraveler')
 Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTravelerEmbarcationStatut')
@@ -170,6 +180,28 @@ Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTrav
 // LOST OBJETS MANAGEMENT
 // lost Objets For Companies
 Route.get('lostObjet/Liste/:id', 'LostObjet/DeclarationController.getListeOfLostObjet')
+
+
+
+
+/*
+----------------------------
+-----EXPEDITION MANAGEMENT ----
+-----------------------------
+*/
+// For Companies Station
+Route.get('expedition/senderList/:id', 'Expedition/DeliveryManController.getSenderList')
+Route.get('expedition/expeditionList/:id', 'Expedition/ExpeditionController.getExpeditionList')
+// Expedition for Companies stations
+
+
+
+
+
+
+
+
+
 
 
 

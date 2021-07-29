@@ -45,9 +45,9 @@
                 <v-row>
                     <v-col cols="12" md="9" lg="9">
                         <p class="sectionTitle">Statistique</p>
-                        <div class="statWrapper">
-                            <apexchart height="100%" :options="chartOptions" :series="Analytics.GraphData.series"></apexchart>
-                            <!-- <apexchart height="100%" :options="chartOptions" :series="series"></apexchart> -->
+                        <div class="statWrapper" v-if="showChart">
+                            <!-- <apexchart height="100%" :options="chartOptions" :series="Analytics.GraphData.series"></apexchart> -->
+                            <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
                         </div>
                     </v-col>
                     <v-col cols="12" md="3" lg="3">
@@ -86,45 +86,43 @@ export default {
   },
 
 data: () => ({
-    /* FOR  SERVICE STATS */
-    series: [{
-    name: 'series7',
-    data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
-    },
-    {
-    name: 'series2',
-    data: [11, 32, 22, 12, 30, 52,0, 32, 45, 33, 14, 22]
-    },
-    {
-    name: 'series3',
-    data: [20, 50, 10, 83, 56, 22,20, 50, 20, 19, 30, 120]
-    }],
+    /* FOR  SERVICE STATS */  
+    showChart: false,
+
+    series: [
+    //     {
+    // name: 'series7',
+    // data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
+    // },
+    // {
+    // name: 'series2',
+    // data: [11, 32, 22, 12, 30, 52,0, 32, 45, 33, 14, 22]
+    // },
+    // {
+    // name: 'series3',
+    // data: [20, 50, 10, 83, 56, 22,20, 50, 20, 19, 30, 120]
+    // }
+    ],
 
     chartOptions: {
-    chart: {
-        type: 'area',
-        sparkline: {
-        enabled: true,
+        chart: {
+            id: 'FirstChart',
+            type: 'area',
+            sparkline: {
+            enabled: true,
+            }            
         },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    colors:['#3e886d', '#4c5d70', '#b6bbc2'],
-    stroke: {
-        curve: 'smooth'
-    },
-    xaxis: {
-        // type: 'datetime',
-        // categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct']
-        categories: monthXaxis()
-
-    },
-    // tooltip: {
-    //     x: {
-    //     format: 'dd/MM/yy'
-    //     },
-    // },
+        dataLabels: {
+            enabled: false
+        },
+        colors:['#3e886d', '#4c5d70', '#b6bbc2'],
+        stroke: {
+            curve: 'smooth'
+        },
+        xaxis: {
+            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct']
+        },
+    
     },
 
 
@@ -164,16 +162,32 @@ data: () => ({
 
 
 
+mounted() {
+    setTimeout(() => {
+        this.updateChart();
+        this.showChart = true;
+    }, 100);
+},
+
 
 
  methods: {
 
   // ------------------------
-    // DATA
+    // DATA  
   // ------------------------
-    monthXaxis () { 
-        this.Analytics.GraphData.month
-    },
+    updateChart() {
+        this.series = this.Analytics.GraphData.series
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+
+    }
+    
 
   },
 
@@ -189,7 +203,10 @@ data: () => ({
   },
 
 
+
 };
+
+
 
 
 </script>

@@ -4,6 +4,8 @@ import Vuex from "vuex";
 
 import travel from "./modules/travel";
 import lostObjet from "./modules/lostObjet";
+import expedition from "./modules/expedition";
+import senders from "./modules/senders";
 import analytics from "./modules/analytics";
 
 
@@ -14,6 +16,7 @@ export default new Vuex.Store({
   state: {
     travelcomponentKey:0,
     lostObjetcomponentKey:0,
+    sendercomponentKey:1,
   },
   getters: {},
   mutations: {},
@@ -22,6 +25,8 @@ export default new Vuex.Store({
   modules: {
     travel,
     lostObjet,
-    analytics
+    analytics,
+    expedition,
+    senders,
   },
 });

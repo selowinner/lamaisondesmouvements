@@ -256,11 +256,12 @@ export default {
 
 
 .tableWrapperDiv{
-  height: 62%;
+  height: 514px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
   padding: 25px;
+  padding-bottom: 50px;
 }
 .dataWrapper{
   height: 100%;

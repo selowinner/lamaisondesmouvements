@@ -8,121 +8,16 @@
 
                     <v-col cols="12" md="3" lg="3">
                         <div class="numberWrapper rightBox">
-                            <div class="travelsum">
+                            <div class="travelsum" v-for="item in TravelAnalytics.travelMade" :key="item.index">
                                 <div class="dest">
                                     <div class="N-iconForSumTravel">
                                         <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
                                     </div>
                                     <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
+                                        <p style="font-size:14px;"> {{item.destination}} </p>
                                         <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
-                                        </div>
-                                    </div>                            
-                                </div>
-                               
-                            </div>
-                            <div class="travelsum">
-                                <div class="dest">
-                                    <div class="N-iconForSumTravel">
-                                        <v-icon color="mainGreenColor" style="font-size:25px">mdi-bus-multiple</v-icon>
-                                    </div>
-                                    <div class="trueSum">
-                                        <p style="font-size:14px;">Petit-Yamoussoukro</p>
-                                        <div class="sum">
-                                            <p ><span class="pufff">150000 fr</span></p>
-                                            <p ><span class="pufff">70 Tickets</span></p>
+                                            <p ><span class="pufff"> {{item.totalGain}} fr</span></p>
+                                            <p ><span class="pufff"> {{item.ticketsSoldNumber}} Tickets</span></p>
                                         </div>
                                     </div>                            
                                 </div>
@@ -133,8 +28,8 @@
 
 
                     <v-col cols="12" md="6" lg="6">
-                        <div class="numberWrapper middleBox">
-                        <apexchart type="line" height="100%" :options="productchartOptions" :series="series"></apexchart>
+                        <div class="numberWrapper middleBox"  v-if="showChart">
+                        <apexchart height="100%" :options="productchartOptions" :series="series"></apexchart>
                         </div>
                     </v-col>
 
@@ -144,15 +39,15 @@
                             <div class="N-icon">
                                 <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
                             </div>
-                            <h1>45</h1>
-                            <h5>voyages éffectués</h5>
+                            <h1>{{TravelAnalytics.travelMadeTotalGain}}</h1>
+                            <h5>Gain Total</h5>
                         </div>
                         <div class="stat1">
                             <div class="N-icon">
                                 <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
                             </div>
-                            <h1>32</h1>
-                            <h5>voyages annulés</h5>
+                            <h1>{{TravelAnalytics.travelMadeNumber}}</h1>
+                            <h5>voyages éffectués</h5>
                         </div>
                     </v-col>
                 </v-row>
@@ -174,79 +69,158 @@
 
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
+import { mapGetters } from "vuex";
+
+
 export default {
   name: "TravelStat",
   components: {
     // HelloWorld
   },
 
-data: () => ({
+  data: () => ({
     /* FOR  SERVICE STATS */
-    series: [{
-    name: 'series7',
-    type:'area',
-    data: [31, 40, 28, 51, 42, 109, 100, 40, 28, 51, 42, 109]
-    },
-    {
-    name: 'series2',
-    type:'bar',
-    data: [11, 32, 45, 32, 34, 52, 41, 32, 45, 32, 34, 52]
-    }],
+    showChart: false,
+    tools:[],
 
-     productchartOptions: {
+    series: [
+        // {
+        // name: 'series7',
+        // type:'area',
+        // data: [31, 40, 28, 51, 42, 109, 100, 40, 28, 51, 42, 109]
+        // },
+        // {
+        // name: 'series2',
+        // type:'bar',
+        // data: [11, 32, 45, 32, 34, 52, 41, 32, 45, 32, 34, 52]
+        // }
+    ],
+
+    productchartOptions: {
         grid: {
         show: false,
         },
         chart: {
-          type: 'area',
-          toolbar: {
-          show: false,
-          },
-          
+        type: 'area',
+        toolbar: {
+        show: false,
+        },
+        
         },
         plotOptions: {
-          bar: {
+        bar: {
             horizontal: false,
             columnWidth: '15%',
             endingShape: 'rounded'
-          },
+        },
         },
         dataLabels: {
-          enabled: false
+        enabled: false
         },
-        colors:['#3e886d'],
+        colors:['#3e886d', '#4c5d70'],
         stroke: {
-          show: true,
-          width: 2,
-          // colors: ['transparent']
-          curve: 'smooth'
+        show: true,
+        width: 2,
+        // colors: ['transparent']
+        curve: 'smooth'
         },
         xaxis: {
-          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct'],
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct'],
         },
         yaxis: {
-          
+        
         },
         fill: {
-          opacity: [0.1, 1]
+        opacity: [0.1, 1]
         },
-        tooltip: {
-          y: {
-            formatter: function (val) {
-              return "$ " + val + " thousands"
-            }
-          }
-        }
-      },
+        // tooltip: {
+        // y: {
+        //     formatter: function (val) {
+        //     return "$ " + val + " thousands"
+        //     }
+        // }
+        // }
+    },
 
-  }),
+}),
+
+
+
+
+
+
+
+
+
+mounted() {
+    setTimeout(() => {
+        this.updateChart();
+        this.showChart = true;
+    }, 100);
+},
+
+
+
+ methods: {
+
+  // ------------------------
+    // DATA  
+  // ------------------------
+    updateChart() {
+        this.series = this.TravelAnalytics.GraphData.series
+        this.productchartOptions = {
+            ...this.productchartOptions, ...{
+                xaxis: {
+                    categories: this.TravelAnalytics.GraphData.month
+                }
+            }
+        }
+
+    }
+    
+
+  },
+
+
+
+computed:{
+    ...mapGetters([
+        'TravelAnalytics',
+    ])
+},
+
+
+created(){
+    this.$store.dispatch('init_travel_analitic')
+}
+
+
+
+
 
 };
 
 
+
+
+
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -282,7 +256,7 @@ data: () => ({
   width: 20px;
 }
 .rightBox::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #f9f9f9;
 }
 
 .rightBox::-webkit-scrollbar-thumb {

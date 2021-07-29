@@ -49,31 +49,6 @@
                 </div>
             </v-container>
             </v-card-text>
-            <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-            <v-card-text>
-            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-            </v-card-text>
-
-            <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Disagree
-            </v-btn>
-
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-                Agree
-            </v-btn>
-            </v-card-actions> -->
         </v-card>
         </v-dialog>
 
@@ -155,7 +130,7 @@
         </v-row>
         <!-- START DATA TABLE -->
         <div class="dataWrapper">
-        <v-data-table dense :headers="headers" :items="Travels" :search="search"  :items-per-page="-1" hide-default-footer>
+        <v-data-table dense :headers="headers" :items="Expeditions" :search="search"  :items-per-page="-1" hide-default-footer>
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
         <v-btn  icon color="mainGreenColor"  @click="showItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
@@ -201,13 +176,13 @@ export default {
     search: '',
     headers: [
         {
-          text: 'DESTINATION',
+          text: 'DATE DE DEMANDE',
           align: 'start',
           sortable: false,
-          value: 'destination',
+          value: 'created_at',
         },
-        { text: 'DEPARTURE DATE', value: 'departure_date' },
-        { text: 'DEPARTURE HEURE', value: 'departure_time' },
+        { text: 'QUARTIER', value: 'sender_neighborhood' },
+        { text: 'ETAPE', value: 'expedition_state_id' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
     desserts: [
@@ -349,12 +324,12 @@ export default {
 
   computed:{
     ...mapGetters([
-      'Travels',
+      'Expeditions',
     ])
   },
 
   created(){
-    this.$store.dispatch('init_travelListe')
+    this.$store.dispatch('init_expedition')
   }
 
 };
@@ -379,11 +354,12 @@ export default {
 
 
 .tableWrapperDiv{
-  height: 62%;
+  height: 514px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
   padding: 25px;
+  padding-bottom: 50px;
 }
 .dataWrapper{
   height: 100%;

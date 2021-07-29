@@ -2,10 +2,9 @@
 
 const { validateAll } = use('Validator')
 const Expeditions = use('App/Models/Expedition')
+const DeliveryMen = use('App/Models/DeliveryMan')
 const luggageTypes = use('App/Models/LuggageType')
-const Companies = use('App/Models/Company')
 const CompaniesStations = use('App/Models/CompaniesStation')
-const LuggagesPrice = use('App/Models/LuggagePriceByWeightAndSize')
 
 
 
@@ -15,6 +14,9 @@ const LuggagesPrice = use('App/Models/LuggagePriceByWeightAndSize')
 class ExpeditionController {
 
 
+    /////////////////////////////////////////////
+    /* FOR MOBILE APP */
+    ////////////////////////////////////////////
 
     async addstep1({request, response}){
 
@@ -215,6 +217,92 @@ class ExpeditionController {
 
 
 
+
+
+
+    ///////////////////////////////////////////////////////////
+    /* FOR THE COMPANIES SOFTWARE TOOL */
+    ///////////////////////////////////////////////////////////
+
+    async getExpeditionList({params, response}){
+
+        // GET THE TRAVEL LIST WITHOUT CANCELLING TRAVELS
+        const ListOfExpeditionNotInJson = await Expeditions
+        .query()
+        .where('company_id', params.id)
+        .fetch()
+
+        const ListOfExpedition = ListOfExpeditionNotInJson.toJSON()
+
+        for (let index = 0; index < ListOfExpedition.length; index++) {
+            // const element = ListOfExpedition[index];
+            if (ListOfExpedition[index].sender_delivery_man_id != null) {
+                const deliveryManNotInJson = await DeliveryMen
+                .query()
+                .where('id', ListOfExpedition[index].sender_delivery_man_id)
+                .select('complet_name', 'id')
+                .first()
+                let notinJSON = deliveryManNotInJson.toJSON()
+                ListOfExpedition[index].deliveryMan = notinJSON.complet_name
+                ListOfExpedition[index].deliveryManID = notinJSON.id
+            }
+        }
+
+        // RESPONSE
+         response.json({
+            message: 'success',
+            data: ListOfExpedition
+        })
+    }
+
+
+    async updateExpeditionState({request, response}){
+
+        // GET DATA
+        const body = request.all()
+        
+        // DATA VALIDATION         
+        const rules = {
+            id: 'required', 
+        }
+        const bodyValidation = await validateAll(body, rules)
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué de remplir un champs obligation' }
+        }
+
+        // UPDATE CASE
+        if (body.deliveryManID) {
+            // Lorsque le colis est en cours d'exécution, et que le gérant veux changer de livreur, 
+            // à cause du delais de recuperation qui a expiré
+            const updatedata = {
+                deliveryManID: body.deliveryManID,
+            }            
+        }else if (body.expedition_state_id == 3) {
+            // L'étape COLIS RECUPERE PAR LE LIVREUR est mise automatique lorsque le client valide le livreur. son idex est 3
+            // Passer à l'étape: COLIS RECUPERE PAR LA GARE. son index est 4
+            const updatedata = {
+                expedition_state_id: 4,
+            }
+            
+            // PENSER à ECRIRE UN ALGO POUR LES SMS
+        }
+        // const updatedata = {
+        //     complet_name: body.complet_name,
+        // }
+        
+
+
+        // const TheDeliveryMen = await Expeditions.find(body.id)
+        // // console.log(body);
+
+        // TheDeliveryMen.merge(updatedata)
+        // await TheDeliveryMen.save()
+
+        // RESPONSE
+         response.json({
+            message: 'success'
+        })
+    }
 
 
 

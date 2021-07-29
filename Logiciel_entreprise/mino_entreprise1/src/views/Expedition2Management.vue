@@ -8,17 +8,17 @@
             <v-col cols="12" md="3" lg="3" class="leftNumber">
               <div class="stat1">
                 <div class="N-icon">
-                    <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
+                    <v-icon color="mainGreenColor">mdi-truck-delivery</v-icon>
                 </div>
-                <h1>45</h1>
-                <h5>voyages éffectués</h5>
+                <h1>{{Analytics.expeditionDo}}</h1>
+                <h5>Colis Expédiés</h5>
               </div>
               <div class="stat1">
                 <div class="N-icon">
-                    <v-icon color="mainGreenColor">mdi-bus-alert</v-icon>
+                    <v-icon color="mainGreenColor">mdi-archive-arrow-down</v-icon>
                 </div>
-                <h1>32</h1>
-                <h5>voyages annulés</h5>
+                <h1>{{Analytics.expeditionNumber}}</h1>
+                <h5>Nombre d'expédition</h5>
               </div>
             </v-col>
             <v-col cols="12" md="9" lg="9">
@@ -50,6 +50,7 @@
 
 
 <script>
+import { mapGetters } from "vuex";
 import allExpeditionList from '../components/expeditionList/allExpeditionList.vue'
 
 
@@ -79,7 +80,9 @@ export default {
 
 
    computed:{
-    
+    ...mapGetters([
+      'Analytics',
+    ])
   },
 
 

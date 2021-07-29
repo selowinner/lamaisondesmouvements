@@ -582,6 +582,169 @@ class TravelController {
         
     }
 
+
+
+    async getTravelAnalytics({params, response}){
+        // INIT
+        const travelAnalytics = new Object();
+        travelAnalytics.travelMadeTotalGain = 0
+
+        // CURRENT DATE
+        const CurrentDate =  new Date()
+        const CurrentDateInMilliseconds = CurrentDate.getTime()
+        const CurrentYear = CurrentDate.getFullYear()
+        const yearLimitOne  = CurrentYear + "-01-01" 
+        const yearLimitTwo  = CurrentYear + "-12-31" 
+
+        const currentMonthPlusOne = CurrentDate.getMonth()+1
+        const TheCurrentDay = CurrentYear + "-" + currentMonthPlusOne  + "-" + CurrentDate.getDate() 
+
+
+        /*-----------------*/
+        // FOR TRAVEL MADE
+        /*-----------------*/
+
+        // Step1: GET THE CURRENT PERIOD TRAVEL LIST WITHOUT CANCELLING TRAVELS
+        // Utilisé aussi pour le graph
+        const thisYearsTravelNotInJSON = await Travels.query()
+        .where('company_id', params.id)
+        .where('annulation_state', 0)
+        .whereBetween('created_at', [yearLimitOne,  yearLimitTwo])
+        .select('id', 'created_at', 'destination', 'place_price', 'departure_date')
+        .fetch()
+        const thisYearsTravel = thisYearsTravelNotInJSON.toJSON()
+
+        // GET TRAVEL MADE
+        const travelMade = []
+        for (let index = 0; index < thisYearsTravel.length; index++) {
+            const tempsLa =  new Date(thisYearsTravel[index].departure_date); 
+            if (CurrentDateInMilliseconds > tempsLa.getTime() ) {
+                travelMade.push(thisYearsTravel[index])
+            }      
+        }
+        travelAnalytics.travelMadeNumber = travelMade.length
+
+
+        // GAIN AND TICKETS SOLD BY TRAVEL MADE
+        for (let index = 0; index < travelMade.length; index++) {
+            // GET ALL TICKET whereNot
+            const allTicketsNotInJson = await Tickets
+                .query()
+                .where('travel_id', travelMade[index].id)
+                .andWhereNot('ticket_state_id', 1)
+                .fetch()
+            const allTickets = allTicketsNotInJson.toJSON()
+            travelMade[index].ticketsSoldNumber = allTickets.length
+            
+            // GET GAIN GAIN OF EACH TICKET 
+            if (allTickets.length > 0) {
+                let totalGain = 0
+                for (let i = 0; i < allTickets.length; i++) {
+                    // const element = allTickets[i];
+                    const gain_A = await ReservationReceipts
+                        .query()
+                        .where('tickets_id', allTickets[i].id)
+                        .first()
+                    const gain = gain_A.toJSON() 
+                    totalGain += gain.total__price
+                }
+                travelMade[index].totalGain = totalGain
+                travelAnalytics.travelMadeTotalGain += totalGain
+            }else{
+                travelMade[index].totalGain = 0
+            }
+        }
+
+        travelAnalytics.travelMade = travelMade
+
+
+
+        /*-----------------*/
+        // FOR GRAPH
+        /*-----------------*/
+
+         // GET THE CURRENT PERIOD TICKET LIST WITHOUT CANCELLING TRAVELS
+         const thisTicketsTNotInJSON = await Tickets
+         .query()
+         .innerJoin('Travels', 'travels.id', 'Tickets.travel_id')
+         .where('company_id', params.id)
+         .whereNot('ticket_state_id', 1)
+         .whereBetween('Tickets.created_at', [yearLimitOne,  yearLimitTwo])
+         .select('Tickets.id', 'Tickets.created_at')
+         .fetch()
+         const thisTicketsTravel = thisTicketsTNotInJSON.toJSON()
+    
+         // STEP 1: init the month table
+        /*Current month*/ 
+        // let currentdate = new Date();
+        // const currentmonth = currentdate.getMonth()+1
+
+         /*Initialisation*/ 
+        let monthTable = []
+        for (let index = 0; index < currentMonthPlusOne; index++) {
+            monthTable[index] = {'month': index + 1, 'data': [0,0]}   
+        }
+
+
+        // STEP 2: converte creat at .....
+        /*For tickets sold*/
+        for (let index = 0; index < thisTicketsTravel.length; index++) {
+            // Get the month
+            let date = new Date(thisTicketsTravel[index].created_at);
+            var month = date.getMonth()+1
+            // Verify if there are a corresponding on monthTable
+            for (let index = 0; index < monthTable.length; index++) {   
+                if (monthTable[index].month == month) {
+                    monthTable[index].data[0] += 1
+                }
+            }                      
+        }
+
+        /*For Travel*/
+        for (let index = 0; index < thisYearsTravel.length; index++) {
+            // Get the month
+            let date = new Date(thisYearsTravel[index].created_at);
+            var month = date.getMonth()+1
+            // Verify if there are a corresponding on monthTable
+            for (let index = 0; index < monthTable.length; index++) {   
+                if (monthTable[index].month == month) {
+                    monthTable[index].data[1] += 1
+                }
+            }                      
+        }
+
+
+        // STEP 3: Extract data 
+        let GraphData = {'series': [{'name': 'Tickets vendus', 'data':[]},{'name': 'voyage effectué', 'data':[]}, ], 'month': []}
+        let MonthInLetter = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+        
+        for (let index = 0; index < monthTable.length; index++) {
+            GraphData.series[0].data[index] = monthTable[index].data[0] 
+            GraphData.series[1].data[index] = monthTable[index].data[1] 
+
+            GraphData.month[index] = MonthInLetter[index]
+        }
+
+
+        travelAnalytics.GraphData = GraphData
+
+
+
+         /*-----------------*/
+        // RESPONSE
+        /*-----------------*/
+        response.json({
+            message: 'success',
+            data: travelAnalytics
+        })
+        
+
+        
+    }
+
+
+
+
 }
 
 module.exports = TravelController
