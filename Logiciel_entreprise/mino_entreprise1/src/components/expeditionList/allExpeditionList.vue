@@ -9,42 +9,39 @@
             <v-card-text>
             <v-container>
                 <div class="imgAndTitle">
-                <p>GESTION DES TICKETS</p>
-                <p>Bilan des voyages-détails</p>
                 </div>
                 <div class="statElment">
                 <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2> {{ editedItem.details.vendus }} TICKETS</h2>
-                    <h4>nombre de tickets vendus</h4>
+                    <h2>LKLLPKSJFDNIK KNKDNKL</h2>
                 </div>
                 </div>
                 <div class="statElment">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>{{ editedItem.details.aVendre }} TICKETS</h2>
-                    <h4>nombre de tickets à vendre</h4>
+                    <h2>INFORMATION</h2>
+                    <h4>poids: {{editedItem.package_weight}} kg / taille: {{editedItem.package_size}} m</h4>
                 </div>
                 </div>
                 <div class="statElment">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>{{ editedItem.details.restant }} TICKETS</h2>
-                    <h4>nombre de tickets restant</h4>
+                    <h2>EXPEDITEUR</h2>
+                    <h4> {{editedItem.sender_complet_name}} /  {{editedItem.sender_city}}, {{editedItem.sender_neighborhood}} /  {{editedItem.sender_contact}} </h4>
                 </div>
                 </div>
                 <div class="statElment">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>{{ editedItem.details.annules }} TICKETS</h2>
-                    <h4>nombre de tickets annulés</h4>
+                    <h2>EXPEDITEUR</h2>
+                    <h4> {{editedItem.recipient_complet_name}} /  {{editedItem.recipient_city}}, {{editedItem.recipient_neighborhood}} /  {{editedItem.recipient_contact}} </h4>
                 </div>
                 </div>
-                <div class="statElment">
+                <div class="statElment" v-if="editedItem.deliveryMan">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>{{ editedItem.details.gains }} TICKETS</h2>
-                    <h4>gains total des ventes de tickets</h4>
+                    <h2>LIVREUR</h2>
+                    <h4>{{editedItem.deliveryMan}} </h4>
                 </div>
                 </div>
             </v-container>
@@ -52,72 +49,30 @@
         </v-card>
         </v-dialog>
 
-        <!-- DELETE TRAVEL DIALOG -->
-        <v-dialog v-model="dialogDelete" max-width="420">
+        <!-- CHOOSE SENDER DIALOG -->
+        <v-dialog v-model="choiceDialog" scrollable max-width="300">
         <v-card>
-            <v-card-text>
-            <v-container>
-                <div class="imgAndTitle deleteIMG">
-                <p>GESTION DES TICKETS</p>
-                <p>Bilan des voyages-annulation</p>
-                </div>
-                <div class="CancelVerification">
-                    voulez-vous vraiment annuler <br> ce voyage ?
-                </div>
-                <div class="verificationAction">
-                <v-btn color="Titlecolor" rounded depressed @click="closeDelete" style="color:white">Non</v-btn>
-                <v-btn color="mainGreenColor" rounded depressed @click="deleteItemConfirm" style="color:white">Oui</v-btn>
-                </div>
+          <v-card-title>Livreurs disponibles</v-card-title>
+          <v-divider></v-divider>
+            <v-card-text style="max-height: 500px;">
+            <v-container><!-- v-model="senderChoose" -->
+               <v-radio-group v-model="choiceSender" column>
+                <v-radio :value="item.id" v-for="item in AvailableSenders" :key="item.index">
+                <template v-slot:label>
+                  <div class="radioItem">
+                    <p><strong>{{item.complet_name}}</strong></p>
+                    <p><v-icon color="mainGreenColor" small>mdi-car-multiple</v-icon> {{item.conveyance}}</p>
+                    <p><v-icon color="mainGreenColor" small>mdi-map-marker</v-icon>yopougon niagon</p>
+                  </div>
+                </template>
+                </v-radio> 
+               </v-radio-group>
             </v-container>
             </v-card-text>
-        </v-card>
-        </v-dialog>
-
-        <!-- EDIT TRAVEL DIALOG -->
-        <v-dialog v-model="dialogEdit" max-width="420">
-        <v-card>
-            <v-card-text>
-            <v-container>
-                <div class="imgAndTitle deleteIMG editIMGO">
-                <p>GESTION DES TICKETS</p>
-                <p>Bilan des voyages-modification</p>
-                </div>
-                <form class="updateForm">
-                    <v-container fluid>
-                        <v-row>
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined  ref="dest_place" type="text"   label="Destination" persistent-hint required></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined ref="dep_time" type="time"   label="Heure départ" persistent-hint required></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined  ref="pla_number" type="number"   label="Nombre de place à disponible"  persistent-hint required></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined ref="car_infos" type="text"   label="type de car. ex: climatisé, dernière generation ..." persistent-hint required></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined ref="car_matri" type="text"   label="Matricule du car" persistent-hint required></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined  ref="pl_price" type="number"   label="Prix du ticket"  persistent-hint required></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" md="12" lg="12">
-                            <v-text-field  outlined ref="st_inter" type="text"   label="atation intermediaires"  persistent-hint required></v-text-field>
-                        </v-col>
-                        </v-row>
-                    </v-container>
-                </form>
-            </v-container>
-            </v-card-text>
-
             <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="Titlecolor" rounded depressed @click="closeEdit" style="color:white">Annuler</v-btn>
-            <v-btn color="mainGreenColor" rounded depressed @click="save" style="color:white">Enregistrer</v-btn>
-        
+              <v-spacer></v-spacer>
+              <v-btn color="Titlecolor" rounded depressed @click="closeChooseSender" style="color:white">Annuler</v-btn>
+              <v-btn color="mainGreenColor" rounded depressed @click="UpdateExpedition" style="color:white">Enregistrer</v-btn>
             </v-card-actions>
         </v-card>
         </v-dialog>
@@ -134,8 +89,11 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
         <v-btn  icon color="mainGreenColor"  @click="showItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
-        <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-lead-pencil </v-icon></v-btn>
-        <v-btn  icon color="mainGreenColor"  @click="deleteItem(item)"><v-icon small> mdi-trash-can </v-icon></v-btn>
+        <v-btn color="#848383" style="color:white"  @click="ChooseSender(item)" rounded small v-if="item.expedition_state_id == 2">Choisir livreur</v-btn>
+        <v-btn color="#848383" style="color:white"  @click="ChooseSender(item)" rounded small v-if="item.expedition_state_id == 7">changer de livreur</v-btn>
+        <v-btn color="#848383" style="color:white" @click="SimpleUpdateBigining(item)" rounded small v-if="item.expedition_state_id == 3">Acheminé</v-btn>
+        <v-btn color="#848383" style="color:white" @click="SimpleUpdateBigining(item)" rounded small v-if="item.expedition_state_id == 4"> livré à la gare</v-btn>
+        <v-btn color="mainGreenColor" style="color:white" @click="SimpleUpdateBigining(item)" rounded small v-if="item.expedition_state_id == 5">Récupéré</v-btn>
         </template>
         <template v-slot:[`item.destination`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
         <v-icon dense color="mainGreenColor"> mdi-map-marker </v-icon> <span style="color: mainGreenColor;">{{item.destination}}</span>
@@ -143,9 +101,27 @@
         <template v-slot:[`item.departure_time`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
         <v-icon small> mdi-arrow-right </v-icon> {{item.departure_time}}
         </template>
+        <template v-slot:[`item.expedition_state_id`]="{ item }">
+            <v-chip dark v-if="item.expedition_state_id == 2" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-cursor-default-click</v-icon> Choix du livreur</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 7" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-account-clock</v-icon> Attente recuperration par livreur</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 3" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-bike-fast</v-icon> Acheminement</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 4" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-truck-delivery</v-icon> En cours de livraison</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 5" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-archive</v-icon> En cours de recupération </v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 6" color="#3e886db0"> <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon>Livré</v-chip>
+        </template>
         </v-data-table>
         </div>
         <!--  END DATA TABLE -->
+
+
+
+
+        <transition name="slide"> 
+        <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor">Modification éffetuée</v-alert>
+        </transition>
+        <transition name="slide"> 
+        <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error"> {{ExpeitionUpdateResponse.message}}</v-alert>
+        </transition>
     </div>
     
 </template>
@@ -189,43 +165,27 @@ export default {
      
     ],
 
+    // for alerte
+    addingSuccess: false,
+    addingfalse : false,
+
     // for table re-rendering
     // componentKey: 0,
 
-    // For travel deleted
-    dialogDelete: false,
-    travelToDelete:'',
-    travelDeleteResponse:'',
+    // For Expedition sender choice
+    choiceDialog: false,
+    choiceSender:'',
 
-    // For travel detail
+    // For Expedition detail
     dialog: false,
 
-    // For travel edit
-    dialogEdit: false,
+    // For Expedition edit
+    UpdateData: '',
+    ExpeitionUpdateResponse:'',
     editedIndex: -1,
-    defaultItem: {
-      destination: '',
-      departure_date:'',
-      departure_time: '',
-      details:{
-        vendus: 0,
-        aVendre: 0,
-        restant: 0,
-        annules: 0,
-        gains: 0
-      }
-    },
     editedItem: {
-      destination: '',
-      departure_date:'',
-      departure_time: '',
-      details:{
-        vendus: 0,
-        aVendre: 0,
-        restant: 0,
-        annules: 0,
-        gains: 0
-      }
+      sender_complet_name: '',
+      recipient_complet_name:'',
     },
 
 
@@ -261,58 +221,75 @@ export default {
       this.editedItem = Object.assign({}, item)
       this.dialogEdit = true
     },
-    closeEdit () {
-      this.dialogEdit = false  
-    },
-    save () {
-      this.closeEdit ()
-    },
   // --------------------
     // delete a travel
   // --------------------
-    deleteItem (item) {
-        this.editedIndex = this.Travels.indexOf(item)
+    ChooseSender (item) {
+        this.$store.dispatch('init_availableSender')
+
+        this.editedIndex = this.Expeditions.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        this.travelToDelete = {travel_id: this.editedItem.id}
-        this.dialogDelete = true
+        this.UpdateData = {id: this.editedItem.id}
+        this.UpdateData.expedition_state_id = this.editedItem.expedition_state_id
+
+
+        this.choiceDialog = true
       },
 
-    deleteItemConfirm () {
-      // this.Travels.splice(this.editedIndex, 1)
-      Vue.prototype.$http.put('http://127.0.0.1:3333/travel/cancellation', this.travelToDelete)
+
+      SimpleUpdateBigining (item) {
+        this.editedIndex = this.Expeditions.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.UpdateData = {id: this.editedItem.id}
+        this.UpdateData.expedition_state_id = this.editedItem.expedition_state_id
+
+        this.UpdateExpedition ()
+      },
+
+
+
+    UpdateExpedition () {
+      if (this.choiceSender) {
+         this.UpdateData.deliveryManID = this.choiceSender
+      }
+      // console.log(this.UpdateData);
+     
+      Vue.prototype.$http.put('http://127.0.0.1:3333/expedition/ExpeditionStatUpdate', this.UpdateData)
                 .then(response =>{
-                  this.travelDeleteResponse = response.data
+                  this.ExpeitionUpdateResponse = response.data
                   console.log(response.data);
 
-                  if (this.travelDeleteResponse.message == "success" ) {
-          
-                    this.$store.dispatch('init_travelListe')
+                  if (this.ExpeitionUpdateResponse.message == "success" ) {
                     
-                    console.log("patiiii coooll");
-                    // this.addingSuccess = !this.addingSuccess
-                    // setTimeout(() => {
-                    //     this.addingSuccess = !this.addingSuccess
-                    // }, 3000);
+                    this.addingSuccess = !this.addingSuccess
+                    setTimeout(() => {
+                        this.addingSuccess = !this.addingSuccess
+                        this.forceRerender1()
+                    }, 3000);
                   } else {
-                    // this.addingfalse = !this.addingfalse
-                    // setTimeout(() => {
-                    //     this.addingfalse = !this.addingfalse
-                    // }, 3000);
-                    console.log('pouaaaaa');
+                    this.addingfalse = !this.addingfalse
+                    setTimeout(() => {
+                        this.addingfalse = !this.addingfalse
+                    }, 3000);
                   }
                 })
                 .catch(error => {
-                  this.travelDeleteResponse = error.message;
+                  this.ExpeitionUpdateResponse = error.message;
                   console.error("There was an error!", error);
                });
 
-      this.closeDelete()
+      this.closeChooseSender()
     },
 
-    closeDelete () {
-      this.dialogDelete = false
-      this.editedItem = Object.assign({}, this.defaultItem)
-      this.editedIndex = -1 
+    closeChooseSender() {
+      this.choiceDialog = false
+      // this.editedItem = Object.assign({}, this.defaultItem)
+      // this.editedIndex = -1 
+    },
+
+
+    forceRerender1() {
+       this.$store.state.expeditioncomponentKey += 1
     },
 
   },
@@ -325,6 +302,7 @@ export default {
   computed:{
     ...mapGetters([
       'Expeditions',
+      'AvailableSenders',
     ])
   },
 
@@ -455,23 +433,9 @@ export default {
 
 
 
-/* Delete travel */
-.deleteIMG{
-  width: 350px;
-}
-.CancelVerification{
-  text-align: center;
-  font-size: 18px;
-  margin-top: 35px;
-  margin-bottom: 30px;
-}
-.verificationAction{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.verificationAction > button{
-  width: 150px;
+/* Sender choice */
+.radioItem p{
+height: 5px;
 }
 
 

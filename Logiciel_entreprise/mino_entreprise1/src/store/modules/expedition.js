@@ -2,6 +2,7 @@
 import Vue from 'vue'
 const state = {
     expedition : [],
+    withdrawal : [],
 }
 
 
@@ -13,6 +14,12 @@ const getters = {
         return expedition
     },
 
+    Withdrawals: state => {
+        let withdrawals = state.withdrawal
+
+        return withdrawals
+    },
+
 }
 
 
@@ -20,6 +27,10 @@ const mutations = {
 
     SET_EXPEDITION (state, data){
         state.expedition = data
+    },
+
+    SET_WITHDRAWAL (state, data){
+        state.withdrawal = data
     },
 
 }
@@ -30,6 +41,15 @@ const actions = {
             .get('http://127.0.0.1:3333/expedition/expeditionList/1')
             .then(res => {
                 commit('SET_EXPEDITION', res.data.data)
+            })
+            .catch(error => console.log(error))
+    },
+    
+    init_withdrawal: ({commit}) => {
+        Vue.prototype.$http
+            .get('http://127.0.0.1:3333/withdrawal/List/1')
+            .then(res => {
+                commit('SET_WITHDRAWAL', res.data.data)
             })
             .catch(error => console.log(error))
     } 

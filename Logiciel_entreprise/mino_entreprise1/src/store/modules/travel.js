@@ -3,6 +3,7 @@ import Vue from 'vue'
 const state = {
   travels : [],
   travel_analytics : '',
+  luggages : [],
 }
 
 
@@ -52,6 +53,13 @@ const getters = {
         return trave_analytic
     },
 
+
+    Luggages: state => {
+        let luggage = state.luggages
+
+        return luggage
+    },
+
 }
 
 
@@ -63,6 +71,10 @@ const mutations = {
 
     SET_TRAVEL_ANALYTICS (state, data){
         state.travel_analytics = data
+    },
+
+    SET_LUGGAGE (state, data){
+        state.luggages = data
     },
 
 }
@@ -82,6 +94,15 @@ const actions = {
             .get('http://127.0.0.1:3333/travel/getTravelAnalytics/1')
             .then(res => {
                 commit('SET_TRAVEL_ANALYTICS', res.data.data)
+            })
+            .catch(error => console.log(error))
+    },
+
+    init_luggage: ({commit}) => {
+        Vue.prototype.$http
+            .get('http://127.0.0.1:3333/Luggage/List/1')
+            .then(res => {
+                commit('SET_LUGGAGE', res.data.data)
             })
             .catch(error => console.log(error))
     }

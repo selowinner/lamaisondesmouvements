@@ -22,7 +22,7 @@
               </div>
             </v-col>
             <v-col cols="12" md="9" lg="9">
-             <allExpeditionList></allExpeditionList>
+             <allExpeditionList :key="forceRerenderReturn"></allExpeditionList>
             </v-col>
           </v-row>
 
@@ -82,7 +82,12 @@ export default {
    computed:{
     ...mapGetters([
       'Analytics',
-    ])
+    ]),
+
+    forceRerenderReturn() {
+        return this.$store.state.expeditioncomponentKey;
+        // console.log(this.componentKey);
+    },
   },
 
 

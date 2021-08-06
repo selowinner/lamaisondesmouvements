@@ -3,10 +3,12 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import TravelDeclaration from "../views/TravelDeclaration.vue";
 import TravelBalanceSheet from "../views/TravelBalanceSheet.vue";
+import TravelLuggage from "../views/TravelLuggageSheet.vue";
 import lostObjectList from "../views/lostObjectList.vue";
 import TravelStat from "../views/travelStat.vue";
 import Livreurs from "../views/Expedition1Management.vue";
 import ExpeditionSheet from "../views/Expedition2Management.vue";
+import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
 
 
 
@@ -49,6 +51,16 @@ const routes = [
     path: "/ExpeditionSheet",
     name: "ExpeditionSheet",
     component: ExpeditionSheet,
+  },
+  {
+    path: "/TravelLuggage",
+    name: "TravelLuggage",
+    component: TravelLuggage,
+  },
+  {
+    path: "/Withdrawalsheet",
+    name: "Withdrawalsheet",
+    component: Withdrawalsheet,
   },
   {
     path: "/testePage",

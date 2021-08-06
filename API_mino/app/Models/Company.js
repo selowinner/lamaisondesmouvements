@@ -17,6 +17,10 @@ class Company extends Model {
         return this.hasMany('App/Models/LuggageType')
     }
 
+    withdrawal () {
+        return this.hasMany('App/Models/Withdrawal')
+    }
+
     expeditions () {
         return this.hasMany('App/Models/Expedition')
     }

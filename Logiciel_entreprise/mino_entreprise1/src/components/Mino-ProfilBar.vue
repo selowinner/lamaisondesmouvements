@@ -8,10 +8,14 @@
             <p>John Connor</p>
             <p>Loremipsum@gmail.com</p>
             <p>Deconnexion</p>
+            <div class="settingdiv">
+                <v-icon>mdi-cog</v-icon>
+            </div>
         </div>
         <div class="timeBox">
-            <img src="@/assets/icone/settingsB.png" alt="" srcset="">
-            <p>Paramètre</p>
+            <div>35</div>
+            <v-icon color="mainGreenColor" x-large>mdi-bell-outline</v-icon>
+            <p>Notification</p>
         </div>
         <div class="footerBox">
             <div class="locationBox">
@@ -128,6 +132,20 @@ export default {
     background: var(--main-green-color);
     cursor: pointer;
 }
+.settingdiv{
+    position: absolute;
+    top: 95px;
+    left: 130px;
+    height: 30px;
+    width: 30px;
+    border: solid 3px var(--main-green-color);
+    border-radius: 100px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 
@@ -140,12 +158,23 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.timeBox img:nth-child(1){
-    height: 60px;
-    width: 60px;
-    margin-bottom: 3px;
+.timeBox div:nth-child(1){
+    position: relative;
+    top: 20px;
+    left: 12px;
+    z-index: 10;
+    height: 20px;
+    width: 20px;
+    border-radius: 100px;
+    background:#b71c1c;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.timeBox p:nth-child(2){
+.timeBox p:nth-child(3){
     font-size: 14px;
     font-weight: bold;
     text-align: center;

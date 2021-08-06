@@ -149,7 +149,6 @@ class ExpeditionController {
     }
 
 
-
     async addstep2({request, response}){
 
         //GET DATA
@@ -178,13 +177,18 @@ class ExpeditionController {
             return { message: 'photo du colis absente' }
         }
 
-        // LIST OF COMPANIES THAT CAN SEND THE SENDEDER LUGGAGE TYPE
+        // -------------
         const CompaniesListNotInJson = await luggageTypes
         .query()
         .innerJoin('Companies', 'companies.id', 'luggage_types.company_id')
         .where('luggage_types.denomination', body.luggageType)
         .select('companies.id', 'companies.denomination')
         .fetch()
+
+        /* package_withdrawal_code Generation */
+        let CurrentDate =  new Date()
+        let time = CurrentDate.getTime()
+        let Code = "EXP" + time
 
         /* Expédition Adding */
         const expedition = new Object()
@@ -201,6 +205,8 @@ class ExpeditionController {
         expedition.package_picture = 'popopppo'
         expedition.package_weight = body.package_weight
         expedition.package_size = body.package_size
+        expedition.expedition_state_id = 3
+        expedition.package_withdrawal_code = Code
 
         const newExpedition = await Expeditions.create(expedition)
 
@@ -213,6 +219,46 @@ class ExpeditionController {
      
     
     }
+
+
+    async SenderVerification({request, response}){
+
+        // GET DATA
+        const body = request.all()
+        
+        // DATA VALIDATION         
+        const rules = {
+            sender_delivery_man_id: 'required',
+            package_withdrawal_code: 'required', 
+        } 
+       
+        const bodyValidation = await validateAll(body, rules)
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué de remplir un champs obligation' }
+        }
+
+        // GET THE AVAILABLE SENDER LIST
+        const ListOfAvailableSenderNotInJson = await Expeditions
+        .query()
+        .where('sender_delivery_man_id', body.sender_delivery_man_id)
+        .andWhere('package_withdrawal_code', body.package_withdrawal_code)
+        .first()
+
+        if (ListOfAvailableSenderNotInJson) {
+            let updatedata = {
+                expedition_state_id: 3,
+            }
+            ListOfAvailableSenderNotInJson.merge(updatedata)
+            await ListOfAvailableSenderNotInJson.save()
+            return { message: 'success' }
+        }else{
+            return { message: 'False' }
+        }
+
+        
+    }
+
+
 
 
 
@@ -255,6 +301,38 @@ class ExpeditionController {
         })
     }
 
+    async getAvailableSenderList({params, response}){
+
+        // GET THE AVAILABLE SENDER LIST
+        const ListOfAvailableSenderNotInJson = await DeliveryMen
+        .query()
+        .where('company_id', params.id)
+        .select('complet_name', 'id', 'conveyance')
+        .fetch()
+        const ListOfAvailableSender = ListOfAvailableSenderNotInJson.toJSON()
+
+        for (let index = 0; index < ListOfAvailableSender.length; index++) {
+            const ActualExpedition = await Expeditions
+                .query()
+                .where('sender_delivery_man_id', ListOfAvailableSender[index].id)
+                .where('expedition_state_id', 2)
+                .select('sender_neighborhood', 'updated_at')
+                .fetch()
+            let notinJSON = ActualExpedition.toJSON()
+            if (notinJSON.length > 7) {
+                ListOfAvailableSender.splice(index, 1);
+            } 
+            else if (notinJSON.length > 0) {
+                ListOfAvailableSender[index].ActualExpedition = notinJSON[0]
+            }
+        }
+
+        // RESPONSE
+         response.json({
+            message: 'success',
+            data: ListOfAvailableSender
+        })
+    }
 
     async updateExpeditionState({request, response}){
 
@@ -270,33 +348,50 @@ class ExpeditionController {
             return { message: 'vous avez manqué de remplir un champs obligation' }
         }
 
+        let updatedata = new Object();
         // UPDATE CASE
         if (body.deliveryManID) {
             // Lorsque le colis est en cours d'exécution, et que le gérant veux changer de livreur, 
-            // à cause du delais de recuperation qui a expiré
-            const updatedata = {
-                deliveryManID: body.deliveryManID,
-            }            
+            // à cause du delais de recuperation qui a expiré OU simplement lorsque le gérant veut choisir un livreur
+             updatedata = {
+                sender_delivery_man_id: body.deliveryManID,
+                expedition_state_id: 7,
+            }  
+            console.log('ok');
         }else if (body.expedition_state_id == 3) {
             // L'étape COLIS RECUPERE PAR LE LIVREUR est mise automatique lorsque le client valide le livreur. son idex est 3
             // Passer à l'étape: COLIS RECUPERE PAR LA GARE. son index est 4
-            const updatedata = {
+             updatedata = {
                 expedition_state_id: 4,
-            }
-            
+            } 
+            console.log('cool')
             // PENSER à ECRIRE UN ALGO POUR LES SMS
+
+        }else if (body.expedition_state_id == 4) {
+            // Passer à l'étape: COLIS LIVRE A LA GARE DU DESTINATAIRE. son index est 5
+             updatedata = {
+                expedition_state_id: 5,
+            }
+            console.log('super')
+            // PENSER à ECRIRE UN ALGO POUR LES SMS
+        }else if (body.expedition_state_id == 5) {
+            // Passer à l'étape: COLIS RECUPERE PAR LE DESTINATAIRE. son index est 6
+             updatedata = {
+                expedition_state_id: 6,
+            }
+            console.log('toujours')
+            // PENSER à ECRIRE UN ALGO POUR LES SMS
+        }else{
+            return { message: 'Batard la, tu cherches quoi ?' }
         }
-        // const updatedata = {
-        //     complet_name: body.complet_name,
-        // }
         
 
 
-        // const TheDeliveryMen = await Expeditions.find(body.id)
-        // // console.log(body);
+        const TheExpedition = await Expeditions.find(body.id)
+        // console.log(body);
 
-        // TheDeliveryMen.merge(updatedata)
-        // await TheDeliveryMen.save()
+        TheExpedition.merge(updatedata)
+        await TheExpedition.save()
 
         // RESPONSE
          response.json({

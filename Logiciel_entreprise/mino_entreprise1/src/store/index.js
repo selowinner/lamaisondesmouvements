@@ -15,8 +15,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     travelcomponentKey:0,
+    luggagecomponentKey:1,
     lostObjetcomponentKey:0,
     sendercomponentKey:1,
+    expeditioncomponentKey:1,
+    withdrawalcomponentKey:1,
   },
   getters: {},
   mutations: {},

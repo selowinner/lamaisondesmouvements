@@ -2,6 +2,7 @@
 import Vue from 'vue'
 const state = {
     senders : [],
+    availebleSenders : [],
 }
 
 
@@ -9,6 +10,12 @@ const state = {
 const getters = {
     Senders: state => {
         let sender = state.senders
+
+        return sender
+    },
+
+    AvailableSenders: state => {
+        let sender = state.availebleSenders
 
         return sender
     },
@@ -22,6 +29,11 @@ const mutations = {
         state.senders = data
     },
 
+
+    SET_AVAILABLE_SENDER(state, data){
+        state.availebleSenders = data
+    },
+
 }
 
 const actions = {
@@ -32,7 +44,16 @@ const actions = {
                 commit('SET_SENDER', res.data.data)
             })
             .catch(error => console.log(error))
-    } 
+    },
+    
+    init_availableSender: ({commit}) => {
+        Vue.prototype.$http
+            .get('http://127.0.0.1:3333/expedition/availableSender/1')
+            .then(res => {
+                commit('SET_AVAILABLE_SENDER', res.data.data)
+            })
+            .catch(error => console.log(error))
+    }
 }
 
 

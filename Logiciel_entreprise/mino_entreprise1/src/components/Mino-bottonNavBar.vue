@@ -31,6 +31,12 @@
                         <p>BILAN DES VOYAGES</p>
                     </div>
                     </router-link>
+                    <router-link :to="{name: 'TravelLuggage'}">
+                    <div class="tab1">
+                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                        <p>GESTION DES BAGAGES</p>
+                    </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -59,6 +65,12 @@
                     <div class="tab1">
                         <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
                         <p>GESTION DES LIVREURS</p>
+                    </div>
+                    </router-link>
+                    <router-link :to="{name: 'Withdrawalsheet'}">
+                    <div class="tab1">
+                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                        <p>TYPE DE COLIS</p>
                     </div>
                     </router-link>
                 </div>
@@ -283,7 +295,7 @@ export default {
 .naVBox2Active .menuBox, .naVBox2Active1 .menuBox{
     position: absolute;
     top: -190px;
-    height: 160px;
+    /* height: 160px; */
     width: 370px;
     border-radius: 10px;
     background: white;
@@ -314,8 +326,8 @@ export default {
 
 
 .naVBox2Active .menuBox div:last-child, .naVBox2Active1 .menuBox div:last-child{
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 7px;
+    margin-bottom: 7px;
     width: 80%;
 }
 .tab1{

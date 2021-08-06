@@ -45,6 +45,12 @@ Route.put('travel/update', 'Travel/TravelController.updateTravel')
 Route.put('travel/cancellation', 'Travel/TravelController.travelCancellation')
 //------------ Travel reimbursement for companies
 Route.get('reimbursement/Liste', 'General/ReimbursementController.getReimbursementListe')
+//------------ Travel Luggage for companies
+Route.post('Luggage/add', 'Luggage/LuggageController.addLuggage')
+Route.put('Luggage/update', 'Luggage/LuggageController.updateLuggage')
+
+
+
 
 
 
@@ -106,10 +112,15 @@ Route.get('expedition/listOfLuggage', 'Luggage/LuggageController.getListOfLuggag
 Route.post('expedition/addstep1', 'Expedition/ExpeditionController.addstep1')
 Route.post('expedition/listOfLuggagePrices', 'Luggage/LuggageController.getListOfLuggagePrice')
 Route.post('expedition/addstep2', 'Expedition/ExpeditionController.addstep2')
+Route.put('expedition/senderVerification', 'Expedition/ExpeditionController.SenderVerification')
+
 
 
 // Expedition for Companies stations
 Route.put('expedition/ExpeditionStatUpdate', 'Expedition/ExpeditionController.updateExpeditionState')
+//------------ Expedition withdrawals for companies stations
+Route.post('withdrawal/add', 'withdrawal/WithdrawalController.addwithdrawal')
+Route.put('withdrawal/update', 'withdrawal/WithdrawalController.updateWithdrawals')
 
 //  Sender for Companies stations
 Route.post('expedition/addsender', 'Expedition/DeliveryManController.add')
@@ -172,6 +183,9 @@ Route.get('travel/getTravelAnalytics/:id', 'Travel/TravelController.getTravelAna
 //------------ Traveler list  for conveyor
 Route.get('traveler/Liste/:id', 'General/ReservationController.getListeOfTraveler')
 Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTravelerEmbarcationStatut')
+//------------ Travel Luggage for companies
+Route.get('Luggage/List/:id', 'Luggage/LuggageController.getListOfLuggage')
+Route.delete('Luggage/delete/:id', 'Luggage/LuggageController.CancelLuggage')
 
 
 
@@ -192,6 +206,11 @@ Route.get('lostObjet/Liste/:id', 'LostObjet/DeclarationController.getListeOfLost
 // For Companies Station
 Route.get('expedition/senderList/:id', 'Expedition/DeliveryManController.getSenderList')
 Route.get('expedition/expeditionList/:id', 'Expedition/ExpeditionController.getExpeditionList')
+Route.get('expedition/availableSender/:id', 'Expedition/ExpeditionController.getAvailableSenderList')
+
+Route.get('withdrawal/List/:id', 'withdrawal/WithdrawalController.getListOfWithdrawals')
+Route.delete('withdrawal/delete/:id', 'withdrawal/WithdrawalController.CancelWithdrawals')
+
 // Expedition for Companies stations
 
 
