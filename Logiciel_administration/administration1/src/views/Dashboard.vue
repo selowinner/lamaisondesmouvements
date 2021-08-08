@@ -7,7 +7,7 @@
 
             <v-container fluid>
                 <v-row>
-                    <v-col cols="12" md="3" lg="3" class="box">
+                    <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
                             <p>NOMBRE TOTAL <br> DE TICKETS ACHETES DANS <br> LE MOIS</p>
                             <div class="palabre"><apexchart height="250" :options="chartOptions" :series="series"></apexchart></div>
@@ -15,7 +15,7 @@
                             <p>TICKETS</p>
                         </div>
                     </v-col>
-                    <v-col cols="12" md="3" lg="3" class="box">
+                    <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
                             <p>NOMBRE TOTAL <br> DE DECLARATION DE  <br>PERTES FATES DANS LE MOIS</p>
                             <div class="palabre"><apexchart height="250" :options="chartOptions2" :series="series2"></apexchart></div>
@@ -23,7 +23,7 @@
                             <p>DECLARATIONS</p>
                         </div>
                     </v-col>
-                     <v-col cols="12" md="3" lg="3" class="box">
+                     <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
                             <p>LA COMPAGNIE AYANT<br> EFFECTUE LE PLUS GRAND NOMBRE DE VENTE DE TICKET</p>
                             <div class="palabre"><apexchart height="250" :options="chartOptions3" :series="series3"></apexchart></div>
@@ -31,7 +31,7 @@
                             <p>10 000 TICKETS</p>
                         </div>
                     </v-col>
-                     <v-col cols="12" md="3" lg="3" class="box">
+                     <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
                             <p>LA COMPAGNIE <br> LA MIEUX <br> NOTEE </p>
                             <div class="palabre"><apexchart height="250" :options="chartOptions4" :series="series4"></apexchart></div>
@@ -264,6 +264,7 @@ export default {
     /* background: #35373a; */
     margin-bottom:18px;
 }
+
 
 
 </style>

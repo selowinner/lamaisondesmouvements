@@ -302,7 +302,4 @@ mounted() {
 
 
 
-
-
-
 </style>

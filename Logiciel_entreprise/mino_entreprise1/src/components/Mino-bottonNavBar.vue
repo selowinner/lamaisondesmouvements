@@ -1,87 +1,88 @@
 <template>
 
  
-
-    <div class="bottonNavBar">
-        <router-link :to="{name: 'Dashboard'}">
-            <div class="navBox" style="border-radius: 10px 0 0 0;"  v-on:click= "UnactiveMenu">
-                <img src="@/assets/icone/dashboardB.png" alt="" srcset="">
-                <p>Dashboard</p>
-            </div>
-        </router-link>
-        <!-- v-on:click= "isActive = !isActive" :class="{naVBox2Active: isActive}" -->
-        <div class="navBox" v-on:click= "activeMenu" :class="{naVBox2Active: isActive}">
-            <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
-            <p>Gestion des voyages</p>
-            <div class="menuBox" v-if="travelMenuClick">
-                <div class="menuTitle">
-                    GESTIONNAIRE DES VOYAGES
-                    <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "travelMenuClick = false">
+    <div class="BigWrapper">
+        <div class="bottonNavBar">
+            <router-link :to="{name: 'Dashboard'}">
+                <div class="navBox" style="border-radius: 10px 0 0 0;"  v-on:click= "UnactiveMenu">
+                    <img src="@/assets/icone/dashboardB.png" alt="" srcset="">
+                    <p>Dashboard</p>
                 </div>
-                <div v-on:click.stop= "travelMenuClick = false">
-                    <router-link :to="{name: 'TravelDeclaration'}">
-                    <div class="tab1">
-                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                        <p>DECLARATION DE VOYAGE</p>
+            </router-link>
+            <!-- v-on:click= "isActive = !isActive" :class="{naVBox2Active: isActive}" -->
+            <div class="navBox" v-on:click= "activeMenu" :class="{naVBox2Active: isActive}">
+                <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
+                <p>Gestion des voyages</p>
+                <div class="menuBox" v-if="travelMenuClick">
+                    <div class="menuTitle">
+                        GESTIONNAIRE DES VOYAGES
+                        <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "travelMenuClick = false">
                     </div>
-                    </router-link>
-                    <router-link :to="{name: 'TravelBalanceSheet'}">
-                    <div class="tab1">
-                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                        <p>BILAN DES VOYAGES</p>
+                    <div v-on:click.stop= "travelMenuClick = false">
+                        <router-link :to="{name: 'TravelDeclaration'}">
+                        <div class="tab1">
+                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                            <p>DECLARATION DE VOYAGE</p>
+                        </div>
+                        </router-link>
+                        <router-link :to="{name: 'TravelBalanceSheet'}">
+                        <div class="tab1">
+                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                            <p>BILAN DES VOYAGES</p>
+                        </div>
+                        </router-link>
+                        <router-link :to="{name: 'TravelLuggage'}">
+                        <div class="tab1">
+                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                            <p>GESTION DES BAGAGES</p>
+                        </div>
+                        </router-link>
                     </div>
-                    </router-link>
-                    <router-link :to="{name: 'TravelLuggage'}">
-                    <div class="tab1">
-                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                        <p>GESTION DES BAGAGES</p>
-                    </div>
-                    </router-link>
                 </div>
             </div>
+            <router-link :to="{name: 'lostObjectList'}">
+                <div class="navBox" v-on:click= "UnactiveMenu">
+                    <img src="@/assets/icone/targetB.png" alt="" srcset="">
+                    <p>Gestion des objets <br> égarés</p>
+                </div>
+            </router-link>
+            <div class="navBox" v-on:click= "activeMenu2" :class="{naVBox2Active1: isActive2}">
+                <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
+                <p>Gestion des colis</p>
+                <div class="menuBox" v-if="expeditionMenuClick">
+                    <div class="menuTitle">
+                        GESTIONNAIRE DES COLIS
+                        <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "expeditionMenuClick = false">
+                    </div>
+                    <div v-on:click.stop= "expeditionMenuClick = false">
+                        <router-link :to="{name: 'ExpeditionSheet'}">
+                        <div class="tab1">
+                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                            <p>GESION DES EXPEDITIONS</p>
+                        </div>
+                        </router-link>
+                        <router-link :to="{name: 'Livreurs'}">
+                        <div class="tab1">
+                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                            <p>GESTION DES LIVREURS</p>
+                        </div>
+                        </router-link>
+                        <router-link :to="{name: 'Withdrawalsheet'}">
+                        <div class="tab1">
+                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
+                            <p>TYPE DE COLIS</p>
+                        </div>
+                        </router-link>
+                    </div>
+                </div>
+            </div>
+            <router-link :to="{name: 'TravelStat'}">
+            <div class="navBox navEnd" v-on:click= "UnactiveMenu">
+                <img src="@/assets/icone/settingsB.png" alt="" srcset="">
+                <p>statistique voyage</p>
+            </div>
+            </router-link>
         </div>
-        <router-link :to="{name: 'lostObjectList'}">
-            <div class="navBox" v-on:click= "UnactiveMenu">
-                <img src="@/assets/icone/targetB.png" alt="" srcset="">
-                <p>Gestion des objets <br> égarés</p>
-            </div>
-        </router-link>
-        <div class="navBox" v-on:click= "activeMenu2" :class="{naVBox2Active1: isActive2}">
-            <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
-            <p>Gestion des colis</p>
-            <div class="menuBox" v-if="expeditionMenuClick">
-                <div class="menuTitle">
-                    GESTIONNAIRE DES COLIS
-                    <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "expeditionMenuClick = false">
-                </div>
-                <div v-on:click.stop= "expeditionMenuClick = false">
-                    <router-link :to="{name: 'ExpeditionSheet'}">
-                    <div class="tab1">
-                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                        <p>GESION DES EXPEDITIONS</p>
-                    </div>
-                    </router-link>
-                    <router-link :to="{name: 'Livreurs'}">
-                    <div class="tab1">
-                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                        <p>GESTION DES LIVREURS</p>
-                    </div>
-                    </router-link>
-                    <router-link :to="{name: 'Withdrawalsheet'}">
-                    <div class="tab1">
-                        <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                        <p>TYPE DE COLIS</p>
-                    </div>
-                    </router-link>
-                </div>
-            </div>
-        </div>
-        <router-link :to="{name: 'TravelStat'}">
-        <div class="navBox navEnd" v-on:click= "UnactiveMenu">
-            <img src="@/assets/icone/settingsB.png" alt="" srcset="">
-            <p>statistique voyage</p>
-        </div>
-        </router-link>
     </div>
        
   
@@ -162,14 +163,22 @@ export default {
 
 <style scoped>
 
-
+.BigWrapper{
+    width: 75vw;
+    position: fixed;
+    top: 84.9vh;
+    margin-left: 300px;
+    /* left: 25.5vw; */
+    display: flex;
+    justify-content: center;
+}
 .bottonNavBar{
     background: var(--main-white-color);
     height: 15vh;
-    width: 60vw;
-    position: fixed;
+    /* width: 60vw; */
+    /* position: fixed;
     top: 84.9vh;
-    left: 25.5vw;
+    left: 25.5vw; */
     display: flex;
     align-items: center;
     border-radius: 10px 10px 0px 0px;
@@ -353,6 +362,15 @@ export default {
 
 
 /* For expedition menu */
+
+
+
+
+@media (min-width: 960px) and (max-width: 1264px){
+ .navBox{
+    width: 150px;
+ }
+}
 
 
 </style>

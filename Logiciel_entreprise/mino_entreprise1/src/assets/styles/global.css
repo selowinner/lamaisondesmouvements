@@ -40,7 +40,7 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
     ---- OTHER CONFIGURATION---- 
 -------------------------------*/
 html {
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 body{
     margin: 0;
@@ -85,7 +85,7 @@ transform: translateX(-20px)
 ===> CONTENT BOX <===
 +++++++++++++++++*/
 .bodyBox{
-    height: 60vh;
+    /* height: 60vh; */
     width: 85vw;
     margin-left: 225px;
     padding: 0px 7vw;
@@ -94,6 +94,7 @@ transform: translateX(-20px)
     width: 73vw;
     /* height: 65vh; */
     margin-top: 150px;
+    margin-bottom: 150px;
     /* background: red; */
 }
 
@@ -216,5 +217,24 @@ DES DIFFERENTS CONTENUS (BODY). CE QUI PERMET DE GARDER L'APECT CENTRER DU CONTE
         max-width: 1000px;
     }
 } */
+
+
+
+
+
+
+
+
+
+@media (min-width: 960px) and (max-width: 1264px){
+    
+    .bodyBox{
+        height: 60vh;
+        width: 85vw;
+        margin-left: 200px;
+        /* margin-bottom: 300px; */
+        padding: 0px 7vw;
+    }
+}
 
 /*-------END------------*/

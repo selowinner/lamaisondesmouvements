@@ -3,31 +3,31 @@
  
 
     <div class="bottonNavBar">
-      <p class="sectionTitle">Menu</p>
+      <p class="sectionTitle" style="background:#1e2126">Menu</p>
       <v-container fluid>
           <v-row>
-              <v-col cols="12" md="3" lg="3" class="box">
+              <v-col cols="3" md="3" lg="3" class="box">
                   <router-link :to="{name: 'UserManagement'}">
                     <div class="boxWrapper">
                         <span>GESTION <br> DES UTILISATEURS</span>
                     </div>
                   </router-link>
               </v-col>
-              <v-col cols="12" md="3" lg="3" class="box">
+              <v-col cols="3" md="3" lg="3" class="box">
                   <router-link :to="{name: 'TravelManagement'}">                    
                     <div class="boxWrapper">
                         <span>GESTION <br> DES VOYAGES</span>
                     </div>
                   </router-link>
               </v-col>
-                <v-col cols="12" md="3" lg="3" class="box">
+                <v-col cols="3" md="3" lg="3" class="box">
                   <router-link :to="{name: 'LostObjectManagement'}"> 
                     <div class="boxWrapper">
                         <span>HISTORIQUE <br> DES OBJETS EGARES</span>
                     </div>
                   </router-link>
               </v-col>
-                <v-col cols="12" md="3" lg="3" class="box">
+                <v-col cols="3" md="3" lg="3" class="box">
                   <router-link :to="{name: 'ExpeditionManagement'}"> 
                     <div class="boxWrapper">
                         <span>HISTORIQUE <br> DES COLIS ENVOYES</span>
@@ -96,6 +96,7 @@ export default {
 
 .bottonNavBar{
     /* background: rgb(201, 102, 102); */
+    background:  var(--main-black-color);
     width: 100vw;
     width: 74vw;
     margin-left: 21%;
@@ -125,5 +126,20 @@ export default {
    color: white;
    background: var(--font-color);
 }
+
+
+
+/* 600px > < 960px */
+
+
+
+
+
+/* 
+@media (min-width: 600px) and (max-width: 960px){
+ .bottonNavBar{
+    background: rgb(201, 102, 102);
+  }
+} */
 
 </style>

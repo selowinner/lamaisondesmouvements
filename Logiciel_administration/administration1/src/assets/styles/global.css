@@ -42,7 +42,7 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
     ---- OTHER CONFIGURATION---- 
 -------------------------------*/
 html {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 html::-webkit-scrollbar{
     width: 20px;
@@ -104,13 +104,14 @@ transform: translateX(-20px)
 +++++++++++++++++*/
 .bodyBox{
     margin-top: 20vh;
-    height: 60vh;
+    /* height: 60vh; */
     width: 85vw;
     margin-left: 13.5%;
     padding: 0px 7vw;
+    /* background: red; */
 }
 .TheBoxBody{
-    width: 75vw;
+    /* width: 75vw; */
     height: 59vh;
 }
 .alert{

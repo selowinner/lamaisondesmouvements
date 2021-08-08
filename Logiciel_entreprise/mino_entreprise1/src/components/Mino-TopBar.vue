@@ -83,6 +83,7 @@ export default {
     /* background: red; */
     display: flex;
     justify-content: center;
+    z-index: 99;
 }
 
 .Header2logoBox{
