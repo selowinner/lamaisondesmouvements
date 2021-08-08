@@ -6,9 +6,9 @@
     <div v-if="!$route.meta.plainLayout">
       <MinoProfilBar></MinoProfilBar>
       <MinoTopBar></MinoTopBar>
-      <v-content>
+      <v-main>
         <router-view></router-view>
-      </v-content>
+      </v-main>
       <MinoBottonNavBar></MinoBottonNavBar>
     </div>
     

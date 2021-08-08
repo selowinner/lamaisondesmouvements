@@ -1,11 +1,30 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import companies from "./modules/companies";
+import station from "./modules/station";
+import travels from "./modules/travels";
+import lostObjet from "./modules/lostObjet";
+import expedition from "./modules/expedition";
+
+
+
 Vue.use(Vuex);
 
+
 export default new Vuex.Store({
-  state: {},
+  state: {
+    companiescomponentKey:0,
+  },
+  getters: {},
   mutations: {},
   actions: {},
-  modules: {},
+
+  modules: {
+    companies,
+    station,
+    travels,
+    lostObjet,
+    expedition,
+  },
 });

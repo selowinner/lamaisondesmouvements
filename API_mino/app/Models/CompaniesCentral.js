@@ -15,6 +15,10 @@ class CompaniesCentral extends Model {
     rating () {
         return this.hasMany('App/Models/Rating')
     }
+
+    abonnemnt () {
+        return this.hasMany('App/Models/Abonnement')
+    }
 }
 
 module.exports = CompaniesCentral

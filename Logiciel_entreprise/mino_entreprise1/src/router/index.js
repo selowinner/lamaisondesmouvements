@@ -9,7 +9,7 @@ import TravelStat from "../views/travelStat.vue";
 import Livreurs from "../views/Expedition1Management.vue";
 import ExpeditionSheet from "../views/Expedition2Management.vue";
 import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
-
+import Messagerie from "../views/messagerie.vue"
 
 
 import testePage from "../components/testPage.vue";
@@ -21,6 +21,11 @@ const routes = [
     path: "/",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/Messagerie",
+    name: "Messagerie",
+    component: Messagerie,
   },
   {
     path: "/TravelDeclaration",

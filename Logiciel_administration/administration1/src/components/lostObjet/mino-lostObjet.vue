@@ -6,7 +6,7 @@
             <v-row>
                  <v-col cols="12" md="12" lg="12" class="box">
                     <div class="stationListboxWrapper">
-                       <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
+                       <v-data-iterator :items="Stations" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
                       :sort-desc="sortDesc"
                       hide-default-footer
                       >
@@ -51,13 +51,13 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.details.vendus)" @click="dialog = !dialog">
+                            <div :class="getClass(item.lostObjetNumber)" @click="dialog = !dialog">
                               <div>
                                 <v-icon>mdi-bus-marker</v-icon>
-                                <p>{{ item.details.vendus }}</p>
-                                <p>{{ item.name }}</p>
+                                <p>{{ item.lostObjetNumber }}</p>
+                                <p>{{ item.denomination }}</p>
                               </div>
-                              <div class="price"><v-icon>mdi-calendar</v-icon><p>{{item.company}}</p></div>
+                              <div class="price"><v-icon>mdi-calendar</v-icon><p>{{item.anagramme}}</p></div>
                             </div>
                           </v-col>
 
@@ -106,6 +106,7 @@
 
 <script>
 import  MinoStationLostObjetList  from "./mino-allLostObjetListManagement.vue";
+import { mapGetters } from "vuex";
 
 export default  {
   name: "MinoLostObjetsHome",
@@ -285,10 +286,14 @@ export default  {
 
 
   computed: {
-      numberOfPages () {
-        return Math.ceil(this.items.length / this.itemsPerPage)
-      },
+    ...mapGetters([
+      'Stations',
+    ]),
+
+    numberOfPages () {
+      return Math.ceil(this.items.length / this.itemsPerPage)
     },
+  },
 
 
   methods: {

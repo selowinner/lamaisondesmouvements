@@ -151,8 +151,17 @@ Route.post('user/login', 'User/UserController.login')
 Route.post('user/logout', 'User/UserController.logout')
 
 
-
-
+/*
+----------------------------
+----- COMPANIES  MANAGEMENT ----
+-----------------------------
+*/
+// for Blooraid Super Admin
+Route.post('compangny/add', 'Companies/CompanyController.add')
+Route.put('compangny/update', 'Companies/CompanyController.updateInfo')
+Route.get('compangny/List', 'Companies/CompanyController.getCompaniesList')
+Route.put('compangny/abonnement', 'Companies/CompanyController.makeAbonnement')
+Route.get('compangny/stationList', 'Companies/CompanyController.getCompanyStationList')
 
 
 
@@ -172,7 +181,7 @@ Route.post('user/logout', 'User/UserController.logout')
 ---------------------------------
 */
 
-// RESERVATION MANAGEMENT
+// RESERVATION OR TRAVEL MANAGEMENT
 
 /*----- Client Reservation-----*/
 Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListForAReservation')
@@ -186,6 +195,11 @@ Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTrav
 //------------ Travel Luggage for companies
 Route.get('Luggage/List/:id', 'Luggage/LuggageController.getListOfLuggage')
 Route.delete('Luggage/delete/:id', 'Luggage/LuggageController.CancelLuggage')
+
+// travel or Reeservation For ADMIN
+Route.get('travelDo/Liste/:id', 'Travel/TravelController.getListeOfTravelDoForAdmin')
+Route.get('reservation/Liste/:id', 'General/ReservationController.getListeOfReservationoForAdmin')
+Route.get('TravelDeclared/Liste/:id', 'Travel/TravelController.getListeOfDeclaredForAdmin')
 
 
 
@@ -216,6 +230,13 @@ Route.delete('withdrawal/delete/:id', 'withdrawal/WithdrawalController.CancelWit
 
 
 
+
+/*
+----------------------------
+-----COMPANIES MANAGEMENT FOR ADMIN ----
+-----------------------------
+*/
+// Route.get('compangny/List/:id', 'Companies/CompanyController.getCompaniesList')
 
 
 

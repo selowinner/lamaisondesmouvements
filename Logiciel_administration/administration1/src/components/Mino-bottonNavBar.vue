@@ -69,6 +69,11 @@ export default {
 
   methods: {
     
+  },
+
+
+  created(){
+    this.$store.dispatch('init_stations')
   }
 
 };

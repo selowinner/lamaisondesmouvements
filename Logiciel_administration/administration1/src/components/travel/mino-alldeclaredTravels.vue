@@ -1,47 +1,29 @@
 <template>
-    <div class="TheBoxBody ForTravelDeclaration">
-        <p class="MaintTitle">GESTION DES EXPEDITION</p>
-        <div>
-            <div class="formRadio">
-            <v-radio-group v-model="row" row dense mandatory>
-                <v-radio label="LISTE DES EXPEDITIONS" value="radio-1" v-on:click= "DayType = 0"></v-radio>
-            </v-radio-group>
-            </div>
-            <v-row>
-              <v-col cols="12" md="4" lg="4"></v-col>
-              <v-col  cols="12" md="4" lg="4">
-                <v-text-field v-model="search" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" lg="4"></v-col>
-            </v-row>
-        </div>
-        
-        <div class="tableWrapperDiv" v-if="DayType == 0">
-            
-            <!-- STATISTIC DIALOG for OBJET EGARE-->
+    <div class="tableWrapperDiv">
+       <!-- STATISTIC DIALOG for VOYAGES DECLARES-->
             <v-dialog v-model="dialog" max-width="410" overlay-color="black" overlay-opacity="0.8">
             <v-card>
                 <v-card-text>
-                <p class="mainGreenColor dialogTitle">DETAILS DU COLIS</p>
+                <p class="mainGreenColor dialogTitle">DETAILS VOYAGE DECLARE</p>
                 <div class="mainGreenColor dialogWrapper">
                     <div class="imgAndTitle">
                     </div>
-                    <p class="subtitle">FC EXPERTISE REGARDE LES AUTRES GRANDIR</p>
+                    <p class="subtitle">{{editedItem.destination}}</p>
                     <div class="backBoad backBoad-1">
                     <div class="basicInfo">
-                        <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.created_at}}</p>
+                        <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.car_matriculation}}</p>
                     </div>
                     <div class="travelResume">
                         <div class="part">
-                        <p> <span>{{editedItem.sender_contact}}</span><br>Expediteur</p>
-                        <p> <span>{{editedItem.sender_city}}</span><br>ville Expediteurt</p>
-                        <p> <span>{{editedItem.recipient_contact}}</span><br>Destinataire</p>
-                        <p> <span>{{editedItem.recipient_city}}</span><br>ville destinataire</p>
+                        <!-- <p> <span>{{editedItem.departure_date}}</span><br>date de départ</p> -->
+                        <p> <span>{{editedItem.departure_place}}</span><br>lieu de départ</p>
+                        <p> <span>{{editedItem.place_to_sell_by_mino_number}}</span><br>place à vendre</p>
+                        <p> <span>{{editedItem.car_informations}}</span><br>type de car</p>
                         </div>
                         <div class="part">
-                        <p> <span>{{editedItem.package_weight}}</span><br>poids du colis</p>
-                        <p> <span>{{editedItem.package_size}}</span><br>taille du colis</p>
-                        <p> <span>{{editedItem.package_withdrawal_code}}</span><br>code expedition</p>
+                        <p> <span>{{editedItem.departure_time}}</span><br>heure de départ</p>
+                        <p> <span>{{editedItem.destination}}</span><br>destination</p>
+                        <p> <span>{{editedItem.place_price}}</span><br>prix du ticket</p>
                         </div>
                     </div>
                     </div>
@@ -51,22 +33,12 @@
             </v-card>
             </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="Expeditions" :search="search"  hide-default-footer class="backgroundTree">
-            <!-- FOR SEE DETAILS AND STATISTIC DIALOG for OBJET EGARE -->
+            <v-data-table dense :headers="headers" :items="TravelsDeclared" :search="search"  hide-default-footer class="backgroundTree">
+            <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
             <template v-slot:[`item.actions`]="{ item }"> 
             <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
             </template>
-            <template v-slot:[`item.expedition_state_id`]="{ item }">
-            <v-chip dark v-if="item.expedition_state_id == 2" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-cursor-default-click</v-icon> Choix du livreur</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 7" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-account-clock</v-icon> Attente recuperration par livreur</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 3" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-bike-fast</v-icon> Acheminement</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 4" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-truck-delivery</v-icon> En cours de livraison</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 5" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-archive</v-icon> En cours de recupération </v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 6" color="#3e886db0"> <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon>Livré</v-chip>
-            </template>
             </v-data-table>
-
-        </div>
 
     </div>
 </template>
@@ -84,33 +56,29 @@
 <script>
 import { mapGetters } from "vuex";
 export default  {
-  name: "MinoOneExpeditionList",
+  name: "MinoallDeclaredTravel",
 
   components: {
     
   },
 
   data: () => ({
-    
-    row: "check",
-    DayType: 0,
 
     //for the list
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     search: '',
     headers: [
         {
-          text: 'EXPEDITEUR',
+          text: 'DESTINATION',
           align: 'start',
           sortable: false,
-          value: 'sender_complet_name',
+          value: 'destination',
         },
-        { text: 'DESTINATAIRE', value: 'recipient_complet_name' },
-        { text: 'ETAT', value: 'expedition_state_id' },
+        { text: 'DATE DE DEPART', value: 'departure_date' },
+        { text: 'HEURE DE DEPART', value: 'departure_time' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
    
-
 
       editedItem: {
         name: '',
@@ -140,19 +108,19 @@ export default  {
   },
 
 
-  
-
-  computed: {
+   computed: {
 
     ...mapGetters([
-      'Expeditions',
+      'TravelsDeclared',
     ]),
 
   },
 
+  
   created(){
-    this.$store.dispatch('init_expeditions')
+    this.$store.dispatch('init_travelsDeclared')
   }
+
 
 };
 
@@ -171,71 +139,6 @@ export default  {
 
 
 <style scoped>
-
-.TheBoxBody{
-    height: 60vh;
-    overflow-y: hidden;
-}
-
-.ForTravelDeclaration{
-  background: var(--backgroundTree);
-  text-align: center;
-  border-radius: 10px;
-}
-
-.MaintTitle{
-  background:  var(--font-color);
-  line-height: 40px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  font-size: 17px;
-  margin-top: 0;
-}
-
-.ForTravelDeclaration > div:nth-child(2){
-  border-bottom: solid 0.5px var(--font-color);
-  margin: 0 45px;
-}
-
-.v-form{
-  padding: 0 35px;
-}
-
-.col-lg-4, .col-md-4{
-  padding-bottom: 80px;
-  padding-top: 50px;
-}
-
-.formRadio{
-  display: flex;
-  justify-content: center;
-}
-.v-input--selection-controls {
-    margin-top: 20px;
-    padding-top: 0px;
-}
-.v-btn:not(.v-btn--round).v-size--large {
-    height: 58px;
-    min-width: 100%;
-    padding: 0 19.5555555556px;
-    color: white;
-}
-/* .theme--light.v-btn {
-    
-} */
-
-
-
-
-
-
-
-
-
-
-
-
 .tableWrapperDiv{
   height: 63%;
   overflow-y: auto;
@@ -358,11 +261,12 @@ export default  {
   width: 50%;
   display: flex;
   flex-direction: column;
+  margin-left: 30px;
   /* align-items: center; */
-  margin-left: 20px;
 }
 .part p{
   margin: 5px 0px;
+  margin-left: 15px;
 }
 .part span{
   font-weight: bold;
@@ -398,14 +302,13 @@ export default  {
 
 
 
+
 @media (min-width: 960px){
   .col-md-4 {
     padding-bottom: 30px !important; 
     padding-top: 10px !important;
 }
 }
-
-
 
 
 

@@ -7,7 +7,13 @@
                 <v-radio label="ListE DES OBJETS EGARES" value="radio-1" v-on:click= "DayType = 0"></v-radio>
             </v-radio-group>
             </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit reprehenderit atque voluptatem animi architecto nihil, iste, rerum maiores.</p>
+            <v-row>
+              <v-col cols="12" md="4" lg="4"></v-col>
+              <v-col  cols="12" md="4" lg="4">
+                <v-text-field v-model="search" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="4" lg="4"></v-col>
+            </v-row>
         </div>
         
         <div class="tableWrapperDiv" v-if="DayType == 0">
@@ -20,23 +26,21 @@
                 <div class="mainGreenColor dialogWrapper">
                     <div class="imgAndTitle">
                     </div>
-                    <p class="subtitle">FC EXPERTISE REGARDE LES AUTRES GRANDIR</p>
+                    <p class="subtitle">INFORMATION OBJET</p>
                     <div class="backBoad backBoad-1">
                     <div class="basicInfo">
-                        <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> 03/31/2021</p>
-                        <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> SBTA</p>
-                        <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> Full option</p>
+                        <p>{{editedItem.description}}</p>
                     </div>
                     <div class="travelResume">
                         <div class="part">
-                        <p> <span>12/11/2020</span><br>date de départ</p>
-                        <p> <span>ABIDJAN, ADJAME</span><br>lieu de départ</p>
-                        <p> <span>50</span><br>place à vendre</p>
+                        <p> <span>{{editedItem.nature}}</span><br>date de départ</p>
+                        <p> <span>{{editedItem.weight}}</span><br>lieu de départ</p>
+                        <p> <span>{{editedItem.size}}</span><br>place à vendre</p>
                         </div>
                         <div class="part">
-                        <p> <span>10:00</span><br>heure de départ</p>
-                        <p> <span>YAMOUSSOUKRO</span><br>destination</p>
-                        <p> <span>20</span><br>places disponibles</p>
+                        <p> <span>{{editedItem.contact}}</span><br>heure de départ</p>
+                        <p> <span>{{editedItem.ticket_number_or_identification}}</span><br>destination</p>
+                        <p> <span>{{editedItem.departure_date}}</span><br>places disponibles</p>
                         </div>
                     </div>
                     </div>
@@ -46,10 +50,10 @@
             </v-card>
             </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="desserts" :search="search"  hide-default-footer class="backgroundTree">
+            <v-data-table dense :headers="headers" :items="LostObjets" :search="search"  hide-default-footer class="backgroundTree">
             <!-- FOR SEE DETAILS AND STATISTIC DIALOG for OBJET EGARE -->
             <template v-slot:[`item.actions`]="{ item }"> 
-            <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-arrow-right </v-icon> voir plus </v-btn>
+            <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small>  mdi-eye  </v-icon></v-btn>
             </template>
             </v-data-table>
 
@@ -69,6 +73,7 @@
 
 
 <script>
+import { mapGetters } from "vuex";
 export default  {
   name: "MinoStationLostObjetList",
 
@@ -86,137 +91,15 @@ export default  {
     search: '',
     headers: [
         {
-          text: 'IDENTIFIANT',
+          text: 'CONTACT',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'contact',
         },
-        { text: 'DATE', value: 'date' },
-        { text: 'HEURE', value: 'heure' },
+        { text: 'NATURE', value: 'nature' },
+        { text: 'LIEU EMBARCARTION', value: 'departure_place' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
-    desserts: [
-      {
-        name: 'Frozen Yogurt',
-        date: '21-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Ice cream sandwich',
-        date: '01-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Cupcake',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        date: '25-04-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        date: '15-02-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        date:'25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-    ],
 
 
       editedItem: {
@@ -244,7 +127,22 @@ export default  {
       this.dialog = true
       console.log(item.name);
     },
+  },
+
+
+
+  computed: {
+
+    ...mapGetters([
+      'LostObjets',
+    ]),
+
+  },
+
+  created(){
+    this.$store.dispatch('init_lostObjets')
   }
+
 
 };
 
@@ -272,6 +170,7 @@ export default  {
 .ForTravelDeclaration{
   background: var(--backgroundTree);
   text-align: center;
+  border-radius: 10px;
 }
 
 .MaintTitle{
@@ -428,7 +327,7 @@ export default  {
   margin-bottom: 15px;
 }
 .basicInfo p{
-  width: 100px;
+  /* width: 100px; */
   margin-top: 15px;
   margin-bottom: 5px;
   font-weight: 200;
@@ -488,11 +387,10 @@ export default  {
 
 
 
-
-
 @media (min-width: 960px){
   .col-md-4 {
-    height:75px;
+    padding-bottom: 30px !important; 
+    padding-top: 10px !important;
 }
 }
 

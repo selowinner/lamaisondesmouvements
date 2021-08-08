@@ -6,7 +6,7 @@
             <v-row>
                  <v-col cols="12" md="9" lg="9" class="box">
                     <div class="stationListboxWrapper">
-                       <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
+                       <v-data-iterator :items="Stations" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
                       :sort-desc="sortDesc"
                       hide-default-footer
                       >
@@ -44,13 +44,13 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.details.vendus)" @click="dialog = !dialog">
+                            <div :class="getClass(item.ExpeditionNumber)" @click="dialog = !dialog">
                               <div>
                                 <v-icon>mdi-bus-marker</v-icon>
-                                <p>{{ item.details.vendus }}</p>
-                                <p>{{ item.name }}</p>
+                                <p>{{ item.ExpeditionNumber }}</p>
+                                <p>{{ item.denomination }}</p>
                               </div>
-                              <div class="price"><v-icon>mdi-calendar</v-icon><p>{{item.company}}</p></div>
+                              <div class="price"><v-icon>mdi-calendar</v-icon><p>{{item.anagramme}}</p></div>
                             </div>
                           </v-col>
 
@@ -84,7 +84,7 @@
                 </v-col>
                 <v-col cols="12" md="3" lg="3" class="box">
                     <div class="statboxWrapper">
-                      
+                      <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
                     </div>
                 </v-col>
             </v-row>
@@ -104,6 +104,7 @@
 
 <script>
 import  MinoOneExpeditionList  from "./mino-allExpeditionListManagement.vue";
+import { mapGetters } from "vuex";
 
 export default  {
   name: "MinoExpeditionsHome",
@@ -277,16 +278,66 @@ export default  {
         }
       },
     ],
+
+
+     // FOR STAT
+    series: [{
+    name: 'series1',
+    data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
+    }],
+
+    chartOptions: {
+      chart: {
+          id: 'FirstChart',
+          type: 'line',
+          sparkline: {
+          enabled: true,
+          }            
+      },
+      // dataLabels: {
+      //     enabled: false
+      // },
+      colors:['#3e886d'],
+      stroke: {
+          curve: 'smooth'
+      },
+      xaxis: {
+          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct']
+      },
+      markers: {
+          size: 4,
+          colors: ['#4c5d70'],
+          strokeColor: '#FFF',
+          strokeWidth: 2,
+        },
+      fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            gradientToColors: ['#4c5d70'],
+            shadeIntensity: 1,
+            type: 'horizontal',
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100]
+          },
+        },
+    
+    },
     
   }),
 
 
 
   computed: {
-      numberOfPages () {
-        return Math.ceil(this.items.length / this.itemsPerPage)
-      },
+    ...mapGetters([
+      'Stations',
+    ]),
+
+    numberOfPages () {
+      return Math.ceil(this.items.length / this.itemsPerPage)
     },
+  },
 
 
   methods: {

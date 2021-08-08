@@ -12,11 +12,13 @@
                 <v-icon>mdi-cog</v-icon>
             </div>
         </div>
+        <router-link :to="{name: 'Messagerie'}">
         <div class="timeBox">
             <div>35</div>
-            <v-icon color="mainGreenColor" x-large>mdi-bell-outline</v-icon>
-            <p>Notification</p>
+            <v-icon color="mainGreenColor" x-large class="messgaeicon">mdi-email-outline</v-icon>
+            <p>messagerie</p>
         </div>
+        </router-link>
         <div class="footerBox">
             <div class="locationBox">
                 <div><img src="@/assets/icone/localisationA.png" alt="" srcset=""></div>
@@ -80,7 +82,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    /* z-index: 50; */
+    z-index: 50;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -157,11 +159,12 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* cursor: pointer; */
 }
 .timeBox div:nth-child(1){
     position: relative;
-    top: 20px;
-    left: 12px;
+    top: 25px;
+    left: 25px;
     z-index: 10;
     height: 20px;
     width: 20px;
@@ -179,6 +182,10 @@ export default {
     font-weight: bold;
     text-align: center;
     color: var(--Important-font-color);
+}
+.messgaeicon{
+    font-size: 70px !important;
+    margin-bottom: -20px;
 }
 
 

@@ -368,6 +368,86 @@ class ReservationController {
 
 
 
+    
+
+    ///////////////////////////////////////////////////////////
+    /* FOR RESERVATION MANAGEMENT IN THE ADMINISTRATION SOFTWARE TOOL */
+    ///////////////////////////////////////////////////////////
+
+    async getListeOfReservationoForAdmin({params, response}){
+
+          // GET LIST OF RECEIPT
+          const ListOfreservationNotInJson = await ReservationReceipts
+          .query()
+          .innerJoin('tickets', 'tickets.id', 'reservation_receipts.tickets_id')
+        //   .where('travel_id', ListOfTravel[index].id)
+          .select('tickets.id', 'travel_id','client_complet_name', 'matriculation', 'number_of_places', 'travel_intermadiate_station', 'total_places_price', 'total_luggages_price', 'total__price')
+          .fetch()
+          const ListOfreservation = ListOfreservationNotInJson.toJSON()
+        
+
+          for (let index = 0; index < ListOfreservation.length; index++) {
+            // THE DESTINATION
+            const ListOfdestDepartNotInJson = await Travels
+            .query()
+            .innerJoin('companies', 'companies.id', 'travels.company_id')
+            .where('travels.id', ListOfreservation[index].travel_id)
+            .select('destination', 'departure_date', 'car_informations', 'departure_place', 'departure_time', 'car_matriculation','denomination')
+            .first()
+            const DestDepart = ListOfdestDepartNotInJson.toJSON()
+            ListOfreservation[index].travel =  DestDepart
+            // // THE INTERMADIATE STATION
+            if (ListOfreservation[index].travel_intermadiate_station) {
+                const intermadiateNotInJson = await TravelIntermadiateStations
+                .query()
+                .where('id', ListOfreservation[index].travel_intermadiate_station)
+                .select('station_name')
+                .first()
+                const DestIntermadiaire = intermadiateNotInJson.toJSON()
+                ListOfreservation[index].DestIntermadiaire =  DestIntermadiaire.station_name
+            }
+
+            // const ListOfreservationNotInJson = await Travels
+            // .query()
+            // .where('id', ListOfreservation[index].id)
+            // .select('destination', 'departure_date')
+            // .fetch()
+            // const DestDepart = ListOfreservationNotInJson.toJSON()
+            // ListOfreservation[index].destination =  DestDepart.destination
+            // ListOfreservation[index].departure_date =  DestDepart.departure_date
+        }
+
+
+
+        
+        // const ListOfTravelNotInJson = await Travels
+        // .query().where('company_id', params.id).fetch()
+        // const ListOfTravel = ListOfTravelNotInJson.toJSON()
+
+      
+        
+
+       
+
+        response.json({
+            message: 'success',
+            data: ListOfreservation
+        })
+        
+
+        
+    }
+
+
+    // const ListOfTravelerNotInJson = await Tickets
+    //         .query()
+    //         .where('travel_id', ListOfTravel[index].id)
+    //         .select('id','client_complet_name', 'matriculation', 'number_of_places', 'travel_intermadiate_station')
+    //         .fetch()
+
+
+
+
 }
 
 module.exports = ReservationController

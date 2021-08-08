@@ -200,7 +200,7 @@ class TravelController {
 
 
     ///////////////////////////////////////////////////////////
-    /* FOR TRAVEL DECLARATION IN THE COMPANIES SOFTWARE TOOL */
+    /* FOR TRAVEL DECLARATION IN THE COMPANIES STATION SOFTWARE TOOL */
     ///////////////////////////////////////////////////////////
 
     async addTravel({request, response}){
@@ -741,6 +741,128 @@ class TravelController {
 
         
     }
+
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////
+    /* FOR TRAVEL MANAGEMENT IN THE ADMINISTRATION SOFTWARE TOOL */
+    ///////////////////////////////////////////////////////////
+
+    async getListeOfTravelDoForAdmin({params, response}){
+
+        // CURRENT DATE
+        const CurrentDate =  new Date()
+        const CurrentDateInMilliseconds = CurrentDate.getTime()
+ 
+        // GET THE TRAVEL LIST WITHOUT CANCELLING TRAVELS
+        const ListOfTravelNotInJson = await Travels
+        .query()
+        .where('company_id', params.id)
+        .where('annulation_state', 0)
+        .select('id', 'departure_date', 'departure_time', 'place_price', 'destination', 'place_to_sell_by_mino_number')
+        .orderBy('departure_date', 'desc')
+        .fetch()
+        const ListOfTravel = ListOfTravelNotInJson.toJSON()
+
+        // GET TRAVEL MADE
+        const travelMade = []
+        for (let index = 0; index < ListOfTravel.length; index++) {
+            const tempsLa =  new Date(ListOfTravel[index].departure_date); 
+            if (CurrentDateInMilliseconds > tempsLa.getTime() ) {
+                travelMade.push(ListOfTravel[index])
+            }      
+        }
+        // GET TRAVEL MADE, TICKET BILAN il faut gérer aussi les places pas encore reservées
+        for (let index = 0; index < travelMade.length; index++) {
+            // ALL TICKET ANNULE
+            const allTicketCancelsNotInJson = await Tickets
+                .query()
+                .where('travel_id', travelMade[index].id)
+                .andWhere('ticket_state_id', 1)
+                .fetch()
+            const allCancelTickets = allTicketCancelsNotInJson.toJSON()
+            travelMade[index].ticketsCancelledNumber = allCancelTickets.length
+
+            // ALL TICKET SOLD
+            const allTicketsNotInJson = await Tickets
+                .query()
+                .where('travel_id', travelMade[index].id)
+                .andWhereNot('ticket_state_id', 1)
+                .fetch()
+            const allTickets = allTicketsNotInJson.toJSON()
+            travelMade[index].ticketsSoldNumber = allTickets.length
+
+            // GET GAIN OF EACH TICKET SOLD
+            if (allTickets.length > 0) {
+                let traveltotalGain = 0
+                for (let i = 0; i < allTickets.length; i++) {
+                    // const element = allTickets[i];
+                    const gain_A = await ReservationReceipts
+                        .query()
+                        .where('tickets_id', allTickets[i].id)
+                        .first()
+                    const gain = gain_A.toJSON() 
+                    traveltotalGain += gain.total__price
+                }
+                travelMade[index].traveltotalGain = traveltotalGain
+            }else{
+                travelMade[index].traveltotalGain = 0
+            }
+
+            // ALL PLACES NOT RESERVED
+            const allPlaceNotReservedNotInJson = await TravelPlaces
+                .query()
+                .where('travel_id', travelMade[index].id)
+                .andWhere('reservation_state', 0)
+                .count()
+            travelMade[index].allPlaceNotReserved = allPlaceNotReservedNotInJson[0]['count(*)']
+
+        }
+
+
+
+        response.json({
+            message: 'success',
+            data: travelMade
+        })
+        
+
+        
+    }
+
+    async getListeOfDeclaredForAdmin({params, response}){
+
+        // CURRENT DATE
+        const CurrentDate =  new Date()
+        const CurrentDateInMilliseconds = CurrentDate.getTime()
+ 
+        // GET LIST OF ALL DECLARED
+        const ListOfTravelNotInJson = await Travels
+        .query()
+        .where('company_id', params.id)
+        // .select('id', 'departure_date', 'departure_time', 'place_price', 'destination', 'place_to_sell_by_mino_number','annulation_state')
+        .orderBy('departure_date', 'desc')
+        .fetch()
+        const ListOfTravelDeclared = ListOfTravelNotInJson.toJSON()
+
+
+
+        response.json({
+            message: 'success',
+            data: ListOfTravelDeclared
+        })
+        
+
+        
+    }
+
+
+
 
 
 

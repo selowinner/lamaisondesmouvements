@@ -1,7 +1,7 @@
 <template>
 
     <div class="bodyBox">
-        <div class="TheBoxBody ForTravelDeclaration">
+        <div class="TheBoxBody ForcompanyDeclaration">
             <p class="MaintTitle">GESTION DES TICKETS</p>
             <div>
               <div class="formRadio">
@@ -10,84 +10,58 @@
                   <v-radio label="LISTE DES COMPAGNIES" value="radio-2" v-on:click= "DayType = false"></v-radio>
                 </v-radio-group>
               </div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit reprehenderit atque voluptatem animi architecto nihil, iste, rerum maiores.</p>
             </div>
            
-            <v-form v-if="DayType">
+            <v-form ref="companiesaddingform" v-if="DayType" class="mainContentWraper">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit reprehenderit atque voluptatem animi architecto nihil, iste, rerum maiores.</p>
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field outlined v-model="prix" ref="prix" height="70" color="red" type="text" :rules="[() => !!prix]"  value="Lieu de départ" label="Lieu de départ" persistent-hint required disabled></v-text-field>
+                    <v-text-field outlined v-model="newCompany.denomination" ref="deno" height="50" color="red" type="text" :rules="[() => !!newCompany.denomination]"  value="Lieu de départ" label="Denomination" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" height="70" type="text" :rules="[() => !!prix]"  label="Destination" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newCompany.anagramme" ref="anag" height="50" type="text" :rules="[() => !!newCompany.anagramme]"  label="anagramme" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="heure" height="70" type="time" :rules="[() => !!prix]"  label="Heure départ" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newCompany.description" ref="desc" height="50" type="text" :rules="[() => !!newCompany.description]"  label="description" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="quantity" ref="quantity" height="70" type="number" :rules="[() => !!quantity ]"  label="Nombre de place à vendre" persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newCompany.matriculation" ref="rccm" height="50" type="text" :rules="[() => !!newCompany.matriculation ]"  label="Numéro RCCM" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field  outlined v-model="prix" ref="prix" height="70" type="number" :rules="[() => !!prix ]"  label="Nombre de place à disponible"  persistent-hint required></v-text-field>
+                    <v-text-field  outlined v-model="newCompany.country" ref="pays" height="50" type="text" :rules="[() => !!newCompany.country ]"  label="Pays"  persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
-                     <v-btn large height="70" depressed color="mainGreenColor" outlined>Enregistrer</v-btn>
+                    <v-text-field  outlined v-model="newCompany.siege" ref="siege" height="50" type="text" :rules="[() => !!newCompany.siege]"  label="Ville de siège" persistent-hint required></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" lg="4">
+                    <v-text-field  outlined v-model="newCompany.contact" ref="cont" height="50" type="number" :rules="[() => !!newCompany.contact ]"  label="Contact" persistent-hint required></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" lg="4">
+                    <v-text-field  outlined v-model="newCompany.email" ref="mail" height="50" type="email" :rules="[() => !!newCompany.email ]"  label="email"  persistent-hint required></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" lg="4">
+                     <v-btn large height="50" depressed color="mainGreenColor" v-on:click.prevent="submit" outlined>Enregistrer</v-btn>
                   </v-col>
                 </v-row>
 
               </v-container>
             </v-form>
-            <div class="tableWrapperDiv" v-if="!DayType">
-             
-              <!-- STATISTIC DIALOG -->
-              <v-dialog v-model="dialog" max-width="410" overlay-color="black" overlay-opacity="0.8">
-                <v-card>
-                  <v-card-text>
-                    <p class="mainGreenColor dialogTitle">DETAILS COMPAGNIE</p>
-                    <div class="mainGreenColor dialogWrapper">
-                      <div class="imgAndTitle">
-                      </div>
-                      <p class="subtitle">FC EXPERTISE REGARDE LES AUTRES GRANDIR</p>
-                      <div class="backBoad">
-                        <div class="basicInfo">
-                          <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> 03/31/2021</p>
-                          <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> 08:00</p>
-                          <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> SBTA</p>
-                          <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> Full option</p>
-                          <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> 03/31/2021</p>
-                          <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> 08:00</p>
-                        </div>
-                        <div class="nowIDontKnowHerUsing">
-
-                        </div>
-                        <div class="travelResume">
-                          <div class="part">
-                            <p> <span>12/11/2020</span><br>date enregistrement</p>
-                            <p> <span>02/8/2021</span><br>date fin d'abonnement</p>
-                          </div>
-                           <div class="part">
-                            <p> <span>13/2/2021</span><br>date abonnement actuel</p>
-                            <p> <span>12/15/2021</span><br>tickets restants</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </v-card-text>
-          
-                </v-card>
-              </v-dialog>
-
-              <v-data-table dense :headers="headers" :items="desserts" :search="search"  hide-default-footer class="backgroundTree">
-                <!-- FOR SEE DETAILS AND STATISTIC DIALOG -->
-                <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-                <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn><v-btn icon color="mainGreenColor"><v-icon small>mdi-lead-pencil</v-icon></v-btn>
-                </template>
-              </v-data-table>
-
+            <div v-if="!DayType" class="mainContentWraper">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit reprehenderit atque voluptatem animi architecto nihil, iste, rerum maiores.</p>
+             <allCompaniesList :key="forceRerender"></allCompaniesList>
             </div>
 
         </div>
+
+
+      <!-- ALERT -->
+      <transition name="slide">
+      <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor">{{this.companyaddingResponse.message}}</v-alert>
+      </transition>
+      <transition name="slide"> 
+      <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error">{{this.companyaddingResponse.message}}</v-alert>
+      </transition>
     </div>
   
   
@@ -104,10 +78,16 @@
 
 
 <script>
+import Vue from 'vue'
+import allCompaniesList from "../components/UserCompanyManagement/allCompaniesList.vue";
+
+
+
+
 export default {
   name: "UserManagement",
   components: {
-    
+    allCompaniesList
   },
 
   data: () => ({
@@ -115,173 +95,75 @@ export default {
     row: "check",
     DayType: true,
 
-    //for the list
-    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-    search: '',
-    headers: [
-        {
-          text: 'IDENTIFIANT',
-          align: 'start',
-          sortable: false,
-          value: 'name',
-        },
-        { text: 'DATE', value: 'date' },
-        { text: 'HEURE', value: 'heure' },
-        { text: 'DETAILS', value: 'actions', sortable: false },
-      ],
-    desserts: [
-      {
-        name: 'Frozen Yogurt',
-        date: '21-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Ice cream sandwich',
-        date: '01-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Cupcake',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        date: '25-04-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        date: '15-02-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        date:'25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-    ],
+    // for alerte
+    addingSuccess: false,
+    addingfalse : false,
 
+  // for companies adding 
+    newCompany:{
+      denomination : '',
+      matriculation : '',
+      description : '',
+      country : '',
+      contact : '',
+      email : '',
+      anagramme : '',
+      siege : '',
+    },
 
-      editedItem: {
-        name: '',
-        date:'',
-        heure: '',
-        details:{
-          vendus: 0,
-          aVendre: 0,
-          restant: 0,
-          annules: 0,
-          gains: 0
-        }
-      },
+    companyaddingResponse: "",
 
-
-
-    dialog: false
     
   }),
 
+
+
   methods: {
-    editItem: function (item) {
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-      console.log(item.name);
+     submit(){
+      Vue.prototype.$http.post('http://127.0.0.1:3333/compangny/add', this.newCompany)
+                .then(response =>{
+                  this.companyaddingResponse = response.data
+                  console.log(response.data);
+                  if (this.companyaddingResponse.message == "success" ) {
+                    this.companyaddingResponse.message = "Compagny enregistrée avec succès"
+                    this.addingSuccess = !this.addingSuccess
+                    this.$refs.companiesaddingform.reset()
+                    setTimeout(() => {
+                        this.addingSuccess = !this.addingSuccess
+                    }, 3000);
+                  } else {
+                    this.addingfalse = !this.addingfalse
+                    setTimeout(() => {
+                        this.addingfalse = !this.addingfalse
+                    }, 3000);
+                  }
+                })
+                .catch(error => {
+                  this.companyaddingResponse = error.message;
+                  console.error("There was an error!", error);
+               });
+
+    // this.$refs.companiesaddingform.reset()
     },
-  }
+  },
+
+
+
+  computed:{
+    forceRerender() {
+        return this.$store.state.companiescomponentKey;
+      }
+  },
 
 };
 
+
+
+
+
+
+
+ 
 
 </script>
 
@@ -303,9 +185,10 @@ export default {
     margin-top: 10%;
 }
 
-.ForTravelDeclaration{
+.ForcompanyDeclaration{
   background: var(--backgroundTree);
   text-align: center;
+  border-radius: 10px;
 }
 
 .MaintTitle{
@@ -318,9 +201,12 @@ export default {
   margin-top: 0;
 }
 
-.ForTravelDeclaration > div:nth-child(2){
+.ForcompanyDeclaration > div:nth-child(2){
+  /* border-top: solid 0.5px var(--font-color); */
+  margin: 0 25px;
+}
+.mainContentWraper > p:nth-child(1){
   border-bottom: solid 0.5px var(--font-color);
-  margin: 0 45px;
 }
 
 .v-form{
@@ -351,162 +237,18 @@ export default {
 } */
 
 
-
-
-
-
-
-
-
-
-
-
-.tableWrapperDiv{
-  height: 63%;
+.mainContentWraper{
+  height: 100%;
   overflow-y: auto;
 }
-.tableWrapperDiv::-webkit-scrollbar{
-  width: 20px;
-}
-.tableWrapperDiv::-webkit-scrollbar-track {
-  background: var(--backgroundTree);
-}
-
-.tableWrapperDiv::-webkit-scrollbar-thumb {
-  background-color: var(--main-green-color);
-  border-radius: 30px;
-  border: 7px solid var(--backgroundTree);
-}
-
-.v-data-table {
-  line-height: 1.5;
-  max-width: 100%;
-  margin: 0px 35px;
-}
-.v-btn {
-    font-weight: bold;
-    letter-spacing: normal;
-    text-transform: none;
-}
-
-
-
-
-
-
-
-
-
-.theme--light.v-card {
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.87);
-}
-
-
-
-.dialogTitle{
-    margin: 0;
-    display: inline-block;
-    padding: 2px 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    font-size: 13px;
-    color: white;
-}
-.dialogWrapper{
-  width: 100%;
-  margin: 0px;
-  padding: 5px;
-  border-radius: 0px 0px 5px 5px;
-  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
-
-}
-
-
-
-.imgAndTitle{
-  margin: 0px 0px;
-  height: 220px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  background: linear-gradient(180deg, rgb(0 0 0 / 58%),rgb(0 0 0 / 19%), rgb(0 0 0 / 60%)), url(../assets/img/abstract-1278060_1920.jpg);
-  background-position: center;
-  background-size: cover;
-}
-
-.subtitle{
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: -0.5px;
-  font-size: 13px;
-  text-align: center;
-  margin: 5px 0px;
-  color: white;
-}
-
-.backBoad{
-  background: var(--backgroundTree);
-  color: var(--Important-font-color);
-}
-.basicInfo{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  border-bottom: solid 1px var(--Important-font-color);
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
-.basicInfo p{
-  width: 100px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: 200;
-}
-
-
-.nowIDontKnowHerUsing{
-  height: 100px;
-  border-bottom: solid 1px var(--Important-font-color);
-}
-
-
-.travelResume{
-  width: 100%;
-  display: flex;
-}
-.part{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-}
-.part p{
-  margin: 5px 0px;
-  margin-left: 15px;
-}
-.part span{
-  font-weight: bold;
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
 @media (min-width: 960px){
   .col-md-4 {
-    height:75px;
+    height:50px;
+    padding-bottom: 50px;
+    padding-top: 35px;
 }
 }
 
