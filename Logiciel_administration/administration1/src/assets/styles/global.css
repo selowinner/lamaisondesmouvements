@@ -111,7 +111,7 @@ transform: translateX(-20px)
     /* background: red; */
 }
 .TheBoxBody{
-    /* width: 75vw; */
+    width: 75vw;
     height: 59vh;
 }
 .alert{

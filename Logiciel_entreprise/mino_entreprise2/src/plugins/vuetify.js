@@ -31,7 +31,7 @@ export default new Vuetify({
               DefaultFontColor:'#939eaf',
               
               /* Other Color */
-              mainGreenColor: '#3e886d',
+              mainGreenColor: '#c99c33',
               mainWhiteColor: '#f9f9f9',
               MinoWhite:'#fffff',
             },

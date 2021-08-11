@@ -42,6 +42,19 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
 html {
     overflow-y: auto;
 }
+html::-webkit-scrollbar{
+    width: 20px;
+  }
+html::-webkit-scrollbar-track {
+    background: var(--main-black-color);
+  }
+  
+html::-webkit-scrollbar-thumb {
+    background-color: var(--main-green-color);
+    border-radius: 30px;
+    border: 7px solid var(--main-black-color);
+  }
+  
 body{
     margin: 0;
     padding: 0;

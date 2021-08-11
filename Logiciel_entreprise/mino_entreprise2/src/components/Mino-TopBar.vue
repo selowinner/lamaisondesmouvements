@@ -5,11 +5,13 @@
         <!-- <div class="header1">
             <img src="@/assets/icone/searchB.png" alt="" srcset="">
         </div> -->
-
+        
         <div class="header2">
+            <router-link :to="{name: 'Dashboard'}">
             <div class="Header2logoBox">
                 <img src="@/assets/icone/2-MinoA.png" alt="" srcset="">
             </div>
+            </router-link>
         </div>
 
     </div>
@@ -90,7 +92,7 @@ export default {
     height: 400px;
     /* margin-top: -30vh; */
     width: 450px;
-    background: white;
+    background: var(--main-very-important-color);
     display: flex;
     justify-content: center;
     align-items: flex-end;

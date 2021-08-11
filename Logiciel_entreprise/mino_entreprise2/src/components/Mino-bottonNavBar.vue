@@ -3,85 +3,38 @@
  
     <div class="BigWrapper">
         <div class="bottonNavBar">
-            <router-link :to="{name: 'Dashboard'}">
+            <router-link :to="{name: 'stationRegistring'}">
                 <div class="navBox" style="border-radius: 10px 0 0 0;"  v-on:click= "UnactiveMenu">
                     <img src="@/assets/icone/dashboardB.png" alt="" srcset="">
-                    <p>Dashboard</p>
+                    <p>Gestion des compagnies</p>
                 </div>
             </router-link>
             <!-- v-on:click= "isActive = !isActive" :class="{naVBox2Active: isActive}" -->
-            <div class="navBox" v-on:click= "activeMenu" :class="{naVBox2Active: isActive}">
-                <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
-                <p>Gestion des voyages</p>
-                <div class="menuBox" v-if="travelMenuClick">
-                    <div class="menuTitle">
-                        GESTIONNAIRE DES VOYAGES
-                        <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "travelMenuClick = false">
-                    </div>
-                    <div v-on:click.stop= "travelMenuClick = false">
-                        <router-link :to="{name: 'TravelDeclaration'}">
-                        <div class="tab1">
-                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                            <p>DECLARATION DE VOYAGE</p>
-                        </div>
-                        </router-link>
-                        <router-link :to="{name: 'TravelBalanceSheet'}">
-                        <div class="tab1">
-                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                            <p>BILAN DES VOYAGES</p>
-                        </div>
-                        </router-link>
-                        <router-link :to="{name: 'TravelLuggage'}">
-                        <div class="tab1">
-                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                            <p>GESTION DES BAGAGES</p>
-                        </div>
-                        </router-link>
-                    </div>
+            <router-link :to="{name: 'TravelManagement'}">
+                <div class="navBox" v-on:click= "UnactiveMenu">
+                    <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
+                    <p>Bilans des voyages</p>
                 </div>
-            </div>
-            <router-link :to="{name: 'lostObjectList'}">
+            </router-link>
+            <router-link :to="{name: 'ExpeditionManagement'}">
                 <div class="navBox" v-on:click= "UnactiveMenu">
                     <img src="@/assets/icone/targetB.png" alt="" srcset="">
-                    <p>Gestion des objets <br> égarés</p>
+                    <p>Bilans des Expeditions</p>
                 </div>
             </router-link>
-            <div class="navBox" v-on:click= "activeMenu2" :class="{naVBox2Active1: isActive2}">
-                <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
-                <p>Gestion des colis</p>
-                <div class="menuBox" v-if="expeditionMenuClick">
-                    <div class="menuTitle">
-                        GESTIONNAIRE DES COLIS
-                        <img src="@/assets/icone/close.png" alt="" srcset=""  v-on:click.stop= "expeditionMenuClick = false">
-                    </div>
-                    <div v-on:click.stop= "expeditionMenuClick = false">
-                        <router-link :to="{name: 'ExpeditionSheet'}">
-                        <div class="tab1">
-                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                            <p>GESION DES EXPEDITIONS</p>
-                        </div>
-                        </router-link>
-                        <router-link :to="{name: 'Livreurs'}">
-                        <div class="tab1">
-                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                            <p>GESTION DES LIVREURS</p>
-                        </div>
-                        </router-link>
-                        <router-link :to="{name: 'Withdrawalsheet'}">
-                        <div class="tab1">
-                            <img src="@/assets/icone/right-arrowB.png" alt="" srcset="">
-                            <p>TYPE DE COLIS</p>
-                        </div>
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-            <router-link :to="{name: 'TravelStat'}">
+            <router-link :to="{name: 'LostObjetManagement'}">
             <div class="navBox navEnd" v-on:click= "UnactiveMenu">
-                <img src="@/assets/icone/settingsB.png" alt="" srcset="">
-                <p>statistique voyage</p>
+                <img src="@/assets/icone/colisB.png" alt="" srcset="">
+                <p>Bilans des objets<br> égarés</p>
             </div>
             </router-link>
+            <router-link :to="{name: 'Analytics'}">
+            <div class="navBox navEnd" v-on:click= "UnactiveMenu">
+                <img src="@/assets/icone/colisB.png" alt="" srcset="">
+                <p>Bilan financier</p>
+            </div>
+            </router-link>
+            
         </div>
     </div>
        
@@ -143,7 +96,7 @@ export default {
 
 
   created(){
-    this.$store.dispatch('init_analitic')
+    // this.$store.dispatch('init_analitic')
   }
 
 };
@@ -173,7 +126,7 @@ export default {
     justify-content: center;
 }
 .bottonNavBar{
-    background: var(--main-white-color);
+    background: var(--main-very-important-color);
     height: 15vh;
     /* width: 60vw; */
     /* position: fixed;
@@ -183,11 +136,10 @@ export default {
     align-items: center;
     border-radius: 10px 10px 0px 0px;
     box-shadow: -1px -10px 23px -1px rgb(206 204 204 / 50%);
-
 }
 
 .navBox{
-    border-right: solid 1px var(--Important-font-color);
+    border-right: solid 1px var(--font-color);
     height: 60%;
     width: 205px;
     display: flex;
@@ -205,12 +157,12 @@ export default {
     margin: 0;
     font-size: 14px;
     font-weight: bold;
-    color: var(--main-green-color);
+    color: white;
     text-align: center;
 }
 
 .navBox:hover{
-    background: white;
+    background: var(--main-white-color);
     border-right: dashed 0px;
     height: 15vh;
     box-shadow: 2px 6px 20px -1px rgb(206 204 204 / 90%);
@@ -225,7 +177,7 @@ export default {
     content: "";
     height: 20px;
     width: 20px;
-    background: white;
+    background: var(--main-white-color);
     position: absolute;
     z-index: 1;
     top: -10px;

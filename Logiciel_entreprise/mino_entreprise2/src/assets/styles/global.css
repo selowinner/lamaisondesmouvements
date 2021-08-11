@@ -17,10 +17,15 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
     --Principal-font:'Poppins', sans-serif;
 
     /* Background-color */
-    --main-white-color: #f9f9f9;
+    --main-white-color: #e1eceb;
+    --main-very-important-color: #3d5654;
+    --main-important-color: #476866;
+
+    
     
     /* Important-color */
-    --main-green-color : #3e886d;
+    --main-green-color : #c99c33;
+    /* --Important-font-color: #ffffff ; */
     --Important-font-color: #4c5d70 ;
    
     /* Font color */
@@ -92,9 +97,15 @@ transform: translateX(-20px)
 }
 .TheBoxBody{
     width: 73vw;
-    /* height: 65vh; */
+    height: 59vh;
     margin-top: 150px;
     margin-bottom: 150px;
+    /* background: red; */
+}
+.TheBoxBodyforpopUp{
+    width: 75vw;
+    height: 59vh;
+    overflow-y: hidden;
     /* background: red; */
 }
 
@@ -171,14 +182,40 @@ transform: translateX(-20px)
 }
 
 
+
+/*-- POP UP --*/
+.v-dialog {
+    box-shadow: none;
+}
+
+
+
+
+
+
 /*-- Data Table Customisation --*/
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th{
+/* .v-data-table > .v-data-table__wrapper > table > thead > tr > th{
     font-size: 15px;
     font-weight: bold;
     
 }
 .theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
     color:  var(--font-color);
+}
+.theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row){
+    border-bottom: thin solid rgba(0, 0, 0, 0) !important;
+}
+.theme--light.v-data-table {
+    color: var(--Important-font-color);
+} */
+
+/*-- Data Table Customisation --*/
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th{
+    font-size: 15px;
+    font-weight: bold;
+}
+.theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+    color:  var(--Important-font-color);
 }
 .theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row){
     border-bottom: thin solid rgba(0, 0, 0, 0) !important;

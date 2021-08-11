@@ -12,13 +12,13 @@
                 <v-icon>mdi-cog</v-icon>
             </div>
         </div>
-        <router-link :to="{name: 'Messagerie'}">
+        <!-- <router-link :to="{name: ''}"> -->
         <div class="timeBox">
             <div>35</div>
             <v-icon color="mainGreenColor" x-large class="messgaeicon">mdi-email-outline</v-icon>
             <p>messagerie</p>
         </div>
-        </router-link>
+        <!-- </router-link> -->
         <div class="footerBox">
             <div class="locationBox">
                 <div><img src="@/assets/icone/localisationA.png" alt="" srcset=""></div>
@@ -83,7 +83,7 @@ export default {
     top: 0;
     left: 0;
     z-index: 50;
-    background-color: white;
+    background-color: var(--main-important-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -95,6 +95,7 @@ export default {
     height: 32vh;
     width: 100%;
     display: flex;
+    background: var(--main-very-important-color);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -118,12 +119,12 @@ export default {
     text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
-    color: var(--Important-font-color);
+    color: white;
 }
 .profilBox p:nth-child(3){
     font-size: 13px;
     margin-top: -15px;
-    color: var(--font-color);
+    color: white;
 }
 .profilBox p:nth-child(4){
     /* font-size: 13px; */
@@ -181,7 +182,7 @@ export default {
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    color: var(--Important-font-color);
+    color: white;
 }
 .messgaeicon{
     font-size: 70px !important;
@@ -205,7 +206,7 @@ export default {
     width: 30px;
     margin-left: 7px;
     border-radius: 100px;
-    border: solid 1px var(--font-color);
+    border: solid 1px white;
     margin-right: 10px;
     display: flex;
     justify-content: center;
@@ -218,9 +219,10 @@ export default {
 .locationBox div:nth-child(2){
     font-size: 12px;
     line-height: 5px;
+    color: var(--main-green-color);
 }
 .locationBox div:nth-child(2) p:nth-child(1){
-    color: var(--font-color);
+    color: white;
 }
 
 

@@ -1,6 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
+import stationRegistring from "../views/stationRegistring.vue";
+import TravelManagement from "../views/TravelManagement.vue";
+import ExpeditionManagement from "../views/ExpeditionManagement.vue";
+import LostObjetManagement from "../views/LostObjetManagement.vue";
+import Analytics from "../views/Analytics.vue";
+
 
 
 // import testePage from "../components/testPage.vue";
@@ -13,6 +19,32 @@ const routes = [
     name: "Dashboard",
     component: Dashboard,
   },
+  {
+    path: "/stationRegistring",
+    name: "stationRegistring",
+    component: stationRegistring,
+  },
+  {
+    path: "/TravelManagement",
+    name: "TravelManagement",
+    component: TravelManagement,
+  },
+  {
+    path: "/ExpeditionManagement",
+    name: "ExpeditionManagement",
+    component: ExpeditionManagement,
+  },
+  {
+    path: "/LostObjetManagement",
+    name: "LostObjetManagement",
+    component: LostObjetManagement,
+  },
+  {
+    path: "/Analytics",
+    name: "Analytics",
+    component: Analytics,
+  },
+  
   // {
   //   path: "/testePage",
   //   name: "testePage",
