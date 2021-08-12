@@ -91,7 +91,7 @@
                 <v-col cols="12" md="3" lg="3" class="box">
                     <div class="statboxWrapper">
                     <h4>Statistiques</h4>
-                      <!-- <apexchart height="100%" :options="chartOptions" :series="series"></apexchart> -->
+                    <div><apexchart height="100%" :options="chartOptions" :series="series"></apexchart></div>
                     </div>
                 </v-col>
             </v-row>
@@ -271,7 +271,7 @@ export default  {
     chartOptions: {
       chart: {
           id: 'FirstChart',
-          type: 'line',
+          type: 'bar',
           sparkline: {
           enabled: true,
           }            
@@ -286,12 +286,12 @@ export default  {
       xaxis: {
           categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Aug', 'Sep', 'Oct']
       },
-      markers: {
-          size: 4,
-          colors: ['#4c5d70'],
-          strokeColor: '#FFF',
-          strokeWidth: 2,
-        },
+      // markers: {
+      //     size: 4,
+      //     colors: ['#4c5d70'],
+      //     strokeColor: '#FFF',
+      //     strokeWidth: 2,
+      //   },
       fill: {
           type: 'gradient',
           gradient: {
@@ -380,6 +380,10 @@ export default  {
 }
 .statboxWrapper h4{
     margin-left: 10px;
+}
+.statboxWrapper div{
+  height: 95%;
+  /* background: red; */
 }
 
 .stationListboxWrapper{

@@ -46,7 +46,9 @@
                             <v-col cols="12" md="12" lg="12">
                                 <div class="statWrapper">
                                     <p class="sectionTitle">Statistique</p>
-
+                                    <div>
+                                    <apexchart height="100%" :options="chartOptions4" :series="series4"></apexchart>
+                                    </div>
                                 </div>
                             </v-col>
                         </v-row>
@@ -142,6 +144,41 @@ export default {
   },
 
 data: () => ({
+
+
+
+     // GENERAL STATS
+    series4: [{
+          name: 'Series 2',
+          data: [0, 10, 100, 10, 50, 90],
+        }],
+    chartOptions4: {
+      chart: {
+          id: 'FirstChart',
+          type: 'area',
+        //   zoom: {
+        //         enabled: true
+        //     },
+          sparkline: {
+          enabled: true,
+          }            
+      },
+      
+      colors:['#c99c33'],
+      stroke: {
+          curve: 'smooth',
+      },
+      xaxis: {
+          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+      },
+      markers: {
+          size: 4,
+          colors: ['#4c5d70'],
+          strokeColor: '#FFF',
+          strokeWidth: 2,
+        },
+    },
+
    
   }),
   
@@ -240,12 +277,20 @@ mounted() {
 
 .statWrapper{
     height: 300px;
-    padding: 5px;
+    /* padding: 5px; */
     border-radius: 10px;
     background: white;
 }
+.statWrapper > div{
+    height: 83.3%;
+    width: 100%;
+    /* background: red; */
+}
+.statWrapper >p{
+    padding: 5px 5px 0px 5px !important;
+}
 .statWrapper1{
-    height: 522px;
+    height: 542px;
     border-radius: 10px;
     padding-top: 10px;
     background: var(--main-important-color);
@@ -306,7 +351,7 @@ mounted() {
 
 .noteDefWrapper{
     background: var(--main-very-important-color);
-    height: 20.5%;
+    height: 22%;
     border-radius: 10px;
     display: flex;
     justify-content: center;
