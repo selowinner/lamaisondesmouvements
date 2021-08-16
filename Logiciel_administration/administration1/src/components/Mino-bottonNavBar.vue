@@ -74,6 +74,7 @@ export default {
 
   created(){
     this.$store.dispatch('init_stations')
+    this.$store.dispatch('init_analytycs')
   }
 
 };

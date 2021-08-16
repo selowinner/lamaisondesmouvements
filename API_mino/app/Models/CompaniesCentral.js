@@ -19,6 +19,14 @@ class CompaniesCentral extends Model {
     abonnemnt () {
         return this.hasMany('App/Models/Abonnement')
     }
+
+    minoCode () {
+        return this.hasMany('App/Models/MinoCode')
+    }
+
+    expeditions () {
+        return this.manyThrough('App/Models/Company', 'expeditions')
+    }
 }
 
 module.exports = CompaniesCentral

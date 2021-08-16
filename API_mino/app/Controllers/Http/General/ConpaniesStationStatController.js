@@ -23,14 +23,20 @@ class ConpaniesStationStatController {
         
         let analytics = new Object()
 
+         /*Current Year*/ 
+         let date = new Date();
+         const currentyears = date.getFullYear()
+         const yearsstart = currentyears + '-01-01 00:00:00'
+         const yearsEnd = currentyears + '-12-31 00:00:00'
+
         // DECLARED TRAVEL
-        const declaredTravel = await Travels.query().where('company_id', params.id).count()
+        const declaredTravel = await Travels.query().where('company_id', params.id).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const declaredTravelNumber = declaredTravel[0]['count(*)']
 
         analytics.declaredTravelNumber = declaredTravelNumber
 
         // CANCELLING TRAVEL
-        const cancellingTravel = await Travels.query().where('company_id', params.id).where('annulation_state', 1).count()
+        const cancellingTravel = await Travels.query().where('company_id', params.id).where('annulation_state', 1).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const cancellingTravelNumber = cancellingTravel[0]['count(*)']
 
         analytics.cancellingTravelNumber = cancellingTravelNumber
@@ -41,33 +47,34 @@ class ConpaniesStationStatController {
         .query()
         .innerJoin('Travels', 'travels.id', 'Tickets.travel_id')
         .where('company_id', params.id)
+        .whereBetween('Tickets.created_at', [yearsstart,  yearsEnd])
         .count()
         const clientsNumber1 = clients[0]['count(*)']
         /* For expedition */
-        const expeditionClient = await Expeditions.query().where('company_id', params.id).count()
+        const expeditionClient = await Expeditions.query().where('company_id', params.id).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const expeditionClientNumber = expeditionClient[0]['count(*)']
 
         analytics.clientsNumber = clientsNumber1 + expeditionClientNumber
 
         // FIND THINGS
-        const findThing = await LostObjets.query().where('company_id', params.id).where('declaration_state', 1).count()
+        const findThing = await LostObjets.query().where('company_id', params.id).where('declaration_state', 1).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const findThingNumber = findThing[0]['count(*)']
 
         analytics.findThingNumber = findThingNumber
 
         // LOST THINGS DECLARED
-        const lostThing = await LostObjets.query().where('company_id', params.id).count()
+        const lostThing = await LostObjets.query().where('company_id', params.id).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const lostThingNumber = lostThing[0]['count(*)']
 
         analytics.lostThingNumber = lostThingNumber
 
         /* EXPEDITION DO*/
-        const expeditionClient2 = await Expeditions.query().where('company_id', params.id).where('expedition_state_id', 6).count()
+        const expeditionClient2 = await Expeditions.query().where('company_id', params.id).where('expedition_state_id', 6).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const expeditionClientNumber2 = expeditionClient2[0]['count(*)']
         analytics.expeditionDo = expeditionClientNumber2
 
         /* EXPEDITION DECLARED*/
-        const expeditionClient3 = await Expeditions.query().where('company_id', params.id).count()
+        const expeditionClient3 = await Expeditions.query().where('company_id', params.id).whereBetween('created_at', [yearsstart,  yearsEnd]).count()
         const expeditionClientNumber3 = expeditionClient3[0]['count(*)']
         analytics.expeditionNumber = expeditionClientNumber3
 
@@ -77,7 +84,7 @@ class ConpaniesStationStatController {
         // GRAPH STAT LOGIC
         /*------------------*/
 
-        // STEP 1: Select list of element fro the current year  --- IL RESTE A GENERER DYNAMIQUEMENT L'ANNEE ---
+        // STEP 1: Select list of element fro the current year  
         /*For tickets sold*/
         const thisYearsTravelNotInJSON = await Tickets
             .query()
@@ -85,7 +92,7 @@ class ConpaniesStationStatController {
             .where('company_id', params.id)
             .where('annulation_state', 0)
             .whereNot('ticket_state_id', 1)
-            .whereBetween('Tickets.created_at', ['2021-01-01 00:00:00',  '2021-12-31 00:00:00'])
+            .whereBetween('Tickets.created_at', [yearsstart,  yearsEnd])
             .select('Tickets.id', 'Tickets.created_at')
             .fetch()
         const thisYearsTravel = thisYearsTravelNotInJSON.toJSON()
@@ -94,7 +101,7 @@ class ConpaniesStationStatController {
             .query()
             .where('company_id', params.id)
             .where('declaration_state', 1)
-            .whereBetween('updated_at', ['2021-01-01 00:00:00',  '2021-12-31 00:00:00'])
+            .whereBetween('updated_at', [yearsstart,  yearsEnd])
             .select('id', 'updated_at')
             .fetch()
         const thisYearsThings = thisYearsThingsNotInJSON.toJSON()
@@ -103,7 +110,7 @@ class ConpaniesStationStatController {
             .query()
             .where('company_id', params.id)
             .where('expedition_state_id', 1)
-            .whereBetween('updated_at', ['2021-01-01 00:00:00',  '2021-12-31 00:00:00'])
+            .whereBetween('updated_at', [yearsstart,  yearsEnd])
             .select('id', 'updated_at')
             .fetch()
         const thisYearsExpeditions = thisYearsExpeditionsNotInJSON.toJSON()

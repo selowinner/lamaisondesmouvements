@@ -19,7 +19,7 @@ const getters = {
 
         return travel
     },
-    ClientReservation: state => {
+    ClientReservations: state => {
         let client = state.clientReservation
 
         return client

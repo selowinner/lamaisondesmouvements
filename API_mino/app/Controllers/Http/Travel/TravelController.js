@@ -588,17 +588,66 @@ class TravelController {
         // INIT
         const travelAnalytics = new Object();
         travelAnalytics.travelMadeTotalGain = 0
-
-        // CURRENT DATE
+        // TIME
         const CurrentDate =  new Date()
         const CurrentDateInMilliseconds = CurrentDate.getTime()
         const CurrentYear = CurrentDate.getFullYear()
-        const yearLimitOne  = CurrentYear + "-01-01" 
-        const yearLimitTwo  = CurrentYear + "-12-31" 
-
         const currentMonthPlusOne = CurrentDate.getMonth()+1
-        const TheCurrentDay = CurrentYear + "-" + currentMonthPlusOne  + "-" + CurrentDate.getDate() 
+        let TheCurrentDay
+        let dateLimitOne 
+        let dateLimitTwo 
+        let MonthInLetter 
+        let firstday
+        let lastday
+        
+        let vague = ""
+        // CURRENT DATE
+        if (params.period == 1) {
+            // stat année
+            dateLimitOne  = CurrentYear + "-01-01" 
+            dateLimitTwo  = CurrentYear + "-12-31" 
+            TheCurrentDay = CurrentYear + "-" + currentMonthPlusOne  + "-" + CurrentDate.getDate() 
+            MonthInLetter = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+            vague = 'annee'
+        }else if (params.period == 2) {
+            // stat semestre
+            // -----Identification du semestre concerné
+            const semestre1 = [1,2,3,4,5,6]
+            if (semestre1.indexOf(currentMonthPlusOne) === -1) {
+                // cas semestre 2
+                dateLimitOne  = CurrentYear + "-07-01" 
+                dateLimitTwo  = CurrentYear + "-12-31" 
+                MonthInLetter = ['Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+                vague = 'semestre2'
+            }else{
+                // cas semestre 1
+                dateLimitOne  = CurrentYear + "-01-01" 
+                dateLimitTwo  = CurrentYear + "-6-30"
+                MonthInLetter = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin']
+                vague = 'semestre1'
+            }
 
+        }else if (params.period == 3) {
+            // cas du mois
+            MonthInLetter = []
+            let daysInMonth = new Date(CurrentYear, currentMonthPlusOne, 0).getDate();
+            dateLimitOne  = CurrentYear + "-" + currentMonthPlusOne + "-01" 
+            dateLimitTwo  = CurrentYear + "-" + currentMonthPlusOne + "-" + daysInMonth
+            for (let index = 0; index < daysInMonth; index++) {
+                MonthInLetter.push(index + 1)
+                // MonthInLetter[index] = index + 1 ;
+            }
+            vague = 'mois'
+        }else if (params.period == 4) {
+            // cas de la semaine
+            firstday = CurrentDate.getDate() - (CurrentDate.getDay() - 1)
+            lastday = CurrentDate.getDate() - (CurrentDate.getDay() - 1) + 6;
+            dateLimitOne  = CurrentYear + "-" + currentMonthPlusOne + "-" + firstday
+            dateLimitTwo  = CurrentYear + "-" + currentMonthPlusOne + "-" + lastday
+            MonthInLetter = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+            vague = 'semaine'
+        }
+       
 
         /*-----------------*/
         // FOR TRAVEL MADE
@@ -609,7 +658,7 @@ class TravelController {
         const thisYearsTravelNotInJSON = await Travels.query()
         .where('company_id', params.id)
         .where('annulation_state', 0)
-        .whereBetween('created_at', [yearLimitOne,  yearLimitTwo])
+        .whereBetween('created_at', [dateLimitOne,  dateLimitTwo])
         .select('id', 'created_at', 'destination', 'place_price', 'departure_date')
         .fetch()
         const thisYearsTravel = thisYearsTravelNotInJSON.toJSON()
@@ -631,6 +680,7 @@ class TravelController {
             const allTicketsNotInJson = await Tickets
                 .query()
                 .where('travel_id', travelMade[index].id)
+                .whereBetween('created_at', [dateLimitOne,  dateLimitTwo])
                 .andWhereNot('ticket_state_id', 1)
                 .fetch()
             const allTickets = allTicketsNotInJson.toJSON()
@@ -669,7 +719,7 @@ class TravelController {
          .innerJoin('Travels', 'travels.id', 'Tickets.travel_id')
          .where('company_id', params.id)
          .whereNot('ticket_state_id', 1)
-         .whereBetween('Tickets.created_at', [yearLimitOne,  yearLimitTwo])
+         .whereBetween('Tickets.created_at', [dateLimitOne,  dateLimitTwo])
          .select('Tickets.id', 'Tickets.created_at')
          .fetch()
          const thisTicketsTravel = thisTicketsTNotInJSON.toJSON()
@@ -679,12 +729,30 @@ class TravelController {
         // let currentdate = new Date();
         // const currentmonth = currentdate.getMonth()+1
 
-         /*Initialisation*/ 
-        let monthTable = []
-        for (let index = 0; index < currentMonthPlusOne; index++) {
-            monthTable[index] = {'month': index + 1, 'data': [0,0]}   
-        }
-
+         /*Initialisation*/
+         let monthTable = []
+         if (vague == 'annee') {
+            for (let index = 0; index < currentMonthPlusOne; index++) {
+                monthTable[index] = {'month': index + 1, 'data': [0,0]}   
+            }
+         }else if (vague == 'semestre2') {
+            for (let index = 6; index < currentMonthPlusOne; index++) {
+                monthTable.push({'month': index + 1, 'data': [0,0]})
+            }
+         }else if (vague == 'semestre1') {
+            for (let index = 0; index < currentMonthPlusOne; index++) {
+                monthTable.push({'month': index + 1, 'data': [0,0]})
+            }
+         }else if (vague == 'mois') {
+            for (let index = 0; index < currentMonthPlusOne; index++) {
+                monthTable[index] = {'month': index + 1, 'data': [0,0]}
+            }
+         }else if (vague == 'semaine') {
+            for (let index = firstday; index < CurrentDate.getDate()+1; index++) {
+                monthTable.push({'month': index, 'data': [0,0]})
+            }
+         } 
+         
 
         // STEP 2: converte creat at .....
         /*For tickets sold*/
@@ -692,6 +760,7 @@ class TravelController {
             // Get the month
             let date = new Date(thisTicketsTravel[index].created_at);
             var month = date.getMonth()+1
+            if (vague == 'semaine') { month = date.getDate()}
             // Verify if there are a corresponding on monthTable
             for (let index = 0; index < monthTable.length; index++) {   
                 if (monthTable[index].month == month) {
@@ -699,25 +768,24 @@ class TravelController {
                 }
             }                      
         }
-
+        // console.log(monthTable, 0);
         /*For Travel*/
         for (let index = 0; index < thisYearsTravel.length; index++) {
             // Get the month
             let date = new Date(thisYearsTravel[index].created_at);
             var month = date.getMonth()+1
+            if (vague == 'semaine') { month = date.getDate()}
             // Verify if there are a corresponding on monthTable
             for (let index = 0; index < monthTable.length; index++) {   
                 if (monthTable[index].month == month) {
                     monthTable[index].data[1] += 1
                 }
-            }                      
+            }                    
         }
-
 
         // STEP 3: Extract data 
         let GraphData = {'series': [{'name': 'Tickets vendus', 'data':[]},{'name': 'voyage effectué', 'data':[]}, ], 'month': []}
-        let MonthInLetter = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
-        
+                
         for (let index = 0; index < monthTable.length; index++) {
             GraphData.series[0].data[index] = monthTable[index].data[0] 
             GraphData.series[1].data[index] = monthTable[index].data[1] 

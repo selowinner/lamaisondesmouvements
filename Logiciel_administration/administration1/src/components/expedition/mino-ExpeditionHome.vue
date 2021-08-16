@@ -133,150 +133,7 @@ export default  {
         'price',
       ],
       items: [
-      {
-        name: 'Frozen Yogurt',
-        company: 'UTB',
-        heure: '09:00',
-        details:{
-          vendus: 30000,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'poulet',
-        company: 'AVI',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'coin',
-        company: 'UTT',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'loilopop',
-        company: 'ABOUSOUAN',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-        {
-        name: 'Ice cream sandwich',
-        company: 'AVI',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        company: 'UTT',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        company: 'SBTA',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        company: 'UTB',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        company: 'UTB',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        company: 'UTB',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        company: 'UTB',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        company: 'UTB',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
+      
     ],
 
 
@@ -329,9 +186,20 @@ export default  {
 
 
 
+
+
+
+  mounted() {
+      setTimeout(() => {
+          this.updateChart();
+      }, 100);
+  },
+
+
   computed: {
     ...mapGetters([
       'Stations',
+      'Analytics',
     ]),
 
     numberOfPages () {
@@ -355,7 +223,22 @@ export default  {
       if (this.page - 1 >= 1) this.page -= 1
     },
     
+  /* FOR QNALYTICS */
+    updateChart() {
+        this.series[0] = this.Analytics.GraphData.series[4]
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+
+    }
   }
+
+
+
 
 };
 

@@ -9,26 +9,26 @@
                 <v-row>
                     <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
-                            <p>NOMBRE TOTAL <br> DE TICKETS ACHETES DANS <br> LE MOIS</p>
-                            <div class="palabre"><apexchart height="250" :options="chartOptions" :series="series"></apexchart></div>
-                            <p>27 623</p>
-                            <p>TICKETS</p>
+                            <p>NOMBRE TOTAL <br> DE PLACES VENDUS DANS <br> L'ANNEE</p>
+                            <div class="palabre" v-if="showChart"><apexchart height="250" :options="chartOptions" :series="series"></apexchart></div>
+                            <p>{{Analytics.soldPlacesNumber}}</p>
+                            <p>PLACES VENDUS</p>
                         </div>
                     </v-col>
                     <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
-                            <p>NOMBRE TOTAL <br> DE DECLARATION DE  <br>PERTES FATES DANS LE MOIS</p>
-                            <div class="palabre"><apexchart height="250" :options="chartOptions2" :series="series2"></apexchart></div>
-                            <p>532</p>
-                            <p>DECLARATIONS</p>
+                            <p>NOMBRE TOTAL <br> DE COMPAGNIES  <br>ACQUISES DANS  L'ANNEE</p>
+                            <div class="palabre" v-if="showChart"><apexchart height="250" :options="chartOptions2" :series="series2"></apexchart></div>
+                            <p>{{Analytics.CompaniesGetNumber}}</p>
+                            <p>COMPAGNIES</p>
                         </div>
                     </v-col>
                      <v-col cols="12" sm="6" md="3" lg="3" class="box">
                         <div class="boxWrapper">
-                            <p>LA COMPAGNIE AYANT<br> EFFECTUE LE PLUS GRAND NOMBRE DE VENTE DE TICKET</p>
-                            <div class="palabre"><apexchart height="250" :options="chartOptions3" :series="series3"></apexchart></div>
-                            <p>UTB</p>
-                            <p>10 000 TICKETS</p>
+                            <p>NOMBRE TOTAL<br>DE GARES  <br>ACQUISES DANS  L'ANNEE</p>
+                            <div class="palabre" v-if="showChart"><apexchart height="250" :options="chartOptions3" :series="series3"></apexchart></div>
+                            <p>{{Analytics.CompaniesstationGetNumber}} </p>
+                            <p>GARES</p>
                         </div>
                     </v-col>
                      <v-col cols="12" sm="6" md="3" lg="3" class="box">
@@ -59,8 +59,9 @@
 
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
+import { mapGetters } from "vuex";
+
+
 export default {
   name: "Dashboard",
   components: {
@@ -69,11 +70,11 @@ export default {
 
   data: () => ({
     /* FOR  SERVICE STATS */  
-    showChart: false,
+    showChart: true,
     // TICKET STATS
     series: [{
-          name: 'Series 1',
-          data: [80, 50, 30, 40, 100, 20],
+          // name: 'Series 1',
+          // data: [80, 50, 30, 40, 100, 20],
         }],
 
     chartOptions: {
@@ -107,8 +108,8 @@ export default {
 
     // LOST OBJET STATS
     series2: [{
-          name: 'Series 2',
-          data: [30, 50, 90, 50, 100, 20],
+          // name: 'Series 2',
+          // data: [30, 50, 90, 50, 100, 20],
         }],
 
     chartOptions2: {
@@ -142,8 +143,8 @@ export default {
 
     // EXPEDITION STATS
     series3: [{
-          name: 'Series 2',
-          data: [100, 10, 10, 70, 50, 30],
+          // name: 'Series 2',
+          // data: [100, 10, 10, 70, 50, 30],
         }],
 
     chartOptions3: {
@@ -211,6 +212,64 @@ export default {
 
 
   }),
+
+
+
+
+
+mounted() {
+    setTimeout(() => {
+        this.updateChart();
+        // this.showChart = true;
+    }, 100);
+},
+
+
+
+methods: {
+
+  // ------------------------
+    // DATA  
+  // ------------------------
+    updateChart() {
+        this.series[0] = this.Analytics.GraphData.series[0]
+        this.series2[0] = this.Analytics.GraphData.series[1]
+        this.series3[0] = this.Analytics.GraphData.series[2]
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+        this.chartOptions2 = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+        this.chartOptions3 = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+
+    }
+    
+
+  },
+
+
+ computed:{
+    ...mapGetters([
+      'Analytics',
+    ])
+  },
+
+
 
 };
 

@@ -392,7 +392,7 @@ class ReservationController {
             .query()
             .innerJoin('companies', 'companies.id', 'travels.company_id')
             .where('travels.id', ListOfreservation[index].travel_id)
-            .select('destination', 'departure_date', 'car_informations', 'departure_place', 'departure_time', 'car_matriculation','denomination')
+            .select('destination', 'departure_date', 'car_informations', 'departure_place', 'departure_time', 'car_matriculation','city')
             .first()
             const DestDepart = ListOfdestDepartNotInJson.toJSON()
             ListOfreservation[index].travel =  DestDepart

@@ -163,6 +163,32 @@ Route.get('compangny/List', 'Companies/CompanyController.getCompaniesList')
 Route.put('compangny/abonnement', 'Companies/CompanyController.makeAbonnement')
 Route.get('compangny/stationList', 'Companies/CompanyController.getCompanyStationList')
 
+/*
+----------------------------
+-----STATION MANAGEMENT   ----
+-----------------------------
+*/
+Route.post('station/add', 'Stations/StationController.add')
+Route.put('station/update', 'Stations/StationController.updateInfo')
+
+
+
+
+
+
+
+/*
+----------------------------
+-----ANALYTICS MANAGEMENT ----
+-----------------------------
+*/
+// For Admin
+Route.get('administration/analytics', 'General/AdministrationStatController.getDashboadStat')
+
+
+
+
+
 
 
 
@@ -188,7 +214,7 @@ Route.get('reservation/luggageDetails/:id', 'Luggage/LuggageController.getListFo
 
 // Reservation For Companies
 Route.get('travel/Liste/:id', 'Travel/TravelController.getListeOfTravel')
-Route.get('travel/getTravelAnalytics/:id', 'Travel/TravelController.getTravelAnalytics')
+Route.get('travel/getTravelAnalytics/:id/:period', 'Travel/TravelController.getTravelAnalytics')
 //------------ Traveler list  for conveyor
 Route.get('traveler/Liste/:id', 'General/ReservationController.getListeOfTraveler')
 Route.get('traveler/Liste/update/:id', 'General/ReservationController.updateTravelerEmbarcationStatut')
@@ -242,6 +268,19 @@ Route.delete('withdrawal/delete/:id', 'withdrawal/WithdrawalController.CancelWit
 
 
 
+/*
+----------------------------
+-----STATION MANAGEMENT FOR COMPANIES STATIONS   ----
+-----------------------------
+*/
+Route.get('station/List/:id', 'Stations/StationController.getCompanyStationListForTheCentral')
+Route.get('station/List/withDetatils/:id', 'Stations/StationController.getCompanyStationListWithDetailsForTheCentral')
+Route.get('minoCode/List/:id', 'Companies/CompanyController.getMinoCodeList')
+
+
+
+
+
 
 
 
@@ -253,4 +292,7 @@ Route.delete('withdrawal/delete/:id', 'withdrawal/WithdrawalController.CancelWit
 */
 // For Companies Station
 Route.get('analytics/:id', 'General/ConpaniesStationStatController.getDashboadStat')
+// For Companies Central
+Route.get('central/analytics/:id', 'General/CompaniesCentralStatController.getDashboadStat')
+Route.get('central/stat/:id/:period', 'Companies/CompanyController.getFinancialStat')
 

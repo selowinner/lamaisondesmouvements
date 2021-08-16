@@ -144,8 +144,8 @@ export default  {
 
   // FOR STAT
     series: [{
-    name: 'series1',
-    data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
+    // name: 'series1',
+    // data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
     }],
 
     chartOptions: {
@@ -194,11 +194,20 @@ export default  {
 
 
 
+  mounted() {
+      setTimeout(() => {
+          this.updateChart();
+      }, 100);
+  },
+
+
+
 
   computed: {
 
     ...mapGetters([
       'Stations',
+      'Analytics',
     ]),
 
     numberOfPages () {
@@ -221,6 +230,19 @@ export default  {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
+
+    /* FOR QNALYTICS */
+    updateChart() {
+        this.series[0] = this.Analytics.GraphData.series[3]
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+
+    }
     
   },
 

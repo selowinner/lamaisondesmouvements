@@ -2,7 +2,10 @@
 
     <div class="bodyBox">
         <div class="TheBoxBody">
-            <p class="sectionTitle">Statistiques  </p>
+            <div class="leHerder">
+                <p class="sectionTitle">Statistiques</p>
+                <div style="width:250px"><v-select :items="periode" v-model="chosingPerod" class="period" solo></v-select></div>
+                </div>
             <v-container fluid class="pouletBr">
                 <v-row>
 
@@ -79,6 +82,10 @@ export default {
   },
 
   data: () => ({
+    
+    /* FOR  PARIOD*/
+    periode: ["de l'année", 'du trimestre', 'du mois', 'de la semaine'],
+    chosingPerod:  "de l'année",
     /* FOR  SERVICE STATS */
     showChart: false,
     tools:[],
@@ -233,12 +240,25 @@ created(){
 
 
 <style scoped>
+.leHerder{
+    display: flex;
+    justify-content: space-between;
+}
+.leHerder > div{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    /* color:red !important; */
+}
 
 .sectionTitle{
-    margin: 0;
-    margin-bottom: 5px;
+    /* margin: 0; */
+    /* margin-bottom: 5px; */
     font-size: 18px;
     font-weight: bold;
+}
+.period{
+    width: 50px !important;
 }
 .numberWrapper{
     border-radius: 10px;
@@ -246,7 +266,7 @@ created(){
 }
 
 .rightBox, .middleBox{
-    height: 60vh;
+    height: 55vh;
 }
 .rightBox{
    padding: 10px;
@@ -335,7 +355,7 @@ created(){
 
 .stat1{
   background: white;
-  height: 250px;
+  height: 27vh;
   border-radius: 10px;
   margin-bottom: 15px;
 

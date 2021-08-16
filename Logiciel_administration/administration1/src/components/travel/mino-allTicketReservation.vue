@@ -12,16 +12,16 @@
               <p class="subtitle">{{editedItem.client_complet_name}}</p>
               <div class="backBoad">
               <div class="basicInfo">
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.departure_date}}</p>
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.departure_time}}</p>
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.car_informations}}</p>
+                  <p>{{editedItem.travel.destination}}</p>
                   <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.departure_place}}</p>
+                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.departure_date}}</p>
+                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.car_informations}}</p>
                   <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.car_matriculation}}</p>
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.denomination}}</p>
+                  <!-- <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon>{{editedItem.travel.denomination}}</p> -->
               </div>
-              <div class="nowIDontKnowHerUsing">
+              <!-- <div class="nowIDontKnowHerUsing">
 
-              </div>
+              </div> -->
               <div class="travelResume">
                   <div class="part">
                   <p> <span>{{editedItem.total_places_price}} frCFA</span><br>payé pour les places</p>
@@ -39,7 +39,7 @@
       </v-card>
       </v-dialog>
 
-      <v-data-table dense :headers="headers" :items="ClientReservation" :search="search"  hide-default-footer class="backgroundTree">
+      <v-data-table dense :headers="headers" :items="ClientReservations" :search="search"  hide-default-footer class="backgroundTree">
       <!-- FOR SEE DETAILS AND STATISTIC DIALOG -->
       <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
       <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
@@ -86,15 +86,12 @@ export default  {
       ],
 
       editedItem: {
-        name: '',
-        date:'',
-        heure: '',
-        details:{
-          vendus: 0,
-          aVendre: 0,
-          restant: 0,
-          annules: 0,
-          gains: 0
+        client_complet_name: '',
+        number_of_places:'',
+        total_places_price: '',
+        travel:{
+          destination: '',
+          car_informations: '',
         }
       },
 
@@ -116,7 +113,7 @@ export default  {
   computed: {
 
     ...mapGetters([
-      'ClientReservation',
+      'ClientReservations',
     ]),
 
   },
@@ -244,13 +241,13 @@ export default  {
 .basicInfo{
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   border-bottom: solid 1px var(--Important-font-color);
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
 .basicInfo p{
-  width: 100px;
+  /* width: 100px; */
   margin-top: 15px;
   margin-bottom: 5px;
   font-weight: 200;

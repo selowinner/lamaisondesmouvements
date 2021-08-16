@@ -67,7 +67,7 @@ export default  {
 
     //for the list
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-    search: '',
+    // search: '',
     headers: [
         {
           text: 'IDENTIFIANT',

@@ -183,6 +183,12 @@ transform: translateX(-20px)
     border-width: 2px;
 }
 
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+    padding-top: 0px;
+    display: none !important;
+    margin-bottom: 8px;
+}
+
 
 /*-- Data Table Customisation --*/
 .v-data-table > .v-data-table__wrapper > table > thead > tr > th{

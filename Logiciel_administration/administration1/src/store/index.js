@@ -6,6 +6,8 @@ import station from "./modules/station";
 import travels from "./modules/travels";
 import lostObjet from "./modules/lostObjet";
 import expedition from "./modules/expedition";
+import analytycs from "./modules/analytycs";
+
 
 
 
@@ -26,5 +28,6 @@ export default new Vuex.Store({
     travels,
     lostObjet,
     expedition,
+    analytycs,
   },
 });

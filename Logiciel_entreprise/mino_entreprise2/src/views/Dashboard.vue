@@ -30,7 +30,7 @@
                     <v-col cols="12" md="2" lg="2">
                         <div class="numberWrapper">
                             <div>
-                                <h1>120</h1>
+                                <h1>12000</h1>
                                 <h5>Tickets vendus</h5>
                             </div>
                             <div>
@@ -191,15 +191,15 @@ data: () => ({
 
     // GENERAL STATS
     series4: [{
-          name: 'Series 2',
+          name: 'Voyage Declarés',
           data: [0, 10, 100, 10, 50, 90],
         },
         {
-          name: 'Series 3',
+          name: 'Objets trouvé',
           data: [80, 50, 30, 40, 100, 20],
         },
         {
-          name: 'Series 4',
+          name: 'Expeditions demandées',
           data: [0, 50, 60, 50, 100, 40],
         }],
     chartOptions4: {

@@ -91,7 +91,7 @@ const actions = {
 
     init_travel_analitic: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/travel/getTravelAnalytics/1')
+            .get('http://127.0.0.1:3333/travel/getTravelAnalytics/1/1')
             .then(res => {
                 commit('SET_TRAVEL_ANALYTICS', res.data.data)
             })
