@@ -5,7 +5,7 @@
             <v-row>
                 <v-col cols="12" md="3" lg="3" class="box">
                     <div class="statboxWrapper">
-                    <h4>Statistiques</h4>
+                    <h4>Voyages éffectué</h4>
                       <div>
                       <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
                       </div>
@@ -13,7 +13,7 @@
                 </v-col>
                  <v-col cols="12" md="9" lg="9" class="box">
                     <div class="stationListboxWrapper">
-                       <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
+                       <v-data-iterator :items="Stations" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
                       :sort-desc="sortDesc"
                       hide-default-footer
                       >
@@ -58,13 +58,13 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.details.vendus)" @click="dialog = !dialog">
+                            <div :class="getClass(item.travelNumber)" @click="dialog = !dialog">
                               <div>
                                 <v-icon color="mainGreenColor">mdi-bus-marker</v-icon>
-                                <p>{{ item.details.vendus }}</p>
-                                <p>{{item.name}}</p>
+                                <p>{{ item.travelNumber }}</p>
+                                <p>{{item.anagramme}}</p>
                               </div>
-                              <div class="price"><v-icon>mdi-calendar</v-icon><p>Abidjan</p></div>
+                              <div class="price"><v-icon>mdi-calendar</v-icon><p>{{item.city}}</p></div>
                             </div>
                           </v-col>
 
@@ -113,7 +113,7 @@
 
 <script>
 import  MinoOneTravelCompany  from "./mino-allTravelsListManagement.vue";
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default  {
   name: "MinoTravelsHome",
@@ -266,8 +266,8 @@ export default  {
 
   // FOR STAT
     series: [{
-    name: 'series1',
-    data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
+    // name: 'series1',
+    // data: [31, 40, 28, 51, 42, 109,31, 40, 28, 70, 30, 1]
     }],
      chartOptions: {
       chart: {
@@ -315,16 +315,26 @@ export default  {
 
 
 
+  mounted() {
+    setTimeout(() => {
+          this.updateChart();
+          this.showChart = true;
+      }, 500);
+  },
+
+
+
 
 
   computed: {
 
-    // ...mapGetters([
-    //   'Stations',
-    // ]),
+    ...mapGetters([
+      'Analytics',
+      'Stations'
+    ]),
 
     numberOfPages () {
-      return Math.ceil(this.items.length / this.itemsPerPage)
+      return Math.ceil(this.Stations.length / this.itemsPerPage)
     },
   },
 
@@ -333,7 +343,7 @@ export default  {
    
    /* FOR DIFFERENCIATION BETWEEN PRODUCT */
     getClass (quantity) {
-      if (quantity <= 30) return 'InvBox'
+      if (quantity <= 35) return 'InvBox'
       else return 'InvBox2'
     },
   /* FOR DATA ITERRATOR */
@@ -343,6 +353,21 @@ export default  {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
+
+    // ------------------------
+    // DATA  
+  // ------------------------
+   updateChart() {
+        this.series[0] = this.Analytics.GraphData.series[5]
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+
+    }
     
   },
 

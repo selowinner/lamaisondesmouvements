@@ -14,14 +14,15 @@
                       <div class="travelResume">
                           <div class="part">
                           <!-- <p> <span>{{editedItem.departure_date}}</span><br>date de départ</p> -->
-                          <p> <span>87854</span><br>lieu de départ</p>
-                          <p> <span>njsdfsfik</span><br>place à vendre</p>
-                          <p> <span>ffs888</span><br>type de car</p>
+                          <p> <span>{{editedItem.sender_contact}}</span><br>Expediteur</p>
+                          <p> <span>{{editedItem.sender_city}}</span><br>ville Expediteurt</p>
+                          <p> <span>{{editedItem.recipient_contact}}</span><br>Destinataire</p>
+                          <p> <span>{{editedItem.recipient_city}}</span><br>ville destinataire</p>
                           </div>
                           <div class="part">
-                          <p> <span>lkokolk</span><br>heure de départ</p>
-                          <p> <span>854874eazflo</span><br>destination</p>
-                          <p> <span>854874eazflo</span><br>prix du ticket</p>
+                          <p> <span>{{editedItem.package_weight}}</span><br>poids du colis</p>
+                          <p> <span>{{editedItem.package_size}}</span><br>taille du colis</p>
+                          <p> <span>{{editedItem.package_withdrawal_code}}</span><br>code expedition</p>
                           </div>
                       </div>
                     </div>
@@ -58,10 +59,18 @@
             </v-card>
             </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="items" :search="search"  hide-default-footer class="backgroundTree">
+            <v-data-table dense :headers="headers" :items="Expeditions" :search="search"  hide-default-footer class="backgroundTree">
             <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
             <template v-slot:[`item.actions`]="{ item }"> 
             <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
+            </template>
+            <template v-slot:[`item.expedition_state_id`]="{ item }">
+            <v-chip dark v-if="item.expedition_state_id == 2" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-cursor-default-click</v-icon> Choix du livreur</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 7" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-account-clock</v-icon> Attente recuperration par livreur</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 3" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-bike-fast</v-icon> Acheminement</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 4" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-truck-delivery</v-icon> En cours de livraison</v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 5" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-archive</v-icon> En cours de recupération </v-chip>
+            <v-chip dark v-if="item.expedition_state_id == 6" color="#3e886db0"> <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon>Livré</v-chip>
             </template>
             </v-data-table>
 
@@ -79,9 +88,9 @@
 
 
 <script>
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default  {
-  name: "lostlist",
+  name: "THelist",
 
   components: {
     
@@ -93,136 +102,136 @@ export default  {
     search: '',
     headers: [
         {
-          text: 'DESTINATION',
+          text: 'EXPEDITEUR',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'sender_complet_name',
         },
-        { text: 'DATE DE DEPART', value: 'date' },
-        { text: 'HEURE DE DEPART', value: 'heure' },
+        { text: 'DESTINATAIRE', value: 'recipient_complet_name' },
+        { text: 'ETAT', value: 'expedition_state_id' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
        items: [
-        {
-        name: 'Frozen Yogurt',
-        date: '21-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Ice cream sandwich',
-        date: '01-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Cupcake',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        date: '25-04-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        date: '15-02-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        date:'25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
+      //   {
+      //   name: 'Frozen Yogurt',
+      //   date: '21-01-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'Ice cream sandwich',
+      //   date: '01-01-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 45,
+      //     aVendre: 45,
+      //     restant: 0,
+      //     annules: 5,
+      //     gains: 160000
+      //   }
+      // },
+      // {
+      //   name: 'Eclair',
+      //   date: '25-03-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 20,
+      //     restant: 10,
+      //     annules: 0,
+      //     gains: 350000
+      //   }
+      // },
+      // {
+      //   name: 'Cupcake',
+      //   date: '25-03-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'Gingerbread',
+      //   date: '25-04-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'Jelly bean',
+      //   date: '25-03-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'Lollipop',
+      //   date: '25-03-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'Honeycomb',
+      //   date: '15-02-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'Donut',
+      //   date: '25-03-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
+      // {
+      //   name: 'KitKat',
+      //   date:'25-03-2021',
+      //   heure: '09:00',
+      //   details:{
+      //     vendus: 30,
+      //     aVendre: 45,
+      //     restant: 15,
+      //     annules: 5,
+      //     gains: 150000
+      //   }
+      // },
     ],
    
 
@@ -254,18 +263,18 @@ export default  {
   },
 
 
-  //  computed: {
+   computed: {
 
-  //   ...mapGetters([
-  //     'TravelsDeclared',
-  //   ]),
+    ...mapGetters([
+      'Expeditions',
+    ]),
 
-  // },
+  },
 
   
-  // created(){
-  //   this.$store.dispatch('init_travelsDeclared')
-  // }
+  created(){
+    this.$store.dispatch('init_expeditions')
+  }
 
 
 };

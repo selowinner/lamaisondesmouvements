@@ -156,12 +156,12 @@ Route.post('user/logout', 'User/UserController.logout')
 ----- COMPANIES  MANAGEMENT ----
 -----------------------------
 */
-// for Blooraid Super Admin
-Route.post('compangny/add', 'Companies/CompanyController.add')
-Route.put('compangny/update', 'Companies/CompanyController.updateInfo')
-Route.get('compangny/List', 'Companies/CompanyController.getCompaniesList')
-Route.put('compangny/abonnement', 'Companies/CompanyController.makeAbonnement')
-Route.get('compangny/stationList', 'Companies/CompanyController.getCompanyStationList')
+// for Blooraid Super Admin .middleware("auth")
+Route.post('compangny/add', 'Companies/CompanyController.add').middleware("auth")
+Route.put('compangny/update', 'Companies/CompanyController.updateInfo').middleware("auth")
+Route.get('compangny/List', 'Companies/CompanyController.getCompaniesList').middleware("auth")
+Route.put('compangny/abonnement', 'Companies/CompanyController.makeAbonnement').middleware("auth")
+Route.get('compangny/stationList', 'Companies/CompanyController.getCompanyStationList').middleware("auth")
 
 /*
 ----------------------------
@@ -183,7 +183,7 @@ Route.put('station/update', 'Stations/StationController.updateInfo')
 -----------------------------
 */
 // For Admin
-Route.get('administration/analytics', 'General/AdministrationStatController.getDashboadStat')
+Route.get('administration/analytics', 'General/AdministrationStatController.getDashboadStat').middleware("auth")
 
 
 

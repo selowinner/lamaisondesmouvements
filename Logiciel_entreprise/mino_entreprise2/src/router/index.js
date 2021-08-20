@@ -7,9 +7,8 @@ import ExpeditionManagement from "../views/ExpeditionManagement.vue";
 import LostObjetManagement from "../views/LostObjetManagement.vue";
 import Analytics from "../views/Analytics.vue";
 
+import login from "../views/login.vue";
 
-
-// import testePage from "../components/testPage.vue";
 
 Vue.use(VueRouter);
 
@@ -43,16 +42,16 @@ const routes = [
     path: "/Analytics",
     name: "Analytics",
     component: Analytics,
+  },  
+  {
+    path: "/login",
+    name: "login",
+    component: login,
+    // beforeEnter: ifNotAuthenticated,
+    meta: {
+      plainLayout: true,
+    },
   },
-  
-  // {
-  //   path: "/testePage",
-  //   name: "testePage",
-  //   component: testePage,
-  //   meta: {
-  //     plainLayout: true,
-  //   },
-  // },
 
   
 ];

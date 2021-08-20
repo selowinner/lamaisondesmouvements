@@ -21,7 +21,7 @@ class StationController {
         .query()
         .innerJoin('companies_centrals', 'companies_centrals.id', 'companies.companyCentral_id')
         .where('companies_centrals.id ', params.id)
-        .select('companies.id', 'companies.denomination','companies_centrals.anagramme')
+        .select('companies.id', 'companies.city','companies_centrals.anagramme')
         .fetch()
 
         const ListOfCompanyStation = ListOfCompanyStationNotInJson.toJSON()
@@ -62,7 +62,7 @@ class StationController {
         .query()
         .innerJoin('companies_centrals', 'companies_centrals.id', 'companies.companyCentral_id')
         .where('companies_centrals.id ', params.id)
-        .select('companies.id', 'companies.denomination', 'companies.description', 'companies.contact', 'companies.package_service_use')
+        .select('companies.id', 'companies.city', 'companies.description', 'companies.other_denomination', 'companies.contact', 'companies.package_service_use', 'companies.neighborhood')
         .fetch()
 
         const ListOfCompanyStation = ListOfCompanyStationNotInJson.toJSON()

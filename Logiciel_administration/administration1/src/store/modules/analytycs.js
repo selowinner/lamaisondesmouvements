@@ -1,5 +1,5 @@
-
-import Vue from 'vue'
+import axios from "axios"
+// import Vue from 'vue'
 const state = {
     analytycs : [],
 }
@@ -26,8 +26,8 @@ const mutations = {
 
 const actions = {
     init_analytycs: ({commit}) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/administration/analytics')
+        // Vue.prototype.$http
+        axios.get('administration/analytics')
             .then(res => {
                 commit('SET_ANALITYCS', res.data.data)
             })

@@ -5,7 +5,7 @@
             <v-row>
                  <v-col cols="12" md="12" lg="12" class="box">
                     <div class="stationListboxWrapper">
-                       <v-data-iterator :items="items" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
+                       <v-data-iterator :items="Stations" :items-per-page.sync="itemsPerPage" :page="page" :search="search" :sort-by="sortBy.toLowerCase()"
                       :sort-desc="sortDesc"
                       hide-default-footer
                       >
@@ -50,13 +50,13 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.details.vendus)" @click="dialog = !dialog">
+                            <div :class="getClass(item.lostObjetNumber)" @click="dialog = !dialog">
                               <div>
                                 <v-icon color="mainGreenColor">mdi-bus-marker</v-icon>
-                                <p>{{ item.details.vendus }}</p>
-                                <p>{{item.name}}</p>
+                                <p>{{ item.lostObjetNumber }}</p>
+                                <p>{{item.anagramme}}</p>
                               </div>
-                              <div class="price"><v-icon>mdi-calendar</v-icon><p>Abidjan</p></div>
+                              <div class="price"><v-icon>mdi-calendar</v-icon><p>{{item.city}}</p></div>
                             </div>
                           </v-col>
 
@@ -105,7 +105,7 @@
 
 <script>
 import  MinoOneLostobjetCompany  from "./mino-allLostObjetList.vue";
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default  {
   name: "MinoLostObjetsHome",
@@ -134,126 +134,6 @@ export default  {
         'heure',
       ],
       items: [
-        {
-        name: 'Frozen Yogurt',
-        date: '21-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Ice cream sandwich',
-        date: '01-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Cupcake',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        date: '25-04-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        date: '15-02-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        date:'25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
     ],
 
   // FOR STAT
@@ -311,12 +191,12 @@ export default  {
 
   computed: {
 
-    // ...mapGetters([
-    //   'Stations',
-    // ]),
+    ...mapGetters([
+      'Stations',
+    ]),
 
     numberOfPages () {
-      return Math.ceil(this.items.length / this.itemsPerPage)
+      return Math.ceil(this.Stations.length / this.itemsPerPage)
     },
   },
 

@@ -221,7 +221,7 @@ mounted() {
     setTimeout(() => {
         this.updateChart();
         // this.showChart = true;
-    }, 100);
+    }, 500);
 },
 
 

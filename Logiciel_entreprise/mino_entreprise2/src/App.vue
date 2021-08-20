@@ -19,7 +19,7 @@
 
 
 <script>
-
+// import axios from "axios"
 import MinoProfilBar from "@/components/Mino-ProfilBar.vue";
 import MinoBottonNavBar from "@/components/Mino-bottonNavBar.vue";
 import MinoTopBar from "@/components/Mino-TopBar.vue";

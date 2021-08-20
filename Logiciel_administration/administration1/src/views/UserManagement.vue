@@ -17,7 +17,7 @@
               <v-container fluid>
                 <v-row>
                   <v-col cols="12" md="4" lg="4">
-                    <v-text-field outlined v-model="newCompany.denomination" ref="deno" height="50" color="red" type="text" :rules="[() => !!newCompany.denomination]"  value="Lieu de départ" label="Denomination" persistent-hint required></v-text-field>
+                    <v-text-field outlined v-model="newCompany.denomination" ref="deno" height="50" type="text" :rules="[() => !!newCompany.denomination]"  value="Lieu de départ" label="Denomination" persistent-hint required></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" lg="4">
                     <v-text-field  outlined v-model="newCompany.anagramme" ref="anag" height="50" type="text" :rules="[() => !!newCompany.anagramme]"  label="anagramme" persistent-hint required></v-text-field>
@@ -78,7 +78,8 @@
 
 
 <script>
-import Vue from 'vue'
+// import Vue from 'vue'
+import axios from "axios"
 import allCompaniesList from "../components/UserCompanyManagement/allCompaniesList.vue";
 
 
@@ -120,7 +121,7 @@ export default {
 
   methods: {
      submit(){
-      Vue.prototype.$http.post('http://127.0.0.1:3333/compangny/add', this.newCompany)
+      axios.post('http://127.0.0.1:3333/compangny/add', this.newCompany)
                 .then(response =>{
                   this.companyaddingResponse = response.data
                   console.log(response.data);

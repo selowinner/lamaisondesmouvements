@@ -10,6 +10,7 @@ const Tickets = use('App/Models/Ticket')
 const ReservationReceipts = use('App/Models/ReservationReceipt')
 const LostObjets = use('App/Models/LostObjet')
 const Expeditions = use('App/Models/Expedition')
+const Users = use('App/Models/User')
 
 
 
@@ -82,8 +83,22 @@ class CompanyController {
             const newCode= await minoCodes.create(code)
         }
 
+         // COMPANIES ADMINISTRATOR ADDING
+         const user = new Object()
+         user.username = 'Admin'
+         user.pseudo = body.anagramme
+         user.email = body.email
+         user.password = body.matriculation
+         user.contact = body.contact
+         user.role_id = 5
+         user.companyCentral_id = newCompagny.id
+         
+         const newUser= await Users.create(user)
+       
+         
 
-        
+
+         
         // RESPONSE
          response.json({
             message: 'success',
@@ -358,10 +373,7 @@ class CompanyController {
 
         // Step1: GET THE CURRENT PERIOD TRAVEL LIST WITHOUT CANCELLING TRAVELS
         // -01- TRAVEL GAIN
-
-        /*-----------------*/
-        // FOR GRAPH
-        /*-----------------*/
+        let totalGain = 0
          // GET THE GAIN  
          // GET THE CURRENT PERIOD TRAVEL LIST WITHOUT CANCELLING TRAVELS
          const thistRavelTNotInJSON = await Travels
@@ -393,7 +405,6 @@ class CompanyController {
                 thistRavelTravel[index].gain  = 0
             }
          }
-
 
         // GET EXPEDITION GAIN
         const thisYearsExpeditionsNotInJSON = await Expeditions
@@ -446,10 +457,9 @@ class CompanyController {
             if (vague == 'semaine') { month = date.getDate()}
             // Verify if there are a corresponding on monthTable
             for (let i = 0; i < monthTable.length; i++) {   
-                if (monthTable[i].month == month) {
-                    if (thistRavelTravel[i] > 0) {     
-                        monthTable[i].data[0] += thistRavelTravel[i].gain
-                    }
+                if (monthTable[i].month == month) {   
+                    monthTable[i].data[0] += thistRavelTravel[index].gain 
+                    totalGain += thistRavelTravel[index].gain
                 }
             }                      
         }
@@ -462,9 +472,10 @@ class CompanyController {
             if (vague == 'semaine') { month = date.getDate()}
             // Verify if there are a corresponding on monthTable
             for (let i = 0; i < monthTable.length; i++) {   
-                if (monthTable[i].month == month) {
+                if (monthTable[i].month !== month) {
                     if (thisYearsExpeditions[i] > 0) {
                         monthTable[i].data[1] += thisYearsExpeditions[i].expedition_price 
+                        totalGain += thisYearsExpeditions[i].expedition_price 
                     } 
                 }
             }                    
@@ -482,6 +493,7 @@ class CompanyController {
 
 
         travelAnalytics.GraphData = GraphData
+        travelAnalytics.totalGain = totalGain
 
 
 

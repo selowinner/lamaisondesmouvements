@@ -43,7 +43,7 @@ html {
     overflow-y: auto;
 }
 html::-webkit-scrollbar{
-    width: 20px;
+    width: 10px;
   }
 html::-webkit-scrollbar-track {
     background: var(--main-black-color);

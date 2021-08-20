@@ -45,9 +45,9 @@
                 <v-row>
                     <v-col cols="12" md="9" lg="9">
                         <p class="sectionTitle">Statistique</p>
-                        <div class="statWrapper" v-if="showChart">
+                        <div class="statWrapper" >
                             <!-- <apexchart height="100%" :options="chartOptions" :series="Analytics.GraphData.series"></apexchart> -->
-                            <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
+                            <apexchart height="100%" :options="chartOptions" :series="series" v-if="showChart"></apexchart>
                         </div>
                     </v-col>
                     <v-col cols="12" md="3" lg="3">
@@ -166,7 +166,7 @@ mounted() {
     setTimeout(() => {
         this.updateChart();
         this.showChart = true;
-    }, 100);
+    }, 500);
 },
 
 

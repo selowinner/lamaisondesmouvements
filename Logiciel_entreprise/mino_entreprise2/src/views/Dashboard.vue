@@ -19,7 +19,7 @@
                     <v-col cols="12" md="2" lg="2">
                         <div class="numberWrapper">
                             <div>
-                                <h1>11</h1>
+                                <h1>{{Analytics.registredStationNumber}}</h1>
                                 <h5>Gares mino</h5>
                             </div>
                             <div>
@@ -30,7 +30,7 @@
                     <v-col cols="12" md="2" lg="2">
                         <div class="numberWrapper">
                             <div>
-                                <h1>12000</h1>
+                                <h1>{{Analytics.TicketsoldNumber}}</h1>
                                 <h5>Tickets vendus</h5>
                             </div>
                             <div>
@@ -41,7 +41,7 @@
                     <v-col cols="12" md="2" lg="2">
                         <div class="numberWrapper">
                             <div>
-                                <h1>75</h1>
+                                <h1>{{Analytics.ExpeditionsNumber}}</h1>
                                 <h5>Expeditions</h5>
                             </div>
                             <div>
@@ -86,6 +86,8 @@
 
 
 <script>
+import { mapGetters } from "vuex";
+
 
 export default {
   name: "Dashboard",
@@ -98,8 +100,8 @@ data: () => ({
     showChart: false,
     // TICKET STATS
     series: [{
-          name: 'Series 1',
-          data: [80, 50, 30, 40, 100, 20],
+        //   name: 'Series 1',
+        //   data: [80, 50, 30, 40, 100, 20],
         }],
 
     chartOptions: {
@@ -129,8 +131,8 @@ data: () => ({
 
     // LOST OBJET STATS
     series2: [{
-          name: 'Series 2',
-          data: [30, 50, 90, 50, 100, 20],
+        //   name: 'Series 2',
+        //   data: [30, 50, 90, 50, 100, 20],
         }],
 
     chartOptions2: {
@@ -160,8 +162,8 @@ data: () => ({
 
     // EXPEDITION STATS
     series3: [{
-          name: 'Series 2',
-          data: [55, 50, 70, 80, 90, 70],
+        //   name: 'Series 2',
+        //   data: [55, 50, 70, 80, 90, 70],
         }],
 
     chartOptions3: {
@@ -190,18 +192,20 @@ data: () => ({
 
 
     // GENERAL STATS
-    series4: [{
-          name: 'Voyage Declarés',
-          data: [0, 10, 100, 10, 50, 90],
-        },
-        {
-          name: 'Objets trouvé',
-          data: [80, 50, 30, 40, 100, 20],
-        },
-        {
-          name: 'Expeditions demandées',
-          data: [0, 50, 60, 50, 100, 40],
-        }],
+    series4: [
+        // {
+        //   name: 'Voyage Declarés',
+        //   data: [0, 10, 100, 10, 50, 90],
+        // },
+        // {
+        //   name: 'Objets trouvé',
+        //   data: [80, 50, 30, 40, 100, 20],
+        // },
+        // {
+        //   name: 'Expeditions demandées',
+        //   data: [0, 50, 60, 50, 100, 40],
+        // }
+        ],
     chartOptions4: {
       chart: {
           id: 'FirstChart',
@@ -234,7 +238,7 @@ data: () => ({
         },
     },
 
-
+    // NOTES
     series5: [42, 57, 72],
     chartOptions5: {
     chart: {
@@ -283,7 +287,10 @@ data: () => ({
 
 
 mounted() {
-   
+   setTimeout(() => {
+        this.updateChart();
+        this.showChart = true;
+    }, 500);
 },
 
 
@@ -293,7 +300,43 @@ mounted() {
   // ------------------------
     // DATA  
   // ------------------------
-   
+   updateChart() {
+        this.series[0] = this.Analytics.GraphData.series[0]
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+        this.series2[0] = this.Analytics.GraphData.series[1]
+        this.chartOptions2 = {
+            ...this.chartOptions2, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+        this.series3[0] = this.Analytics.GraphData.series[2]
+        this.chartOptions3 = {
+            ...this.chartOptions3, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+        this.series4[0] = this.Analytics.GraphData.series[3]
+        this.series4[1] = this.Analytics.GraphData.series[4]
+        this.series4[2] = this.Analytics.GraphData.series[6]
+        this.chartOptions4 = {
+            ...this.chartOptions4, ...{
+                xaxis: {
+                    categories: this.Analytics.GraphData.month
+                }
+            }
+        }
+
+    }
     
 
   },
@@ -304,7 +347,9 @@ mounted() {
 
 
  computed:{
-    
+    ...mapGetters([
+      'Analytics',
+    ])
   },
 
 

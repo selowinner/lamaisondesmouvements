@@ -203,7 +203,7 @@ export default  {
     ]),
 
     numberOfPages () {
-      return Math.ceil(this.items.length / this.itemsPerPage)
+      return Math.ceil(this.Stations.length / this.itemsPerPage)
     },
   },
 

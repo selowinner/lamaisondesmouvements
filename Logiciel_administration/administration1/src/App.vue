@@ -1,11 +1,16 @@
 <template>
   <v-app>
-    <MinoProfilBar></MinoProfilBar>
-    <MinoTopBar></MinoTopBar>
-    <v-content>
+    <div v-if="$route.meta.plainLayout">
       <router-view></router-view>
-    </v-content>
-    <MinoBottonNavBar></MinoBottonNavBar>
+    </div>
+    <div v-if="!$route.meta.plainLayout">
+      <MinoProfilBar></MinoProfilBar>
+      <MinoTopBar></MinoTopBar>
+      <v-main>
+        <router-view></router-view>
+      </v-main>
+      <MinoBottonNavBar></MinoBottonNavBar>
+      </div> 
   </v-app>
 </template>
 
@@ -13,7 +18,7 @@
 
 
 <script>
-
+import axios from "axios"
 import MinoProfilBar from "@/components/Mino-ProfilBar.vue";
 import MinoBottonNavBar from "@/components/Mino-bottonNavBar.vue";
 import MinoTopBar from "@/components/Mino-TopBar.vue";
@@ -31,5 +36,23 @@ export default {
   data: () => ({
     //
   }),
+
+
+  created: function () {
+    axios.interceptors.response.use(undefined, function (err) {
+      return new Promise(function () {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+        // if you ever get an unauthorized, logout the user
+          this.$store.dispatch('auth_logout')
+        // you can also redirect to /login if needed !
+          this.$router.push('/login')
+        }
+        throw err;
+      });
+    });
+  }
+
+
+
 };
 </script>

@@ -96,7 +96,8 @@ export default {
 
 
   created(){
-    // this.$store.dispatch('init_analitic')
+    this.$store.dispatch('init_analitic')
+    this.$store.dispatch('init_stations')
   }
 
 };

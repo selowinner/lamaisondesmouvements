@@ -11,7 +11,7 @@
                                 <div class="numberWrapper">
                                     <div><v-icon color="white" large> mdi-bus-clock </v-icon></div>
                                     <div>
-                                        <h1>5</h1>
+                                        <h1>{{Analytics.TravelDo}}</h1>
                                         <p>voyages éffectuées</p>
                                     </div>
                                 </div>
@@ -20,7 +20,7 @@
                                 <div class="numberWrapper">
                                     <div><v-icon color="#c99c33" large> mdi-bullseye-arrow </v-icon></div>
                                     <div>
-                                        <h1>55</h1>
+                                        <h1>{{Analytics.ExpeditionsDo}}</h1>
                                         <p>expeditions éffectuées</p>
                                     </div>
                                 </div>
@@ -29,7 +29,7 @@
                                 <div class="numberWrapper">
                                     <div><v-icon color="white" large> mdi-archive </v-icon></div>
                                     <div>
-                                        <h1>28</h1>
+                                        <h1>{{Analytics.FindObjet}}</h1>
                                         <p>Obejts Trouvés</p>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="numberWrapper">
                                     <div><v-icon color="#c99c33" large> mdi-account-group </v-icon></div>
                                     <div>
-                                        <h1>4000</h1>
+                                        <h1>{{Analytics.ExpeditionsDo + Analytics.TicketsoldNumber}}</h1>
                                         <p>clients mino</p>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                 <div class="statWrapper">
                                     <p class="sectionTitle">Statistique</p>
                                     <div>
-                                    <apexchart height="100%" :options="chartOptions4" :series="series4"></apexchart>
+                                    <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
                                     </div>
                                 </div>
                             </v-col>
@@ -62,37 +62,15 @@
                             </div>
                             <div class="noteWrapper">
                                <div class="gainVoayage">
-                                   <p>10000</p>
-                                   <p>50000000</p>
-                                   <p>300000</p>
-                                   <p>750000</p>
-                                   <p>1562000</p>
-                                   <p>0</p>
-                                   <p>1000</p>
-                                   <p>0</p>
-                                   <p>300000</p>
-                                   <p>750000</p>
-                                   <p>1562000</p>
-                                   <p>0</p>
+                                   <p v-for="item in Financials.GraphData.series[0].data" :key="item.index">{{item}}</p>
                                </div>
                                <span style="color:#c99c33; font-weight:bold; font-size:25px">+</span>
                                <div class="gainExpedition">
-                                   <p>10000</p>
-                                   <p>50000000</p>
-                                   <p>300000</p>
-                                   <p>750000</p>
-                                   <p>1562000</p>
-                                   <p>0</p>
-                                   <p>1000</p>
-                                   <p>0</p>
-                                   <p>300000</p>
-                                   <p>750000</p>
-                                   <p>1562000</p>
-                                   <p>0</p>
+                                   <p v-for="item in Financials.GraphData.series[1].data" :key="item.index">{{item}}</p>
                                </div>
                             </div>
                             <div class="noteDefWrapper">
-                               450000000 <span>frCFA</span> 
+                               {{ Financials.totalGain}} <span>frCFA</span> 
                             </div>
                         </div>
                     </v-col>
@@ -136,6 +114,9 @@
 
 
 <script>
+import { mapGetters } from "vuex";
+
+
 
 export default {
   name: "Analytics",
@@ -147,37 +128,55 @@ data: () => ({
 
 
 
-     // GENERAL STATS
-    series4: [{
-          name: 'Series 2',
-          data: [0, 10, 100, 10, 50, 90],
-        }],
-    chartOptions4: {
+     // TRAVELS and EXPEDITION GAIN
+    series: [{
+        //   name: 'Series 2',
+        //   data: [0, 10, 100, 10, 50, 90],
+        },
+        {
+        //   name: 'Objets trouvé',
+        //   data: [80, 50, 30, 40, 100, 20],
+        },],
+        
+    chartOptions: {
       chart: {
           id: 'FirstChart',
           type: 'area',
-        //   zoom: {
-        //         enabled: true
-        //     },
-          sparkline: {
-          enabled: true,
-          }            
+          toolbar: {
+            show: false,
+          },         
       },
-      
-      colors:['#c99c33'],
+       grid: {
+        show: false,
+        },
+      dataLabels: {
+        enabled: false
+      },
+      colors:['#c99c33', '#3e886d'],
       stroke: {
           curve: 'smooth',
       },
       xaxis: {
           categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
       },
-      markers: {
-          size: 4,
-          colors: ['#4c5d70'],
-          strokeColor: '#FFF',
-          strokeWidth: 2,
+      legend: {
+        position: 'top'
         },
+      yaxis: {
+        
+      },
+    fill: {
+    opacity: [0.1, 1]
     },
+    //   markers: {
+    //       size: 4,
+    //       colors: ['#4c5d70'],
+    //       strokeColor: '#FFF',
+    //       strokeWidth: 2,
+    //     },
+    },
+
+     
 
    
   }),
@@ -186,7 +185,10 @@ data: () => ({
 
 
 mounted() {
-   
+   setTimeout(() => {
+        this.updateChart();
+        this.showChart = true;
+    }, 500);
 },
 
 
@@ -196,7 +198,17 @@ mounted() {
   // ------------------------
     // DATA  
   // ------------------------
-   
+    updateChart() {
+        this.series[0] = this.Financials.GraphData.series[0]
+        this.series[1] = this.Financials.GraphData.series[1]
+        this.chartOptions = {
+            ...this.chartOptions, ...{
+                xaxis: {
+                    categories: this.Financials.GraphData.month
+                }
+            }
+        }
+    }
     
 
   },
@@ -207,9 +219,16 @@ mounted() {
 
 
  computed:{
-    
+    ...mapGetters([
+      'Analytics',
+      'Financials'
+    ])
   },
 
+
+ created(){
+    this.$store.dispatch('init_financial')
+  }
 
 
 };

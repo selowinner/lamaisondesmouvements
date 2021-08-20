@@ -1,5 +1,5 @@
-
-import Vue from 'vue'
+import axios from "axios"
+// import Vue from 'vue'
 const state = {
     companies : [],
 }
@@ -26,8 +26,7 @@ const mutations = {
 
 const actions = {
     init_companies: ({commit}) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/compangny/List')
+        axios({url: 'compangny/List', method:'GET'})
             .then(res => {
                 commit('SET_COMPANIES', res.data.data)
             })

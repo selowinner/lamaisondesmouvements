@@ -31,8 +31,8 @@
 
 
                     <v-col cols="12" md="6" lg="6">
-                        <div class="numberWrapper middleBox"  v-if="showChart">
-                        <apexchart height="100%" :options="productchartOptions" :series="series"></apexchart>
+                        <div class="numberWrapper middleBox">
+                        <apexchart height="100%" :options="productchartOptions" :series="series"  v-if="showChart"></apexchart>
                         </div>
                     </v-col>
 
@@ -163,7 +163,7 @@ mounted() {
     setTimeout(() => {
         this.updateChart();
         this.showChart = true;
-    }, 100);
+    }, 500);
 },
 
 

@@ -7,6 +7,7 @@ import travels from "./modules/travels";
 import lostObjet from "./modules/lostObjet";
 import expedition from "./modules/expedition";
 import analytycs from "./modules/analytycs";
+import auth from "./modules/auth";
 
 
 
@@ -29,5 +30,6 @@ export default new Vuex.Store({
     lostObjet,
     expedition,
     analytycs,
+    auth,
   },
 });

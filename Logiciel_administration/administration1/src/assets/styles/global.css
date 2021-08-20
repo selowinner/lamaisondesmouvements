@@ -45,7 +45,7 @@ html {
     overflow-y: auto;
 }
 html::-webkit-scrollbar{
-    width: 20px;
+    width: 10px;
   }
 html::-webkit-scrollbar-track {
     background: var(--main-black-color);
@@ -190,6 +190,12 @@ transform: translateX(-20px)
 .theme--light.v-label {
     color: white;
     /* color: var(--Important-font-color); */
+}
+.theme--light.v-input input, .theme--light.v-input textarea {
+    color: var(--font-color);
+}
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: 2px 6px 20px -1px rgb(26 26 26)  !important; /* box shadow des input du login */
 }
 .v-text-field--outlined fieldset {
     border-collapse: collapse;

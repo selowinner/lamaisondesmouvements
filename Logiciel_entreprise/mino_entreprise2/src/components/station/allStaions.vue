@@ -4,53 +4,45 @@
     <div class="tableWrapperDiv">
 
 
-        <!-- DELETE TRAVEL DIALOG -->
-        <v-dialog v-model="dialogDelete" max-width="420">
-        <v-card>
-            <v-card-text>
-            <v-container>
-                <div class="imgAndTitle deleteIMG">
-                <p>GESTION DES LIVREUR</p>
-                <p>Désactivation</p>
-                </div>
-                <div class="CancelVerification">
-                    voulez-vous déactiver <br> ce livreur ?
-                </div>
-                <div class="verificationAction">
-                <v-btn color="Titlecolor" rounded depressed @click="closeDelete" style="color:white">Non</v-btn>
-                <v-btn color="mainGreenColor" rounded depressed @click="deleteItemConfirm" style="color:white">Oui</v-btn>
-                </div>
-            </v-container>
-            </v-card-text>
-        </v-card>
-        </v-dialog>
-
          <!-- EDIT TRAVEL DIALOG -->
-        <v-dialog v-model="dialogEdit" max-width="420">
+        <v-dialog v-model="dialogEdit" max-width="370">
         <v-card>
             <v-card-text>
             <v-container>
                 <div class="imgAndTitle deleteIMG editIMGO">
-                <p>MODIFICATION DE PROFIL</p>
-                <p>Livreur</p>
+                <p>MODIFICATION DES INFORMATION DE LA GARE</p>
+                <!-- <p>Livreur</p> -->
                 </div>
                 <form class="updateForm">
                     <v-container fluid>
-                        <v-row>
+                         <v-row>
                           <v-col cols="12" md="12" lg="12">
-                            <v-text-field height="60" solo label="Matricule" append-icon="mdi-matrix"  ref="matri"  type="text"   value=""  persistent-hint required disabled></v-text-field>
+                              <v-text-field height="45" solo label="Pays" append-icon="mdi-home-city" v-model="editedItem.country"  ref="matri"  type="text"   value=""  persistent-hint required ></v-text-field>
                           </v-col>
                           <v-col cols="12" md="12" lg="12">
-                              <v-text-field height="60" background-color="#3e886d4a" solo label="Nom complet" v-model="editedItem.complet_name" append-icon="mdi-account-details-outline"  ref="total_name"  type="text"   value=""  persistent-hint required ></v-text-field>
+                              <v-text-field height="45" background-color="#3e886d4a" solo label="Ville" v-model="editedItem.city" append-icon="mdi-map-marker"  ref="total_name"  type="text"   value=""  persistent-hint required ></v-text-field>
                           </v-col>
                           <v-col cols="12" md="12" lg="12">
-                              <v-text-field height="60" solo  append-icon="mdi-map-marker"   ref="location"   type="text" v-model="editedItem.city"  value="" label="Lieu d'habitation" persistent-hint required></v-text-field>
+                              <v-text-field height="45" solo  append-icon="mdi-transit-connection-variant"   ref="location"   type="text" v-model="editedItem.neighborhood"  value="" label="Quartier" persistent-hint required></v-text-field>
                           </v-col>
                           <v-col cols="12" md="12" lg="12">
-                              <v-text-field  height="60" background-color="#3e886d4a" solo  append-icon="mdi-motorbike"  v-model="editedItem.conveyance"  ref="transport" type="text"   label="Moyen de transport" persistent-hint required></v-text-field>
+                              <v-text-field  height="45" background-color="#3e886d4a" solo  append-icon="mdi-robot-happy"  v-model="editedItem.other_denomination"  ref="transport" type="text"   label="Denomination de la gare" persistent-hint required></v-text-field>
                           </v-col>
                           <v-col cols="12" md="12" lg="12">
-                              <v-text-field height="60"  solo  append-icon="mdi-phone"  ref="pla_number" type="number" v-model="editedItem.contact"  label="Numero de téléphone"  persistent-hint required></v-text-field>
+                              <v-text-field height="45"  solo  append-icon="mdi-comment-text"  ref="pla_number" type="text" v-model="editedItem.description"  label="Description"  persistent-hint required></v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="12" lg="12">
+                              <v-text-field height="45"  background-color="#3e886d4a" solo label="Contact" append-icon="mdi-phone"  ref="matri"  type="number" v-model="editedItem.contact"  value=""  persistent-hint required ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="12" lg="12">
+                              <v-text-field height="45" solo  append-icon="mdi-matrix"   ref="location"   type="text" v-model="editedItem.matriculation"  value="" label="Code D'identification de la gare" persistent-hint required></v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="12" lg="12">
+                              <v-text-field height="45" solo background-color="#3e886d4a" append-icon="mdi-matrix"   ref="location"   type="text" v-model="editedItem.mino_code"  value="" label="Code Mino" persistent-hint required></v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="12" lg="12">
+                              <v-switch v-model="editedItem.package_service_use" label="Service expédition de colis"></v-switch>
+                              <!-- <v-text-field height="60" background-color="#3e886d4a" solo label="Service livraison" v-model="editedItem.complet_name" append-icon="mdi-account-details-outline"  ref="total_name"  type="text"   value=""  persistent-hint required ></v-text-field> -->
                           </v-col>
                         </v-row>
                     </v-container>
@@ -69,57 +61,29 @@
 
 
         <!-- SHOW DIALOG -->
-        <v-dialog v-model="dialog" max-width="400">
+        <v-dialog v-model="dialog" max-width="370">
         <v-card>
             <v-card-text>
             <v-container>
                 <div class="imgAndTitle">
-                <p v-if="editedItem.activation_state == 1">GESTION DES LIVREURS</p>
-                <p style="color:#b71c1c;" v-if="editedItem.activation_state == 0">COMPTE DESACTIVE</p>
+                <p>{{editedItem.other_denomination}}</p>
                 <p>Information - Bilan Des Livraisons</p>
                 </div>
                 <div class="statElment">
                 <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>20</h2>
-                    <h4> NOMBRE DE LIVRAISON</h4>
+                    <h2>CONTACT</h2>
+                    <h4>{{editedItem.contact}}</h4>
                 </div>
                 </div>
                 <div class="statElment">
                 <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
                 <div>
-                    <h2>25</h2>
-                    <h4>NOM COMPLET</h4>
+                    <h2>DESCRIPTION</h2>
+                    <h4>{{editedItem.description}}</h4>
                 </div>
                 </div>
-                <div class="statElment">
-                <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
-                <div>
-                    <h2>100</h2>
-                    <h4>LIEU D'HABITATION</h4>
-                </div>
-                </div>
-                <div class="statElment">
-                <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
-                <div>
-                    <h2></h2>
-                    <h4>MATRICULE</h4>
-                </div>
-                </div>
-                <div class="statElment">
-                <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
-                <div>
-                    <h2></h2>
-                    <h4>DATE D'ENREGISTREMENT</h4>
-                </div>
-                </div>
-                <div class="statElment" v-if="editedItem.activation_state == 0">
-                <v-icon  color="mainGreenColor"> mdi-arrow-right </v-icon>
-                <div>
-                    <h2></h2>
-                    <h4>DATE DE DESACTIVATION</h4>
-                </div>
-                </div>
+                
             </v-container>
             </v-card-text>
         </v-card>
@@ -134,19 +98,19 @@
         </v-row>            
         <!-- START DATA TABLE -->
         <div class="dataWrapper">
-        <v-data-table dense :headers="headers" :items="desserts" :search="search"  :items-per-page="-1" hide-default-footer>
+        <v-data-table dense :headers="headers" :items="Stations_with_details" :search="search"  :items-per-page="-1" hide-default-footer>
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }"> 
         <v-btn  icon color="mainGreenColor"  @click="showItem(item)"><v-icon small > mdi-eye </v-icon></v-btn>
         <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-lead-pencil </v-icon></v-btn>
-        <v-btn  icon color="mainGreenColor"  @click="deleteItem(item)"><v-icon small> mdi-trash-can </v-icon></v-btn>
         </template>
-        <!-- <template v-slot:[`item.contact`]="{ item }"> 
-        <v-icon dense color="mainGreenColor"> mdi-phone </v-icon> <span style="color: mainGreenColor;">{{item.contact}}</span>
-        </template> -->
-        <!-- <template v-slot:[`item.complet_name`]="{ item }"> 
-        <v-icon color="mainGreenColor" small> mdi-account </v-icon> {{item.complet_name}}
-        </template> -->
+        <template v-slot:[`item.city`]="{ item }"> 
+        <v-icon dense color="#476866"> mdi-map-marker-radius </v-icon> <span style="color: mainGreenColor;">{{item.city}}</span>
+        </template>
+        <template v-slot:[`item.package_service_use`]="{ item }">
+            <v-chip dark v-if="item.package_service_use == 1" color="#476866"> <v-icon color="mainGreenColor" small>mdi-star-shooting</v-icon>Oui</v-chip>
+            <v-chip dark v-if="item.package_service_use == 0" color="#c7dcd4"> <v-icon color="mainGreenColor" small>mdi-window-close</v-icon>Non</v-chip>
+        </template>
         </v-data-table>
         </div>
 
@@ -154,10 +118,10 @@
     
 
         <transition name="slide"> 
-        <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor">{{senderaAddingResponse.message}}</v-alert>
+        <v-alert v-if="addingSuccess" elevation="13" type="success" max-width="300" class="alert" color="mainGreenColor">{{staionaAddingResponse.message}}</v-alert>
         </transition>
         <transition name="slide"> 
-        <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error"> {{senderaAddingResponse.message}}</v-alert>
+        <v-alert v-if="addingfalse" elevation="13" type="error" max-width="300" class="alert" color="error"> {{staionaAddingResponse.message}}</v-alert>
         </transition>
     </div>
     
@@ -173,12 +137,12 @@
 
 
 <script>
-// import Vue from 'vue'
-// import { mapGetters } from "vuex";
+import Vue from 'vue'
+import { mapGetters } from "vuex";
 
 
 export default {
-  name: "allSendersList",
+  name: "allstaionsList",
   components: {
     
   },
@@ -188,161 +152,164 @@ export default {
     search: '',
     headers: [
         {
-          text: 'NOM COMPLET',
+          text: 'VILLE',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'city',
         },
-        { text: 'CONTACT', value: 'date' },
-        { text: 'HEURE', value: 'heure' },
+        { text: 'QUATIER', value: 'neighborhood' },
+        { text: 'OPTION EXPEDITION',  align: 'center', value: 'package_service_use' },
         { text: 'DETAILS', value: 'actions', sortable: false },
       ],
     desserts: [
-     {
-        name: 'Frozen Yogurt',
-        date: '21-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Ice cream sandwich',
-        date: '01-01-2021',
-        heure: '09:00',
-        details:{
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000
-        }
-      },
-      {
-        name: 'Eclair',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 20,
-          restant: 10,
-          annules: 0,
-          gains: 350000
-        }
-      },
-      {
-        name: 'Cupcake',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Gingerbread',
-        date: '25-04-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Jelly bean',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Lollipop',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Honeycomb',
-        date: '15-02-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'Donut',
-        date: '25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
-      {
-        name: 'KitKat',
-        date:'25-03-2021',
-        heure: '09:00',
-        details:{
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000
-        }
-      },
+    //  {
+    //     name: 'Frozen Yogurt',
+    //     date: '21-01-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'Ice cream sandwich',
+    //     date: '01-01-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 45,
+    //       aVendre: 45,
+    //       restant: 0,
+    //       annules: 5,
+    //       gains: 160000
+    //     }
+    //   },
+    //   {
+    //     name: 'Eclair',
+    //     date: '25-03-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 20,
+    //       restant: 10,
+    //       annules: 0,
+    //       gains: 350000
+    //     }
+    //   },
+    //   {
+    //     name: 'Cupcake',
+    //     date: '25-03-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'Gingerbread',
+    //     date: '25-04-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'Jelly bean',
+    //     date: '25-03-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'Lollipop',
+    //     date: '25-03-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'Honeycomb',
+    //     date: '15-02-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'Donut',
+    //     date: '25-03-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
+    //   {
+    //     name: 'KitKat',
+    //     date:'25-03-2021',
+    //     heure: '09:00',
+    //     details:{
+    //       vendus: 30,
+    //       aVendre: 45,
+    //       restant: 15,
+    //       annules: 5,
+    //       gains: 150000
+    //     }
+    //   },
     ],
 
     // for alerte 
     addingSuccess: false,
     addingfalse : false,
 
-    // For Sender detail
+    // For staion detail
     dialog: false,
-     editedItem: {
-      complet_name: '',
-      contact:'',
-      conveyance: '',
-      city:'',
-      DeliveryNumber:'',
-      created_at:'',
-      matriculation:'',
+    editedItem: {
+      matriculation: '',
+      description: '',
+      country: '', 
+      contact: '',
+      city: '',
+      neighborhood: '',
+      other_denomination: '',
+      mino_code: '',
+      package_service_use: false,
+      user_id: '1',
     },
 
-    // For Sender edit
-    senderaAddingResponse: "",
+    // For staion edit
+    staionaAddingResponse: "",
     dialogEdit: false,
     editedIndex: -1,
 
     
-    // For Sender deleted
+    // For staion deleted
     dialogDelete: false,
     itemToDelete: '',
 
@@ -353,103 +320,60 @@ export default {
 
 
 
-  // methods: {
+  methods: {
 
-  // // ------------------------
-  //   // Show Profil infomation
-  // // ------------------------
-  //   showItem (item) {
-  //     this.editedItem = Object.assign({}, item)
-  //     this.dialog = true
-  //   },
-
-
-  // // ------------------------
-  //   // For Profil Edited
-  // // ------------------------
-  // editItem (item) {
-  //     this.editedIndex = this.Senders.indexOf(item)
-  //     this.editedItem = Object.assign({}, item)
-  //     //  Open the Edit Dialogue
-  //     this.dialogEdit = true
-  // },
-
-  // editItemConfirm () {
-  //   Vue.prototype.$http.put('http://127.0.0.1:3333/expedition/senderUpdate', this.editedItem)
-  //     .then(response =>{
-  //       this.senderaAddingResponse = response.data
-  //       if (this.senderaAddingResponse.message == "success" ) {
-  //         // Modification effectuée
-  //         this.senderaAddingResponse.message = "modification effectuée"
-  //         this.addingSuccess = !this.addingSuccess
-  //         setTimeout(() => {
-  //             this.addingSuccess = !this.addingSuccess
-  //             this.forceRerender2()
-  //         }, 3000);
-  //       } else if (this.senderaAddingResponse.message != "success") {
-  //           console.log('des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés');
-  //         // Modification effectuée
-  //         this.addingfalse = !this.addingfalse
-  //         setTimeout(() => {
-  //             this.addingfalse = !this.addingfalse
-  //         }, 3000);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       this.senderaAddingResponse = error.message;
-  //       console.error("There was an error!", error);
-  //     });
-
-  //     this.closeEdit()
-
-  //   },
-
-  //   closeEdit () {
-  //       this.dialogEdit = false  
-  //   },
+  // ------------------------
+    // Show Profil infomation
+  // ------------------------
+    showItem (item) {
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
 
 
-  //   // --------------------
-  //   // delete a travel
-  // // --------------------
-  //   deleteItem (item) {
-  //     this.editedIndex = this.Senders.indexOf(item)
-  //     this.editedItem = Object.assign({}, item)
-  //     this.itemToDelete = {id: this.editedItem.id}
-  //     this.dialogDelete = true
-  //   },
+  // ------------------------
+    // For Profil Edited
+  // ------------------------
+  editItem (item) {
+      this.editedIndex = this.Stations_with_details.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      //  Open the Edit Dialogue
+      this.dialogEdit = true
+  },
 
-  //   deleteItemConfirm () {
-  //     Vue.prototype.$http.put('http://127.0.0.1:3333/expedition/senderCancel', this.itemToDelete)
-  //               .then(response =>{
-  //                 this.senderaAddingResponse = response.data
+  editItemConfirm () {
+    Vue.prototype.$http.put('http://127.0.0.1:3333/station/update', this.editedItem)
+      .then(response =>{
+        this.staionaAddingResponse = response.data
+        if (this.staionaAddingResponse.message == "success" ) {
+          // Modification effectuée
+          this.staionaAddingResponse.message = "modification effectuée"
+          this.addingSuccess = !this.addingSuccess
+          setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess
+              this.forceRerender2()
+          }, 3000);
+        } else if (this.staionaAddingResponse.message != "success") {
+            console.log('des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés');
+          // Modification effectuée
+          this.addingfalse = !this.addingfalse
+          setTimeout(() => {
+              this.addingfalse = !this.addingfalse
+          }, 3000);
+        }
+      })
+      .catch(error => {
+        this.staionaAddingResponse = error.message;
+        console.error("There was an error!", error);
+      });
 
-  //                 if (this.senderaAddingResponse.message == "success" ) {
-  //                   // Annulation effectuée
-  //                   this.senderaAddingResponse.message = "Desactivation effectuée"
-  //                   this.addingSuccess = !this.addingSuccess
-  //                   setTimeout(() => {
-  //                       this.addingSuccess = !this.addingSuccess
-  //                       this.forceRerender2()
-  //                   }, 3000);                                      
-  //                 } else if (this.senderaAddingResponse.message != "success") {
-  //                  this.addingfalse = !this.addingfalse
-  //                   setTimeout(() => {
-  //                       this.addingfalse = !this.addingfalse
-  //                   }, 3000);
-  //                 }
-  //               })
-  //               .catch(error => {
-  //                 this.senderaAddingResponse = error.message;
-  //                 console.error("There was an error!", error);
-  //              });
+      this.closeEdit()
 
-  //     this.closeDelete()
-  //   },
+    },
 
-  //   closeDelete () {
-  //     this.dialogDelete = false  
-  //   },
+    closeEdit () {
+        this.dialogEdit = false  
+    },
 
 
 
@@ -457,28 +381,29 @@ export default {
 
 
 
-  //    // For table re-render after delete or update an item
-  //   forceRerender2() {
-  //     this.$store.state.sendercomponentKey += 1
-  //   }
- 
-
-  // },
 
 
+     // For table re-render after delete or update an item
+    forceRerender2() {
+      this.$store.state.stationcomponentKey += 1
+    }
 
+  },
 
 
 
-  // computed:{
-  //   ...mapGetters([
-  //     'Senders',
-  //   ])
-  // },
 
-  // created(){
-  //   this.$store.dispatch('init_sender')
-  // }
+
+
+  computed:{
+    ...mapGetters([
+      'Stations_with_details',
+    ])
+  },
+
+  created(){
+    this.$store.dispatch('init_station_with_details')
+  }
 
 };
 
@@ -550,7 +475,7 @@ export default {
 .imgAndTitle{
   margin: 15px 0px;
   height: 220px;
-  width: 330px;
+  width: 297.5px;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -582,7 +507,7 @@ export default {
   margin-left: 10px;
 }
 .statElment  h2{
-  font-size: 21px;
+  font-size: 16px;
   color: var(--main-green-color)
 }
 
@@ -595,7 +520,7 @@ export default {
 /* Edit travel */
 .editIMGO{
   margin-bottom: 35px;
-  width: 100%;
+  width: 297.5px;
 }
 .updateForm{
     height: 250px;
@@ -623,7 +548,7 @@ export default {
 
 
 /* Delete travel */
-.deleteIMG{
+/* .deleteIMG{
   width: 350px;
 }
 .CancelVerification{
@@ -639,7 +564,7 @@ export default {
 }
 .verificationAction > button{
   width: 150px;
-}
+} */
 
 
 

@@ -33,14 +33,14 @@
                     </div>
                     <div class="travelResume">
                         <div class="part">
-                        <p> <span>{{editedItem.nature}}</span><br>date de départ</p>
-                        <p> <span>{{editedItem.weight}}</span><br>lieu de départ</p>
-                        <p> <span>{{editedItem.size}}</span><br>place à vendre</p>
+                        <p> <span>{{editedItem.nature}}</span><br>Nature</p>
+                        <p> <span>{{editedItem.weight}} Kg</span><br>poids</p>
+                        <p> <span>{{editedItem.size}} m</span><br>Taille</p>
                         </div>
                         <div class="part">
-                        <p> <span>{{editedItem.contact}}</span><br>heure de départ</p>
-                        <p> <span>{{editedItem.ticket_number_or_identification}}</span><br>destination</p>
-                        <p> <span>{{editedItem.departure_date}}</span><br>places disponibles</p>
+                        <p> <span>{{editedItem.contact}}</span><br>Contact</p>
+                        <p> <span>{{editedItem.ticket_number_or_identification}}</span><br>ticket</p>
+                        <p> <span>{{editedItem.departure_date}}</span><br>Date du depart</p>
                         </div>
                     </div>
                     </div>
