@@ -24,9 +24,9 @@ const mutations = {
 }
 
 const actions = {
-    init_financial: ({commit}) => {
+    init_financial: ({commit}, period) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/central/stat/1/1')
+            .get('http://127.0.0.1:3333/central/stat/' + localStorage.getItem('user-central') + '/' + period)
             .then(res => {
                 commit('SET_FINANCIAL', res.data.data)
             })

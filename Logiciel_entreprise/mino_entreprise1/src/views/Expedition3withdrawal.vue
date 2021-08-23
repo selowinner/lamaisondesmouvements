@@ -94,7 +94,7 @@ export default {
       max_size:'',
       unit_price: '',
       description:'',
-      company_id : '1',
+      company_id : '',
     },
 
     withdrawalaAddingResponse: "",
@@ -163,6 +163,12 @@ computed:{
 
 
 },
+
+
+
+created(){
+    this.company_id = localStorage.getItem('user-station')
+  }
 
 };
 

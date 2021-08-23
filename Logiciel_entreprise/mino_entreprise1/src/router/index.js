@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from '../store'
+
 import Dashboard from "../views/Dashboard.vue";
 import TravelDeclaration from "../views/TravelDeclaration.vue";
 import TravelBalanceSheet from "../views/TravelBalanceSheet.vue";
@@ -11,16 +13,33 @@ import ExpeditionSheet from "../views/Expedition2Management.vue";
 import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
 import Messagerie from "../views/messagerie.vue"
 
+import login from "../views/login.vue";
 
-import testePage from "../components/testPage.vue";
 
 Vue.use(VueRouter);
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')
+}
 
 const routes = [
   {
     path: "/",
     name: "Dashboard",
     component: Dashboard,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/Messagerie",
@@ -66,11 +85,12 @@ const routes = [
     path: "/Withdrawalsheet",
     name: "Withdrawalsheet",
     component: Withdrawalsheet,
-  },
+  },  
   {
-    path: "/testePage",
-    name: "testePage",
-    component: testePage,
+    path: "/login",
+    name: "login",
+    component: login,
+    beforeEnter: ifNotAuthenticated,
     meta: {
       plainLayout: true,
     },

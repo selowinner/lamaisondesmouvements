@@ -34,7 +34,7 @@
       </v-card>
       </v-dialog>
 
-      <v-data-table dense :headers="headers" :items="TravelsDo" :search="search"  hide-default-footer class="backgroundTree">
+      <v-data-table dense :headers="headers" :items="TravelsDo" :search="Seach"  hide-default-footer class="backgroundTree">
       <!-- FOR SEE DETAILS AND STATISTIC DIALOG -->
       <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
       <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
@@ -114,11 +114,18 @@ export default  {
     ...mapGetters([
       'TravelsDo',
     ]),
+    
+    StationOne3 () {
+      return this.$store.state.OneSTation
+    },
 
+    Seach () {
+      return this.$store.state.seachAll
+    },
   },
 
   created(){
-    this.$store.dispatch('init_travelsDo')
+    this.$store.dispatch('init_travelsDo', this.StationOne3)
   }
 
 };

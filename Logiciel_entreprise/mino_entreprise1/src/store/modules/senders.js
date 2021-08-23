@@ -39,7 +39,7 @@ const mutations = {
 const actions = {
     init_sender: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/expedition/senderList/1')
+            .get('http://127.0.0.1:3333/expedition/senderList/' + localStorage.getItem('user-station'))
             .then(res => {
                 commit('SET_SENDER', res.data.data)
             })
@@ -48,7 +48,7 @@ const actions = {
     
     init_availableSender: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/expedition/availableSender/1')
+            .get('http://127.0.0.1:3333/expedition/availableSender/' + localStorage.getItem('user-station'))
             .then(res => {
                 commit('SET_AVAILABLE_SENDER', res.data.data)
             })

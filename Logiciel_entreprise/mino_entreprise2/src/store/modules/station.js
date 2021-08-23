@@ -45,7 +45,7 @@ const mutations = {
 const actions = {
     init_stations: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/station/List/1')
+            .get('http://127.0.0.1:3333/station/List/' + localStorage.getItem('user-central'))
             .then(res => {
                 commit('SET_STATION', res.data.data)
             })
@@ -53,7 +53,7 @@ const actions = {
     }, 
     init_mino_code: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/minoCode/List/8')
+            .get('http://127.0.0.1:3333/minoCode/List/' + localStorage.getItem('user-central'))
             .then(res => {
                 commit('SET_MINO_CODE', res.data.data)
             })
@@ -61,7 +61,7 @@ const actions = {
     }, 
     init_station_with_details: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/station/List/withDetatils/8')
+            .get('http://127.0.0.1:3333/station/List/withDetatils/' + localStorage.getItem('user-central'))
             .then(res => {
                 commit('SET_STATION_WITH_DETAILS', res.data.data)
             })

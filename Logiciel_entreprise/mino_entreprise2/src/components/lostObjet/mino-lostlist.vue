@@ -57,7 +57,7 @@
             </v-card>
             </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="LostObjets" :search="search"  hide-default-footer class="backgroundTree">
+            <v-data-table dense :headers="headers" :items="LostObjets" :search="Seach"  hide-default-footer class="backgroundTree">
             <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
             <template v-slot:[`item.actions`]="{ item }"> 
             <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
@@ -258,12 +258,21 @@ export default  {
     ...mapGetters([
       'LostObjets',
     ]),
+    
+    StationOne () {
+      return this.$store.state.OneSTationForLost
+    },
+
+    Seach () {
+      return this.$store.state.seachAllLost
+    },
+
 
   },
 
   
   created(){
-    this.$store.dispatch('init_lostObjets')
+    this.$store.dispatch('init_lostObjets', this.StationOne)
   }
 
 

@@ -4,33 +4,33 @@
         <div>
             <div class="formRadio">
             <v-radio-group v-model="row" row dense mandatory>
-                <v-radio label="VOYAGES DECLARES" value="radio-1" v-on:click= "DayType = 0"></v-radio>
-                <v-radio label="VOYAGES EFFECTUES" value="radio-2" v-on:click= "DayType = 1"></v-radio>
-                <v-radio label="ACHATS/RESERVATION" value="radio-3" v-on:click= "DayType = 2"></v-radio>
+                <v-radio label="VOYAGES DECLARES" value="radio-1" v-on:click= "switchItem"></v-radio>
+                <v-radio label="VOYAGES EFFECTUES" value="radio-2" v-on:click= "switchItem"></v-radio>
+                <v-radio label="ACHATS/RESERVATION" value="radio-3" v-on:click= "switchItem"></v-radio>
             </v-radio-group>
             </div>
              <!-- THE SEACH BAR -->
             <v-row>
               <v-col cols="12" md="4" lg="4"></v-col>
               <v-col  cols="12" md="4" lg="4">
-                <v-text-field v-model="search" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
+                <v-text-field v-model="search"  @keydown="changeseach"  dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
               </v-col>
               <v-col cols="12" md="4" lg="4"></v-col>
             </v-row>
         </div>
         
         <div class="liste" v-if="DayType == 0">
-            <MinoallDeclaredTravel></MinoallDeclaredTravel> 
+            <MinoallDeclaredTravel :key="ForceRe"></MinoallDeclaredTravel> 
         </div>
 
         
         <div class="liste" v-if="DayType == 1">
-          <MinoallTravelDo></MinoallTravelDo>
+          <MinoallTravelDo :key="ForceRe"></MinoallTravelDo>
         </div>
 
 
         <div class="liste" v-if="DayType == 2">
-          <MinoallTicketReservation></MinoallTicketReservation>
+          <MinoallTicketReservation :key="ForceRe"></MinoallTicketReservation>
         </div>
 
     </div>
@@ -228,7 +228,35 @@ export default  {
       this.dialog = true
       console.log(item.name);
     },
-  }
+
+    switchItem: function () {
+      if (this.row == 'radio-1') {
+        this.DayType = 3
+        this.DayType = 0
+      } else if (this.row == 'radio-2') {
+        this.DayType = 3
+        this.DayType = 1
+      }else if (this.row == 'radio-3') {
+        this.DayType = 3
+        this.DayType = 2
+      }
+     
+    },
+
+    // for search bar
+    changeseach: function () {
+    this.$store.state.seachAllTravel = this.search
+    },
+  },
+
+
+  computed: {
+
+    ForceRe () {
+      return this.$store.state.forceRdeDeclared
+    },
+    
+  },
 
 };
 

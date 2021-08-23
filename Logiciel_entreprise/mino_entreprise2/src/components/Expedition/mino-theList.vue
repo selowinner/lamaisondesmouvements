@@ -59,7 +59,7 @@
             </v-card>
             </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="Expeditions" :search="search"  hide-default-footer class="backgroundTree">
+            <v-data-table dense :headers="headers" :items="Expeditions" :search="Seach"  hide-default-footer class="backgroundTree">
             <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
             <template v-slot:[`item.actions`]="{ item }"> 
             <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
@@ -260,6 +260,7 @@ export default  {
       this.dialog = true
       console.log(item.name);
     },
+
   },
 
 
@@ -269,11 +270,19 @@ export default  {
       'Expeditions',
     ]),
 
+    StationOne () {
+      return this.$store.state.OneSTationForExp
+    },
+
+    Seach () {
+      return this.$store.state.seachAllExp
+    },
+
   },
 
   
   created(){
-    this.$store.dispatch('init_expeditions')
+    this.$store.dispatch('init_expeditions', this.StationOne)
   }
 
 

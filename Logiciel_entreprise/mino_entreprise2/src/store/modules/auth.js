@@ -1,5 +1,4 @@
 import axios from "axios"
-// import Vue from 'vue'
 
 const state = {
     token: localStorage.getItem('user-token') || '',
@@ -23,9 +22,6 @@ const getters = {
 
 const mutations = {
 
-    // SET_ANALITYCS (state, data){
-    //     state.analytycs = data
-    // },
     AUTH_REQUEST: (state) => {
         state.status = 'loading'
     },
@@ -48,14 +44,7 @@ const mutations = {
 }
 
 const actions = {
-    // init_analytycs: ({commit}) => {
-    //     Vue.prototype.$http
-    //         .get('http://127.0.0.1:3333/administration/analytics')
-    //         .then(res => {
-    //             commit('SET_ANALITYCS', res.data.data)
-    //         })
-    //         .catch(error => console.log(error))
-    // } 
+   
     auth_request: ({commit, /*dispatch*/}, user) => {
         return new Promise((resolve, reject) => { // The Promise used for router redirect in login
           commit('AUTH_REQUEST')
@@ -67,13 +56,16 @@ const actions = {
               }
               const theuser = resp.data.user //The UserData
               localStorage.setItem('user-info', theuser.pseudo) // store UserPseudo in localstorage
+              localStorage.setItem('user-central', theuser.companyCentral_id) // store UserStation in localstorage
 
               const token = resp.data.token.token //The token
               localStorage.setItem('user-token', token) // store the token in localstorage
               axios.defaults.headers.common['Authorization'] = `Bearer ${token}` // the following line To set the  authorization header {Le moniteur}
               commit('AUTH_SUCCESS', token)
+              // ---- REMPLACE PAR LES LOCAL STORAGE
               // you have your token, now log in your user :)
               // dispatch('init_user') // you can find this action in modules.user.js file {le moniteur}
+              // ---- REMPLACE PAR LES LOCAL STORAGE
               // commit('USER_INFO', theuser)
               resolve(resp)
             })
@@ -89,6 +81,7 @@ const actions = {
         return new Promise((resolve) => {
             commit('AUTH_LOGOUT')
             localStorage.removeItem('user-token')
+            localStorage.removeItem('user-central')
             // remove the axios default header
             // delete axios.defaults.headers.common['Authorization']
             resolve()

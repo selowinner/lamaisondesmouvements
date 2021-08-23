@@ -5,9 +5,12 @@
             <div class="profilImg">
                 <img src="@/assets/img/team2.jpg" alt="" srcset="">
             </div>
-            <p>John Connor</p>
-            <p>Loremipsum@gmail.com</p>
-            <p>Deconnexion</p>
+            <p>{{uUser}}</p>
+            <p v-if="role == 1">Gestion des voyages</p>
+            <p v-if="role == 2">Gestion des Objets égarés</p>
+            <p v-if="role == 3">Gestion des colis</p>
+            <p v-if="role == 4">Administrateur mino de la gare</p>
+            <p v-on:click.prevent="logOut">Deconnexion</p>
             <div class="settingdiv">
                 <v-icon>mdi-cog</v-icon>
             </div>
@@ -56,6 +59,30 @@ export default {
   components: {
     
   },
+
+   
+  data: () => ({
+    
+    uUser : '',
+    role:'',
+    
+  }),
+
+
+   methods: {
+
+    logOut(){
+        this.$store.dispatch('auth_logout').then(() => {
+            this.$router.push('/login')
+        })
+    },
+   },
+
+
+  created(){
+    this.uUser = localStorage.getItem('user-info')
+    this.role = localStorage.getItem('user-role')
+  }
 
 };
 

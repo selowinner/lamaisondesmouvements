@@ -200,6 +200,13 @@ export default {
   },
 
 
+
+  created(){
+    this.company_id = localStorage.getItem('user-station')
+  }
+
+
+
 };
 
 

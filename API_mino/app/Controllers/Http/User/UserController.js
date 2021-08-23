@@ -146,6 +146,20 @@ class UserController {
                         user: user,
                         token: token
                     })
+                }
+                if (softLevel == 'station') {
+                    if (PullLog.company_id == null) {
+                        return response.status(403).json({
+                            status: 'error',
+                            message: "vous n'avez pas acces ce logiciel"
+                        })
+                    }
+                    return response.status(200).json({
+                        status: 'ok',
+                        message: 'Logged in',
+                        user: user,
+                        token: token
+                    })
                 }                
             }
 

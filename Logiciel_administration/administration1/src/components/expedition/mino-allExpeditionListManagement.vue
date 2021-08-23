@@ -148,10 +148,14 @@ export default  {
       'Expeditions',
     ]),
 
+     StationOne () {
+      return this.$store.state.OneSTationForExp
+    },
+
   },
 
   created(){
-    this.$store.dispatch('init_expeditions')
+    this.$store.dispatch('init_expeditions', this.StationOne)
   }
 
 };

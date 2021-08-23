@@ -4,8 +4,9 @@
         <div class="TheBoxBody">
             <div class="leHerder">
                 <p class="sectionTitle">Statistiques</p>
-                <div style="width:250px"><v-select :items="periode" v-model="chosingPerod" class="period" solo></v-select></div>
-                </div>
+                <!-- remplacer cette manière de selecrtionner la période, par l'utilisation de boutons radio -->
+                <div style="width:150px;"><v-select :items="periode" v-model="chosingPerod" class="period" v-on:change= "perodeDef" solo></v-select></div>
+            </div>
             <v-container fluid class="pouletBr">
                 <v-row>
 
@@ -86,6 +87,7 @@ export default {
     /* FOR  PARIOD*/
     periode: ["de l'année", 'du trimestre', 'du mois', 'de la semaine'],
     chosingPerod:  "de l'année",
+    travelAnalyticsPeriod: 1,
     /* FOR  SERVICE STATS */
     showChart: false,
     tools:[],
@@ -183,8 +185,29 @@ mounted() {
             }
         }
 
-    }
-    
+    },
+
+    // Analytics periode
+    perodeDef() {
+        if (this.chosingPerod == 'du trimestre') {     
+            this.travelAnalyticsPeriod = 2
+            this.chosingPerod = 'du trimestre'
+        } else if (this.chosingPerod == 'du mois') {
+            this.travelAnalyticsPeriod = 3
+            this.chosingPerod = 'du mois'  
+        }else if (this.chosingPerod == 'de la semaine') {
+            this.travelAnalyticsPeriod = 4
+            this.chosingPerod = 'de la semaine'
+        }else if (this.chosingPerod == "de l'année"){
+            this.travelAnalyticsPeriod = 1
+            this.chosingPerod = "de l'année"
+        }
+        this.$store.dispatch('init_travel_analitic', this.travelAnalyticsPeriod)
+        setTimeout(() => {
+            this.updateChart();
+            this.showChart = true;
+        }, 500);
+    },
 
   },
 
@@ -198,7 +221,7 @@ computed:{
 
 
 created(){
-    this.$store.dispatch('init_travel_analitic')
+    this.$store.dispatch('init_travel_analitic', this.travelAnalyticsPeriod)
 }
 
 

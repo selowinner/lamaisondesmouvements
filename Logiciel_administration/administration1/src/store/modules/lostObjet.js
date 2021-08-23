@@ -25,9 +25,9 @@ const mutations = {
 }
 
 const actions = {
-    init_lostObjets: ({commit}) => {
+    init_lostObjets: ({commit}, station) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/lostObjet/Liste/1')
+            .get('http://127.0.0.1:3333/lostObjet/Liste/' + station)
             .then(res => {
                 commit('SET_LOST_OBJET', res.data.data)
             })

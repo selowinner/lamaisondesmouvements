@@ -38,7 +38,7 @@ const mutations = {
 const actions = {
     init_expedition: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/expedition/expeditionList/1')
+            .get('http://127.0.0.1:3333/expedition/expeditionList/' + localStorage.getItem('user-station'))
             .then(res => {
                 commit('SET_EXPEDITION', res.data.data)
             })
@@ -47,7 +47,7 @@ const actions = {
     
     init_withdrawal: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/withdrawal/List/1')
+            .get('http://127.0.0.1:3333/withdrawal/List/' + localStorage.getItem('user-station'))
             .then(res => {
                 commit('SET_WITHDRAWAL', res.data.data)
             })

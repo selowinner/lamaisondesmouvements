@@ -7,7 +7,7 @@ import station from "./modules/station"
 import travels from "./modules/travels"
 import expedition from "./modules/expedition"
 import lostObjet from "./modules/lostObjet"
-
+import auth from "./modules/auth";
 
 
 Vue.use(Vuex);
@@ -15,6 +15,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     stationcomponentKey : 0,
+
+    // travel liste elelment
+    OneSTation: 0,
+    forceRdeDeclared:1,
+
+    // EXpedition liste elelment
+    OneSTationForExp: 0,
+    forceRdeExp:1,
+
+    // Lost liste elelment
+    OneSTationForLost: 0,
+    forceRdeLost:1,
+
+    // For seach bar in dialog
+    seachAllTravel: "",
+    seachAllExp: "",
+    seachAllLost: "",
   },
   mutations: {},
   actions: {},
@@ -28,5 +45,6 @@ export default new Vuex.Store({
     travels,
     expedition,
     lostObjet,
+    auth,
   },
 });

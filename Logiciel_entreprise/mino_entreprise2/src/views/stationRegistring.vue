@@ -124,7 +124,7 @@ export default {
         package_service_use: false,
         use_option_id: '1',
         user_id: '1',
-        Central_id :'8'
+        Central_id :''
     },
 
     stationaAddingResponse: "",
@@ -201,6 +201,7 @@ computed:{
 
 created(){
     this.$store.dispatch('init_mino_code')
+    this.new_Station.Central_id = localStorage.getItem('user-central')
  }
 
 };

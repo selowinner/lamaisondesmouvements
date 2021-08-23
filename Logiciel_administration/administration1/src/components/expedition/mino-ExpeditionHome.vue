@@ -28,7 +28,7 @@
                             <v-card-text>
                               <v-container>
                                 <v-row class="detailsTemplate">
-                                  <MinoOneExpeditionList></MinoOneExpeditionList>
+                                  <MinoOneExpeditionList :key="forceRdeExp"></MinoOneExpeditionList>
                                 </v-row>
                               </v-container>
                             </v-card-text>
@@ -44,7 +44,7 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.ExpeditionNumber)" @click="dialog = !dialog">
+                            <div :class="getClass(item.ExpeditionNumber)" @click="openDialog(item)">
                               <div>
                                 <v-icon>mdi-bus-marker</v-icon>
                                 <p>{{ item.ExpeditionNumber }}</p>
@@ -118,6 +118,7 @@ export default  {
 
     // For the list dialog
     dialog : false,
+    forceRdeExp: 1,
     /* FOR DATA ITERATOR */
       itemsPerPageArray: [4, 8, 12],
       search: '',
@@ -222,6 +223,18 @@ export default  {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
+    
+
+  /* FOR ITEM DIALOG OPEN */
+    openDialog (item) {
+      this.selectedItem = Object.assign({}, item)
+      this.$store.state.OneSTationForExp = this.selectedItem.id
+
+      this.forceRdeExp += 1
+
+      this.dialog = !this.dialog
+    },
+    
     
   /* FOR QNALYTICS */
     updateChart() {

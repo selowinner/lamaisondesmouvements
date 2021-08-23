@@ -45,27 +45,27 @@ const mutations = {
 }
 
 const actions = {
-    init_travelsDo: ({commit}) => {
+    init_travelsDo: ({commit}, station) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/travelDo/Liste/1')
+            .get('http://127.0.0.1:3333/travelDo/Liste/' + station)
             .then(res => {
                 commit('SET_TRAVEL_DO', res.data.data)
             })
             .catch(error => console.log(error))
     },
 
-    init_travelsDeclared: ({commit}) => {
+    init_travelsDeclared: ({commit}, station) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/TravelDeclared/Liste/1')
+            .get('http://127.0.0.1:3333/TravelDeclared/Liste/' + station)
             .then(res => {
                 commit('SET_TRAVEL_DECLARED', res.data.data)
             })
             .catch(error => console.log(error))
     },
     
-    init_clientReservation: ({commit}) => {
+    init_clientReservation: ({commit}, station) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/reservation/Liste/1')
+            .get('http://127.0.0.1:3333/reservation/Liste/' + station)
             .then(res => {
                 commit('SET_CLIENT_RESERVATION', res.data.data)
             })

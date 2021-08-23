@@ -35,7 +35,7 @@
                             <v-card-text>
                               <v-container>
                                 <v-row class="detailsTemplate">
-                                  <MinoStationLostObjetList></MinoStationLostObjetList>
+                                  <MinoStationLostObjetList  :key="forceRdeLost"></MinoStationLostObjetList>
                                 </v-row>
                               </v-container>
                             </v-card-text>
@@ -51,7 +51,7 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.lostObjetNumber)" @click="dialog = !dialog">
+                            <div :class="getClass(item.lostObjetNumber)" @click="openDialog(item)">
                               <div>
                                 <v-icon>mdi-bus-marker</v-icon>
                                 <p>{{ item.lostObjetNumber }}</p>
@@ -120,6 +120,7 @@ export default  {
 
     // For the list dialog
     dialog : false,
+    forceRdeLost: 1,
     /* FOR DATA ITERATOR */
       itemsPerPageArray: [4, 8, 12],
       search: '',
@@ -310,6 +311,22 @@ export default  {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
+
+    /* FOR ITEM DIALOG OPEN */
+    openDialog (item) {
+      this.selectedItem = Object.assign({}, item)
+      this.$store.state.OneSTationForLost = this.selectedItem.id
+
+      this.forceRdeLost += 1
+
+      this.dialog = !this.dialog
+    },
+
+    // for search bar
+    changeseach: function () {
+    this.$store.state.seachAll = this.search
+    },
+
     
   }
 

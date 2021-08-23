@@ -95,7 +95,7 @@ export default {
       city:'',
       conveyance: '',
       matriculation:'',
-      company_id : '1',
+      company_id : '',
     },
 
     senderaAddingResponse: "",
@@ -186,6 +186,13 @@ computed:{
     }
 
 },
+
+
+
+
+created(){
+    this.company_id = localStorage.getItem('user-station')
+  }
 
 };
 

@@ -50,7 +50,7 @@
                         <v-row>
 
                           <v-col v-for="item in props.items" :key="item.name" cols="12" md="3" lg="3">
-                            <div :class="getClass(item.lostObjetNumber)" @click="dialog = !dialog">
+                            <div :class="getClass(item.lostObjetNumber)" @click="openDialog(item)">
                               <div>
                                 <v-icon color="mainGreenColor">mdi-bus-marker</v-icon>
                                 <p>{{ item.lostObjetNumber }}</p>
@@ -119,6 +119,7 @@ export default  {
 
     // For the list dialog
     dialog : false,
+    selectedItem:{},
     /* FOR DATA ITERATOR */
       itemsPerPageArray: [4, 8, 12],
       search: '',
@@ -215,6 +216,19 @@ export default  {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
+
+
+    
+  /* FOR ITEM DIALOG OPEN */
+    openDialog (item) {
+      this.selectedItem = Object.assign({}, item)
+      this.$store.state.OneSTationForLost = this.selectedItem.id
+
+      this.$store.state.forceRdeLost += 1
+
+      this.dialog = !this.dialog
+    },
+
     
   },
 

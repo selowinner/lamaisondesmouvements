@@ -4,6 +4,7 @@ const state = {
   travels : [],
   travel_analytics : '',
   luggages : [],
+  travelAnalyticsPeriod:1,
 }
 
 
@@ -82,16 +83,16 @@ const mutations = {
 const actions = {
     init_travelListe: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/travel/Liste/1')
+            .get('http://127.0.0.1:3333/travel/Liste/' + localStorage.getItem('user-station'))
             .then(res => {
                 commit('SET_TRAVELS', res.data.data)
             })
             .catch(error => console.log(error))
     },
 
-    init_travel_analitic: ({commit}) => {
+    init_travel_analitic: ({commit}, period) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/travel/getTravelAnalytics/1/1')
+            .get('http://127.0.0.1:3333/travel/getTravelAnalytics/' + localStorage.getItem('user-station') + '/' + period)
             .then(res => {
                 commit('SET_TRAVEL_ANALYTICS', res.data.data)
             })
@@ -100,7 +101,7 @@ const actions = {
 
     init_luggage: ({commit}) => {
         Vue.prototype.$http
-            .get('http://127.0.0.1:3333/Luggage/List/1')
+            .get('http://127.0.0.1:3333/Luggage/List/'  + localStorage.getItem('user-station'))
             .then(res => {
                 commit('SET_LUGGAGE', res.data.data)
             })

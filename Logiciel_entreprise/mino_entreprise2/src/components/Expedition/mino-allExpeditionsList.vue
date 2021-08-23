@@ -11,14 +11,14 @@
             <v-row>
               <v-col cols="12" md="4" lg="4"></v-col>
               <v-col  cols="12" md="4" lg="4">
-                <v-text-field v-model="search" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
+                <v-text-field v-model="search" @keydown="changeseach" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
               </v-col>
               <v-col cols="12" md="4" lg="4"></v-col>
             </v-row>
         </div>
         
         <div class="liste">
-            <THelist></THelist> 
+            <THelist :key="ForceRe"></THelist> 
         </div>
 
     </div>
@@ -211,7 +211,21 @@ export default  {
       this.dialog = true
       console.log(item.name);
     },
-  }
+
+    
+    // for search bar
+    changeseach: function () {
+    this.$store.state.seachAllExp = this.search
+    },
+  },
+
+  computed: {
+
+    ForceRe () {
+      return this.$store.state.forceRdeExp
+    },
+    
+  },
 
 };
 

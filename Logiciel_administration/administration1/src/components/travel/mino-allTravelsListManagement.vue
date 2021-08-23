@@ -13,24 +13,24 @@
             <v-row>
               <v-col cols="12" md="4" lg="4"></v-col>
               <v-col  cols="12" md="4" lg="4">
-                <v-text-field v-model="search" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
+                <v-text-field v-model="search" @keydown="changeseach" dense outlined hide-details prepend-inner-icon="mdi-search" label="Rechercher" class="theSeachBar"></v-text-field>
               </v-col>
               <v-col cols="12" md="4" lg="4"></v-col>
             </v-row>
         </div>
         
         <div class="liste" v-if="DayType == 0">
-            <MinoallDeclaredTravel></MinoallDeclaredTravel> 
+            <MinoallDeclaredTravel :key="ForceRe"></MinoallDeclaredTravel> 
         </div>
 
         
         <div class="liste" v-if="DayType == 1">
-          <MinoallTravelDo></MinoallTravelDo>
+          <MinoallTravelDo :key="ForceRe"></MinoallTravelDo>
         </div>
 
 
         <div class="liste" v-if="DayType == 2">
-          <MinoallTicketReservation></MinoallTicketReservation>
+          <MinoallTicketReservation :key="ForceRe"></MinoallTicketReservation>
         </div>
 
     </div>
@@ -67,7 +67,7 @@ export default  {
 
     //for the list
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-    // search: '',
+    search: '',
     headers: [
         {
           text: 'IDENTIFIANT',
@@ -228,7 +228,22 @@ export default  {
       this.dialog = true
       console.log(item.name);
     },
-  }
+
+    // for search bar
+    changeseach: function () {
+    this.$store.state.seachAll = this.search
+    },
+  },
+
+
+
+  computed: {
+
+    ForceRe () {
+      return this.$store.state.forceRdeDeclared
+    },
+    
+  },
 
 };
 

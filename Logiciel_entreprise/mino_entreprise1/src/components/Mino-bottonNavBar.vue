@@ -10,7 +10,7 @@
                 </div>
             </router-link>
             <!-- v-on:click= "isActive = !isActive" :class="{naVBox2Active: isActive}" -->
-            <div class="navBox" v-on:click= "activeMenu" :class="{naVBox2Active: isActive}">
+            <div class="navBox" v-on:click= "activeMenu" :class="{naVBox2Active: isActive}" v-if="(role == 1) || (role == 4)">
                 <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
                 <p>Gestion des voyages</p>
                 <div class="menuBox" v-if="travelMenuClick">
@@ -40,13 +40,13 @@
                     </div>
                 </div>
             </div>
-            <router-link :to="{name: 'lostObjectList'}">
+            <router-link :to="{name: 'lostObjectList'}" v-if="(role == 2) || (role == 4)">
                 <div class="navBox" v-on:click= "UnactiveMenu">
                     <img src="@/assets/icone/targetB.png" alt="" srcset="">
                     <p>Gestion des objets <br> égarés</p>
                 </div>
             </router-link>
-            <div class="navBox" v-on:click= "activeMenu2" :class="{naVBox2Active1: isActive2}">
+            <div class="navBox" v-on:click= "activeMenu2" :class="{naVBox2Active1: isActive2}" v-if="(role == 3) || (role == 4)">
                 <img src="@/assets/icone/ticketsB.png" alt="" srcset="">
                 <p>Gestion des colis</p>
                 <div class="menuBox" v-if="expeditionMenuClick">
@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <router-link :to="{name: 'TravelStat'}">
+            <router-link :to="{name: 'TravelStat'}" v-if="(role == 1) || (role == 4)">
             <div class="navBox navEnd" v-on:click= "UnactiveMenu">
                 <img src="@/assets/icone/settingsB.png" alt="" srcset="">
                 <p>statistique voyage</p>
@@ -117,6 +117,9 @@ export default {
     isActive2: false,
     expeditionMenuClick: true,
     
+
+    // For User
+     role:0,
   }),
 
   methods: {
@@ -144,6 +147,7 @@ export default {
 
   created(){
     this.$store.dispatch('init_analitic')
+    this.role = localStorage.getItem('user-role')
   }
 
 };

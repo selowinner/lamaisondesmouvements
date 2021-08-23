@@ -5,7 +5,7 @@
             <div class="profilImg">
                 <img src="@/assets/img/team2.jpg" alt="" srcset="">
             </div>
-            <p>{{TheUser.user.pseudo}}</p>
+            <p>{{uUser}}</p>
             <p>Administrateur mino</p>
             <p v-on:click.prevent="logOut">Deconnexion</p>
             <div class="settingdiv">
@@ -49,13 +49,20 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 export default {
   name: "MinoProfilBar",
   components: {
     
   },
 
+  
+  data: () => ({
+    
+    uUser : '',
+
+    
+  }),
 
    methods: {
 
@@ -72,11 +79,16 @@ export default {
 
 
   computed:{
-    ...mapGetters([
-      'TheUser',
-    ])
+    // ...mapGetters([
+    //   'TheUser',
+    // ])
   },
 
+  
+  created(){
+    this.uUser = localStorage.getItem('user-info')
+    // console.log(this.uUser.pseudo);
+  }
 
 
 

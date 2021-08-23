@@ -113,9 +113,11 @@ class CompaniesCentralStatController {
         /*For find Objets */
         const thisYearsLostObjetNotInJSON = await LostObjets
             .query()
+            .innerJoin('companies', 'companies.id', 'lost_objets.company_id')
+            .where('companyCentral_id', params.id)
             .where('declaration_state', 1)
-            .whereBetween('created_at', [yearsstart,  yearsEnd])
-            .select('id', 'created_at')
+            .whereBetween('lost_objets.created_at', [yearsstart,  yearsEnd])
+            .select('lost_objets.id', 'lost_objets.created_at')
             .fetch()
         const thisYearsLostObjetThings = thisYearsLostObjetNotInJSON.toJSON()
         analytics.FindObjet = thisYearsLostObjetThings.length

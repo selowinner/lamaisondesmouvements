@@ -45,7 +45,12 @@
                             </v-col>
                             <v-col cols="12" md="12" lg="12">
                                 <div class="statWrapper">
-                                    <p class="sectionTitle">Statistique</p>
+                                    <!-- <p class="sectionTitle">Statistique <v-select height="20" :items="periode" v-model="chosingPerod" class="period" v-on:change= "perodeDef" outlined></v-select></p> -->
+                                    <div class="leHerder">
+                                        <p class="sectionTitle">Statistiques</p>
+                                        <!-- remplacer cette manière de selecrtionner la période, par l'utilisation de boutons radio -->
+                                        <div style="width:190px; "><v-select dense :items="periode" v-model="chosingPerod" class="period" v-on:change= "perodeDef" outlined></v-select></div>
+                                    </div>
                                     <div>
                                     <apexchart height="100%" :options="chartOptions" :series="series"></apexchart>
                                     </div>
@@ -127,6 +132,10 @@ export default {
 data: () => ({
 
 
+     /* FOR  PARIOD*/
+    periode: ["de l'année", 'du trimestre', 'du mois', 'de la semaine'],
+    chosingPerod:  "de l'année",
+    travelAnalyticsPeriod: 1,
 
      // TRAVELS and EXPEDITION GAIN
     series: [{
@@ -208,7 +217,33 @@ mounted() {
                 }
             }
         }
-    }
+    },
+
+    // Analytics periode
+    perodeDef() {
+        if (this.chosingPerod == 'du trimestre') {     
+            this.travelAnalyticsPeriod = 2
+            this.chosingPerod = 'du trimestre'
+            // localStorage.setItem('Analitics-period', this.travelAnalyticsPeriod)
+        } else if (this.chosingPerod == 'du mois') {
+            this.travelAnalyticsPeriod = 3
+            this.chosingPerod = 'du mois'
+            // localStorage.setItem('Analitics-period', this.travelAnalyticsPeriod)  
+        }else if (this.chosingPerod == 'de la semaine') {
+            this.travelAnalyticsPeriod = 4
+            this.chosingPerod = 'de la semaine'
+            // localStorage.setItem('Analitics-period', this.travelAnalyticsPeriod)
+        }else if (this.chosingPerod == "de l'année"){
+            this.travelAnalyticsPeriod = 1
+            this.chosingPerod = "de l'année"
+            // localStorage.setItem('Analitics-period', this.travelAnalyticsPeriod)
+        }
+        this.$store.dispatch('init_financial', this.travelAnalyticsPeriod)
+        setTimeout(() => {
+            this.updateChart();
+            this.showChart = true;
+        }, 500);
+    },
     
 
   },
@@ -227,7 +262,7 @@ mounted() {
 
 
  created(){
-    this.$store.dispatch('init_financial')
+    this.$store.dispatch('init_financial', this.travelAnalyticsPeriod)
   }
 
 
@@ -295,12 +330,43 @@ mounted() {
 
 
 .statWrapper{
-    height: 300px;
+    height: 330px;
     /* padding: 5px; */
     border-radius: 10px;
     background: white;
 }
-.statWrapper > div{
+.leHerder{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: red; */
+    height: 50px;
+}
+.leHerder > div{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    /* color:red !important; */
+}
+
+.sectionTitle{
+    /* margin: 0; */
+    /* margin-bottom: 5px; */
+    font-size: 18px;
+    font-weight: bold;
+}
+.period{
+    width: 50px !important;
+    margin-top:40px;
+    margin-right: 15px;
+}
+/* .statWrapper .sectionTitle{
+    font-size: 18px;
+    margin-left: 15px;
+    font-weight: bold;
+    background: red;
+} */
+.statWrapper > div:nth-child(2){
     height: 83.3%;
     width: 100%;
     /* background: red; */

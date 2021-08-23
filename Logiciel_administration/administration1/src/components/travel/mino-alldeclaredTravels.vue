@@ -33,7 +33,7 @@
             </v-card>
             </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="TravelsDeclared" :search="search"  hide-default-footer class="backgroundTree">
+            <v-data-table dense :headers="headers" :items="TravelsDeclared" :search="Seach"  hide-default-footer class="backgroundTree">
             <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
             <template v-slot:[`item.actions`]="{ item }"> 
             <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
@@ -66,7 +66,7 @@ export default  {
 
     //for the list
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-    search: '',
+    // search: '',
     headers: [
         {
           text: 'DESTINATION',
@@ -113,12 +113,20 @@ export default  {
     ...mapGetters([
       'TravelsDeclared',
     ]),
+    
+    StationOne () {
+      return this.$store.state.OneSTation
+    },
 
+    Seach () {
+      return this.$store.state.seachAll
+    },
+    
   },
 
   
   created(){
-    this.$store.dispatch('init_travelsDeclared')
+    this.$store.dispatch('init_travelsDeclared', this.StationOne)
   }
 
 

@@ -13,7 +13,13 @@ import './assets/styles/global.css';
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 axios.defaults.baseURL = 'http://127.0.0.1:3333/'
-// Vue.prototype.$http = axios;
+
+// pour garder l'autorisation dans le header, lorsqu'il y a rechargement de page. parcequ'au recharegment 
+// le header est suprimé, mais pas le localeStorage
+const token = localStorage.getItem('user-token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
 
 new Vue({
   router,
