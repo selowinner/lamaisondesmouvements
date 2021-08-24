@@ -251,7 +251,8 @@ Route.get('expedition/availableSender/:id', 'Expedition/ExpeditionController.get
 Route.get('withdrawal/List/:id', 'withdrawal/WithdrawalController.getListOfWithdrawals')
 Route.delete('withdrawal/delete/:id', 'withdrawal/WithdrawalController.CancelWithdrawals')
 
-// Expedition for Companies stations
+// User management for Companies stations
+Route.get('station/user/list/:id', 'User/UserController.listOfUser')
 
 
 

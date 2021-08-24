@@ -11,22 +11,14 @@
       </v-main>
       <MinoBottonNavBar></MinoBottonNavBar>
     </div>
-    
   </v-app>
 </template>
-
-
-
 
 <script>
 // import axios from "axios"
 import MinoProfilBar from "@/components/Mino-ProfilBar.vue";
 import MinoBottonNavBar from "@/components/Mino-bottonNavBar.vue";
 import MinoTopBar from "@/components/Mino-TopBar.vue";
-
-
-
-
 
 export default {
   name: "App",
@@ -39,9 +31,5 @@ export default {
   data: () => ({
     //
   }),
-
-
- 
-
 };
 </script>

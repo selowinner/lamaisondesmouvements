@@ -3,30 +3,29 @@ import Vuex from "vuex";
 
 import analytics from "./modules/analytics";
 import financialStat from "./modules/financialStat";
-import station from "./modules/station"
-import travels from "./modules/travels"
-import expedition from "./modules/expedition"
-import lostObjet from "./modules/lostObjet"
+import station from "./modules/station";
+import travels from "./modules/travels";
+import expedition from "./modules/expedition";
+import lostObjet from "./modules/lostObjet";
 import auth from "./modules/auth";
-
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    stationcomponentKey : 0,
+    stationcomponentKey: 0,
 
     // travel liste elelment
     OneSTation: 0,
-    forceRdeDeclared:1,
+    forceRdeDeclared: 1,
 
     // EXpedition liste elelment
     OneSTationForExp: 0,
-    forceRdeExp:1,
+    forceRdeExp: 1,
 
     // Lost liste elelment
     OneSTationForLost: 0,
-    forceRdeLost:1,
+    forceRdeLost: 1,
 
     // For seach bar in dialog
     seachAllTravel: "",
@@ -35,8 +34,6 @@ export default new Vuex.Store({
   },
   mutations: {},
   actions: {},
-
-
 
   modules: {
     analytics,

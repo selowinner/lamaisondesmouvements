@@ -1,24 +1,11 @@
 <template>
-
-    <div class="bodyBox">
-        <MinoExpeditionsHome></MinoExpeditionsHome>
-    </div>
-  
-  
+  <div class="bodyBox">
+    <MinoExpeditionsHome></MinoExpeditionsHome>
+  </div>
 </template>
 
-
-
-
-
-
-
-
-
-
-
 <script>
-import  MinoExpeditionsHome  from "../components/expedition/mino-ExpeditionHome.vue";
+import MinoExpeditionsHome from "../components/expedition/mino-ExpeditionHome.vue";
 
 export default {
   name: "ExpeditionManagement",
@@ -27,34 +14,15 @@ export default {
   },
 
   // data: () => ({
-    
+
   //   poulet: true,
-   
-    
+
   // }),
 
   // methods: {
-    
+
   // }
-
 };
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-
-<style scoped>
-
-
-</style>
-
-
+<style scoped></style>

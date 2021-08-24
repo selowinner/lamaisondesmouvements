@@ -3,6 +3,7 @@
 const { validateAll } = use('Validator')
 const comapaniesCentral = use('App/Models/CompaniesCentral')
 const companiesStation = use('App/Models/Company')
+const Users = use('App/Models/User')
 const minoCodes = use('App/Models/MinoCode')
 const Travels = use('App/Models/Travel')
 const LostObjets = use('App/Models/LostObjet')
@@ -152,12 +153,51 @@ class StationController {
         await minoCode.save()
         
 
+        // CREATE ADMIN AND FONCTIONNALITI MANAGER
+        // Central INfo
+        const centralInfoNotInJSON = await comapaniesCentral.find(body.Central_id)
+
+        const user = new Object()
+        user.username = body.other_denomination
+        // user.pseudo = body.pseudo
+        // user.email = body.email
+        user.password = body.matriculation
+        user.contact = body.contact
+        user.company_id = newStation.id
+        // user.role_id = body.role_id
+
+        const StationAdmin = user
+        StationAdmin.pseudo = centralInfoNotInJSON.anagramme + ' ADMIN GARE' + body.neighborhood
+        StationAdmin.email = 'minoAG@blooraid'
+        StationAdmin.role_id = 4
+        const newUser1= await Users.create(StationAdmin)
+
+        const StationTravelAdmin = user
+        StationTravelAdmin.pseudo = centralInfoNotInJSON.anagramme + ' GESTIONNAIRE DES VOYAGES ' + body.neighborhood
+        StationTravelAdmin.email = body.contact + 'minoGV@blooraid'
+        StationTravelAdmin.role_id = 1
+        const newUser2= await Users.create(StationTravelAdmin)
+
+        const StationExpeditionAdmin = user
+        StationExpeditionAdmin.pseudo = centralInfoNotInJSON.anagramme + ' GESTIONNAIRE DES EXPEDITIONS ' + body.neighborhood
+        StationExpeditionAdmin.email = body.contact + 'minoGE@blooraid'
+        StationExpeditionAdmin.role_id = 3
+        const newUser3= await Users.create(StationExpeditionAdmin)
+
+        const StationLostObjetAdmin = user
+        StationLostObjetAdmin.pseudo = centralInfoNotInJSON.anagramme + ' GESTIONNAIRE DES OBJETS EGARES ' + body.neighborhood
+        StationLostObjetAdmin.email = body.contact + 'minoGOE@blooraid'
+        StationLostObjetAdmin.role_id = 2
+        const newUser4= await Users.create(StationLostObjetAdmin)
+        
+
+        // const newUser= await Users.create(user)
 
         
         // RESPONSE
          response.json({
             message: 'success',
-            data: {newStation}
+            data: {newUser1, newUser2, newUser3, newUser4}
         })
 
        
@@ -165,6 +205,10 @@ class StationController {
     
     }
 
+
+// ---------------------------
+    // FOR STATION
+// ---------------------------    
     async updateInfo({request, response}){
 
         // GET DATA

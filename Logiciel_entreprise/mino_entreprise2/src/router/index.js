@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from '../store'
+import store from "../store";
 
 import Dashboard from "../views/Dashboard.vue";
 import stationRegistring from "../views/stationRegistring.vue";
@@ -11,26 +11,23 @@ import Analytics from "../views/Analytics.vue";
 
 import login from "../views/login.vue";
 
-
 Vue.use(VueRouter);
-
-
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
-    next()
-    return
+    next();
+    return;
   }
-  next('/')
-}
+  next("/");
+};
 
 const ifAuthenticated = (to, from, next) => {
   if (store.getters.isAuthenticated) {
-    next()
-    return
+    next();
+    return;
   }
-  next('/login')
-}
+  next("/login");
+};
 
 const routes = [
   {
@@ -38,7 +35,6 @@ const routes = [
     name: "Dashboard",
     component: Dashboard,
     beforeEnter: ifAuthenticated,
-
   },
   {
     path: "/stationRegistring",
@@ -69,7 +65,7 @@ const routes = [
     name: "Analytics",
     component: Analytics,
     beforeEnter: ifAuthenticated,
-  },  
+  },
   {
     path: "/login",
     name: "login",
@@ -79,8 +75,6 @@ const routes = [
       plainLayout: true,
     },
   },
-
-  
 ];
 
 const router = new VueRouter({

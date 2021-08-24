@@ -1,5 +1,3 @@
-
-
 <template>
   <v-data-table
     :headers="headers"
@@ -152,43 +150,12 @@
     </template> -->
   </v-data-table>
 </template>
-       
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 export default {
   name: "MinoBottonNavBar",
-  components: {
-    
-  },
-
+  components: {},
 };
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-
-<style scoped>
-
-
-
-</style>
+<style scoped></style>

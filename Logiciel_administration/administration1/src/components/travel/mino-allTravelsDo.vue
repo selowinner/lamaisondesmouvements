@@ -1,155 +1,161 @@
 <template>
-    <div class="tableWrapperDiv">
-        
-      <!-- STATISTIC DIALOG -->
-      <v-dialog v-model="dialog" max-width="410" overlay-color="black" overlay-opacity="0.8">
+  <div class="tableWrapperDiv">
+    <!-- STATISTIC DIALOG -->
+    <v-dialog
+      v-model="dialog"
+      max-width="410"
+      overlay-color="black"
+      overlay-opacity="0.8"
+    >
       <v-card>
-          <v-card-text>
+        <v-card-text>
           <p class="mainGreenColor dialogTitle">BILAN VOYAGE EFFECTUE</p>
           <div class="mainGreenColor dialogWrapper">
-              <div class="imgAndTitle">
-              </div>
-              <p class="subtitle">{{editedItem.destination}}</p>
-              <div class="backBoad backBoad-2">
+            <div class="imgAndTitle"></div>
+            <p class="subtitle">{{ editedItem.destination }}</p>
+            <div class="backBoad backBoad-2">
               <div class="basicInfo">
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> {{editedItem.departure_date}}</p>
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> {{editedItem.departure_time}}</p>
-                  <p><v-icon color="mainGreenColor" small> mdi-arrow-right </v-icon> Ticket : {{editedItem.place_price}}</p>
+                <p>
+                  <v-icon color="mainGreenColor" small>
+                    mdi-arrow-right
+                  </v-icon>
+                  {{ editedItem.departure_date }}
+                </p>
+                <p>
+                  <v-icon color="mainGreenColor" small>
+                    mdi-arrow-right
+                  </v-icon>
+                  {{ editedItem.departure_time }}
+                </p>
+                <p>
+                  <v-icon color="mainGreenColor" small>
+                    mdi-arrow-right
+                  </v-icon>
+                  Ticket : {{ editedItem.place_price }}
+                </p>
               </div>
               <div class="travelResume">
-                  <div class="part">
-                  <p> <span>{{editedItem.place_to_sell_by_mino_number}}</span><br>tickets à vendre</p>
-                  <p> <span>{{editedItem.ticketsCancelledNumber}}</span><br>tickets annulés</p>
-                  <p> <span>{{editedItem.traveltotalGain}} FCFA</span><br>gain total des ventes</p>
-                  </div>
-                  <div class="part">
-                  <p> <span>{{editedItem.ticketsSoldNumber}}</span><br>tickets vendus</p>
-                  <p> <span>{{editedItem.allPlaceNotReserved}}</span><br>Places restantes</p>
-                  </div>
+                <div class="part">
+                  <p>
+                    <span>{{ editedItem.place_to_sell_by_mino_number }}</span
+                    ><br />tickets à vendre
+                  </p>
+                  <p>
+                    <span>{{ editedItem.ticketsCancelledNumber }}</span
+                    ><br />tickets annulés
+                  </p>
+                  <p>
+                    <span>{{ editedItem.traveltotalGain }} FCFA</span><br />gain
+                    total des ventes
+                  </p>
+                </div>
+                <div class="part">
+                  <p>
+                    <span>{{ editedItem.ticketsSoldNumber }}</span
+                    ><br />tickets vendus
+                  </p>
+                  <p>
+                    <span>{{ editedItem.allPlaceNotReserved }}</span
+                    ><br />Places restantes
+                  </p>
+                </div>
               </div>
-              </div>
+            </div>
           </div>
-          </v-card-text>
-  
+        </v-card-text>
       </v-card>
-      </v-dialog>
+    </v-dialog>
 
-      <v-data-table dense :headers="headers" :items="TravelsDo" :search="Seach"  hide-default-footer class="backgroundTree">
+    <v-data-table
+      dense
+      :headers="headers"
+      :items="TravelsDo"
+      :search="Seach"
+      hide-default-footer
+      class="backgroundTree"
+    >
       <!-- FOR SEE DETAILS AND STATISTIC DIALOG -->
-      <template v-slot:[`item.actions`]="{ item }"> <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-      <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
+      <template v-slot:[`item.actions`]="{ item }">
+        <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+        <v-btn icon color="mainGreenColor" @click="editItem(item)"
+          ><v-icon small> mdi-eye </v-icon></v-btn
+        >
       </template>
-      </v-data-table>
-
-    </div>
+    </v-data-table>
+  </div>
 </template>
-
-
-
-
-
-
-
-
-
-
 
 <script>
 import { mapGetters } from "vuex";
-export default  {
+export default {
   name: "MinoallTravelDo",
 
-  components: {
-    
-  },
+  components: {},
 
   data: () => ({
-
     //for the list
-    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-    search: '',
+    items: ["Foo", "Bar", "Fizz", "Buzz"],
+    search: "",
     headers: [
-        {
-          text: 'DESTINATION',
-          align: 'start',
-          sortable: false,
-          value: 'destination',
-        },
-        { text: 'DATE DE DEPART', value: 'departure_date' },
-        { text: 'HEURE DE DEPART', value: 'departure_time' },
-        { text: 'DETAILS', value: 'actions', sortable: false },
-      ],
-
-
-      editedItem: {
-        name: '',
-        date:'',
-        heure: '',
-        details:{
-          vendus: 0,
-          aVendre: 0,
-          restant: 0,
-          annules: 0,
-          gains: 0
-        }
+      {
+        text: "DESTINATION",
+        align: "start",
+        sortable: false,
+        value: "destination",
       },
+      { text: "DATE DE DEPART", value: "departure_date" },
+      { text: "HEURE DE DEPART", value: "departure_time" },
+      { text: "DETAILS", value: "actions", sortable: false },
+    ],
 
+    editedItem: {
+      name: "",
+      date: "",
+      heure: "",
+      details: {
+        vendus: 0,
+        aVendre: 0,
+        restant: 0,
+        annules: 0,
+        gains: 0,
+      },
+    },
 
-
-    dialog: false
-    
+    dialog: false,
   }),
 
   methods: {
     editItem: function (item) {
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
       console.log(item.name);
     },
   },
 
+  computed: {
+    ...mapGetters(["TravelsDo"]),
 
-   computed: {
-
-    ...mapGetters([
-      'TravelsDo',
-    ]),
-    
-    StationOne3 () {
-      return this.$store.state.OneSTation
+    StationOne3() {
+      return this.$store.state.OneSTation;
     },
 
-    Seach () {
-      return this.$store.state.seachAll
+    Seach() {
+      return this.$store.state.seachAll;
     },
   },
 
-  created(){
-    this.$store.dispatch('init_travelsDo', this.StationOne3)
-  }
-
+  created() {
+    this.$store.dispatch("init_travelsDo", this.StationOne3);
+  },
 };
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
-.tableWrapperDiv{
+.tableWrapperDiv {
   height: 63%;
   overflow-y: auto;
 }
-.tableWrapperDiv::-webkit-scrollbar{
+.tableWrapperDiv::-webkit-scrollbar {
   width: 20px;
 }
 .tableWrapperDiv::-webkit-scrollbar-track {
@@ -169,48 +175,36 @@ export default  {
   margin-left: 70px;
 }
 .v-btn {
-    font-weight: bold;
-    letter-spacing: normal;
-    text-transform: none;
+  font-weight: bold;
+  letter-spacing: normal;
+  text-transform: none;
 }
-
-
-
-
-
-
-
-
 
 .theme--light.v-card {
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.87);
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.87);
 }
 
-
-
-.dialogTitle{
-    margin: 0;
-    display: inline-block;
-    padding: 2px 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    font-size: 13px;
-    color: white;
+.dialogTitle {
+  margin: 0;
+  display: inline-block;
+  padding: 2px 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  font-size: 13px;
+  color: white;
 }
-.dialogWrapper{
+.dialogWrapper {
   width: 100%;
   margin: 0px;
   padding: 5px;
   border-radius: 0px 0px 5px 5px;
-  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
-
+  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
+    0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
 }
 
-
-
-.imgAndTitle{
+.imgAndTitle {
   margin: 0px 0px;
   height: 220px;
   width: 100%;
@@ -218,12 +212,18 @@ export default  {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  background: linear-gradient(180deg, rgb(0 0 0 / 58%),rgb(0 0 0 / 19%), rgb(0 0 0 / 60%)), url(../../assets/img/abstract-1278060_1920.jpg);
+  background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 58%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0 / 60%)
+    ),
+    url(../../assets/img/abstract-1278060_1920.jpg);
   background-position: center;
   background-size: cover;
 }
 
-.subtitle{
+.subtitle {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: -0.5px;
@@ -233,11 +233,11 @@ export default  {
   color: white;
 }
 
-.backBoad{
+.backBoad {
   background: var(--backgroundTree);
   color: var(--Important-font-color);
 }
-.basicInfo{
+.basicInfo {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -245,78 +245,51 @@ export default  {
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
-.basicInfo p{
+.basicInfo p {
   /* width: 100px; */
   margin-top: 15px;
   margin-bottom: 5px;
   font-weight: 200;
 }
 
-
-.nowIDontKnowHerUsing{
+.nowIDontKnowHerUsing {
   height: 100px;
   border-bottom: solid 1px var(--Important-font-color);
 }
 
-
-.travelResume{
+.travelResume {
   width: 100%;
   display: flex;
 }
-.part{
+.part {
   width: 50%;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
 }
-.part p{
+.part p {
   margin: 5px 0px;
   margin-left: 15px;
 }
-.part span{
+.part span {
   font-weight: bold;
   color: #8e8f91;
 }
 
-
-
-
-
-
-
-
 /* FOR VOYAGE DECLARE */
-.backBoad-1 .part  p{
+.backBoad-1 .part p {
   margin: 10px 0px;
 }
 
 /* FOR VOYAGE DECLARE */
-.backBoad-2 .part  p{
+.backBoad-2 .part p {
   margin-left: 25px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (min-width: 960px){
+@media (min-width: 960px) {
   .col-md-4 {
-    padding-bottom: 30px !important; 
+    padding-bottom: 30px !important;
     padding-top: 10px !important;
+  }
 }
-}
-
-
-
-
-
 </style>

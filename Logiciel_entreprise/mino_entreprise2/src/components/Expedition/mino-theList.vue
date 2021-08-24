@@ -1,37 +1,56 @@
 <template>
-    <div class="tableWrapperDiv">
-           <!-- SHOW DIALOG -->
-            <v-dialog v-model="dialog" max-width="370">
-            <v-card>
-                <v-card-text>
-                <v-container>
-                    <div class="imgAndTitle">
-                    <!-- <p>GESTION DES TICKETS</p> -->
-                    <p>Bilan des voyages-détails</p>
-                    </div>
-                    <p class="subtitle">451dfnksdfj</p>
-                    <div class="backBoad backBoad-1">
-                      <div class="travelResume">
-                          <div class="part">
-                          <!-- <p> <span>{{editedItem.departure_date}}</span><br>date de départ</p> -->
-                          <p> <span>{{editedItem.sender_contact}}</span><br>Expediteur</p>
-                          <p> <span>{{editedItem.sender_city}}</span><br>ville Expediteurt</p>
-                          <p> <span>{{editedItem.recipient_contact}}</span><br>Destinataire</p>
-                          <p> <span>{{editedItem.recipient_city}}</span><br>ville destinataire</p>
-                          </div>
-                          <div class="part">
-                          <p> <span>{{editedItem.package_weight}}</span><br>poids du colis</p>
-                          <p> <span>{{editedItem.package_size}}</span><br>taille du colis</p>
-                          <p> <span>{{editedItem.package_withdrawal_code}}</span><br>code expedition</p>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="statElment">
-
-                    </div>
-                </v-container>
-                </v-card-text>
-                <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+  <div class="tableWrapperDiv">
+    <!-- SHOW DIALOG -->
+    <v-dialog v-model="dialog" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle">
+              <!-- <p>GESTION DES TICKETS</p> -->
+              <p>Bilan des voyages-détails</p>
+            </div>
+            <p class="subtitle">451dfnksdfj</p>
+            <div class="backBoad backBoad-1">
+              <div class="travelResume">
+                <div class="part">
+                  <!-- <p> <span>{{editedItem.departure_date}}</span><br>date de départ</p> -->
+                  <p>
+                    <span>{{ editedItem.sender_contact }}</span
+                    ><br />Expediteur
+                  </p>
+                  <p>
+                    <span>{{ editedItem.sender_city }}</span
+                    ><br />ville Expediteurt
+                  </p>
+                  <p>
+                    <span>{{ editedItem.recipient_contact }}</span
+                    ><br />Destinataire
+                  </p>
+                  <p>
+                    <span>{{ editedItem.recipient_city }}</span
+                    ><br />ville destinataire
+                  </p>
+                </div>
+                <div class="part">
+                  <p>
+                    <span>{{ editedItem.package_weight }}</span
+                    ><br />poids du colis
+                  </p>
+                  <p>
+                    <span>{{ editedItem.package_size }}</span
+                    ><br />taille du colis
+                  </p>
+                  <p>
+                    <span>{{ editedItem.package_withdrawal_code }}</span
+                    ><br />code expedition
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="statElment"></div>
+          </v-container>
+        </v-card-text>
+        <!-- <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
 
                 <v-card-text>
                 Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
@@ -56,62 +75,75 @@
                     Agree
                 </v-btn>
                 </v-card-actions> -->
-            </v-card>
-            </v-dialog>
+      </v-card>
+    </v-dialog>
 
-            <v-data-table dense :headers="headers" :items="Expeditions" :search="Seach"  hide-default-footer class="backgroundTree">
-            <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
-            <template v-slot:[`item.actions`]="{ item }"> 
-            <v-btn  icon color="mainGreenColor"  @click="editItem(item)"><v-icon small> mdi-eye </v-icon></v-btn>
-            </template>
-            <template v-slot:[`item.expedition_state_id`]="{ item }">
-            <v-chip dark v-if="item.expedition_state_id == 2" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-cursor-default-click</v-icon> Choix du livreur</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 7" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-account-clock</v-icon> Attente recuperration par livreur</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 3" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-bike-fast</v-icon> Acheminement</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 4" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-truck-delivery</v-icon> En cours de livraison</v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 5" color="#aeaeae"> <v-icon color="mainGreenColor" small>mdi-archive</v-icon> En cours de recupération </v-chip>
-            <v-chip dark v-if="item.expedition_state_id == 6" color="#3e886db0"> <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon>Livré</v-chip>
-            </template>
-            </v-data-table>
-
-    </div>
+    <v-data-table
+      dense
+      :headers="headers"
+      :items="Expeditions"
+      :search="Seach"
+      hide-default-footer
+      class="backgroundTree"
+    >
+      <!-- FOR SEE DETAILS AND STATISTIC DIALOG for VOYAGES DECLARES -->
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-btn icon color="mainGreenColor" @click="editItem(item)"
+          ><v-icon small> mdi-eye </v-icon></v-btn
+        >
+      </template>
+      <template v-slot:[`item.expedition_state_id`]="{ item }">
+        <v-chip dark v-if="item.expedition_state_id == 2" color="#aeaeae">
+          <v-icon color="mainGreenColor" small>mdi-cursor-default-click</v-icon>
+          Choix du livreur</v-chip
+        >
+        <v-chip dark v-if="item.expedition_state_id == 7" color="#aeaeae">
+          <v-icon color="mainGreenColor" small>mdi-account-clock</v-icon>
+          Attente recuperration par livreur</v-chip
+        >
+        <v-chip dark v-if="item.expedition_state_id == 3" color="#aeaeae">
+          <v-icon color="mainGreenColor" small>mdi-bike-fast</v-icon>
+          Acheminement</v-chip
+        >
+        <v-chip dark v-if="item.expedition_state_id == 4" color="#aeaeae">
+          <v-icon color="mainGreenColor" small>mdi-truck-delivery</v-icon> En
+          cours de livraison</v-chip
+        >
+        <v-chip dark v-if="item.expedition_state_id == 5" color="#aeaeae">
+          <v-icon color="mainGreenColor" small>mdi-archive</v-icon> En cours de
+          recupération
+        </v-chip>
+        <v-chip dark v-if="item.expedition_state_id == 6" color="#3e886db0">
+          <v-icon color="mainGreenColor" small>mdi-check-bold</v-icon
+          >Livré</v-chip
+        >
+      </template>
+    </v-data-table>
+  </div>
 </template>
-
-
-
-
-
-
-
-
-
-
 
 <script>
 import { mapGetters } from "vuex";
-export default  {
+export default {
   name: "THelist",
 
-  components: {
-    
-  },
+  components: {},
 
   data: () => ({
-
     //for the list
-    search: '',
+    search: "",
     headers: [
-        {
-          text: 'EXPEDITEUR',
-          align: 'start',
-          sortable: false,
-          value: 'sender_complet_name',
-        },
-        { text: 'DESTINATAIRE', value: 'recipient_complet_name' },
-        { text: 'ETAT', value: 'expedition_state_id' },
-        { text: 'DETAILS', value: 'actions', sortable: false },
-      ],
-       items: [
+      {
+        text: "EXPEDITEUR",
+        align: "start",
+        sortable: false,
+        value: "sender_complet_name",
+      },
+      { text: "DESTINATAIRE", value: "recipient_complet_name" },
+      { text: "ETAT", value: "expedition_state_id" },
+      { text: "DETAILS", value: "actions", sortable: false },
+    ],
+    items: [
       //   {
       //   name: 'Frozen Yogurt',
       //   date: '21-01-2021',
@@ -233,81 +265,55 @@ export default  {
       //   }
       // },
     ],
-   
 
-      editedItem: {
-        name: '',
-        date:'',
-        heure: '',
-        details:{
-          vendus: 0,
-          aVendre: 0,
-          restant: 0,
-          annules: 0,
-          gains: 0
-        }
+    editedItem: {
+      name: "",
+      date: "",
+      heure: "",
+      details: {
+        vendus: 0,
+        aVendre: 0,
+        restant: 0,
+        annules: 0,
+        gains: 0,
       },
+    },
 
-
-
-    dialog: false
-    
+    dialog: false,
   }),
 
   methods: {
     editItem: function (item) {
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
       console.log(item.name);
     },
-
   },
 
+  computed: {
+    ...mapGetters(["Expeditions"]),
 
-   computed: {
-
-    ...mapGetters([
-      'Expeditions',
-    ]),
-
-    StationOne () {
-      return this.$store.state.OneSTationForExp
+    StationOne() {
+      return this.$store.state.OneSTationForExp;
     },
 
-    Seach () {
-      return this.$store.state.seachAllExp
+    Seach() {
+      return this.$store.state.seachAllExp;
     },
-
   },
 
-  
-  created(){
-    this.$store.dispatch('init_expeditions', this.StationOne)
-  }
-
-
+  created() {
+    this.$store.dispatch("init_expeditions", this.StationOne);
+  },
 };
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
-.tableWrapperDiv{
+.tableWrapperDiv {
   height: 63%;
   overflow-y: auto;
 }
-.tableWrapperDiv::-webkit-scrollbar{
+.tableWrapperDiv::-webkit-scrollbar {
   width: 20px;
 }
 .tableWrapperDiv::-webkit-scrollbar-track {
@@ -327,28 +333,18 @@ export default  {
   margin-left: 70px;
 }
 .v-btn {
-    font-weight: bold;
-    letter-spacing: normal;
-    text-transform: none;
+  font-weight: bold;
+  letter-spacing: normal;
+  text-transform: none;
 }
-
-
-
-
-
-
-
-
 
 .theme--light.v-card {
-    /* background-color: transparent; */
-    /* color: rgba(0, 0, 0, 0.87); */
+  /* background-color: transparent; */
+  /* color: rgba(0, 0, 0, 0.87); */
 }
 
-
-
 /* Show details */
-.imgAndTitle{
+.imgAndTitle {
   margin-top: 15px;
   height: 220px;
   width: 297.5px;
@@ -357,63 +353,53 @@ export default  {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  background: linear-gradient(180deg, rgb(0 0 0 / 0%),rgb(0 0 0 / 19%), rgb(0 0 0)), url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+  background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
   background-position: center;
   background-size: cover;
 }
-.imgAndTitle > p:first-child{
-    font-size: 21px;
-    font-weight: bold;
-    margin: 0px;
-    margin-left: 20px;
-    color: white;
+.imgAndTitle > p:first-child {
+  font-size: 21px;
+  font-weight: bold;
+  margin: 0px;
+  margin-left: 20px;
+  color: white;
 }
-.imgAndTitle > p:last-child{
-    font-size: 15px;
-    font-weight: bold;
-    margin: 0px 0px 10px 20px;
-    color: white;
+.imgAndTitle > p:last-child {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0px 0px 10px 20px;
+  color: white;
 }
 
-.statElment{
+.statElment {
   margin-bottom: 15px;
   display: flex;
 }
-.statElment >div{
+.statElment > div {
   margin-left: 10px;
 }
-.statElment  h2{
+.statElment h2 {
   font-size: 21px;
-  color: var(--main-green-color)
+  color: var(--main-green-color);
 }
 
-
-
-
-
-
-
-
-
 /* FOR VOYAGE DECLARE */
-.backBoad-1 .part  p{
+.backBoad-1 .part p {
   margin: 10px 0px;
 }
 
 /* FOR VOYAGE DECLARE */
-.backBoad-2 .part  p{
+.backBoad-2 .part p {
   margin-left: 25px;
 }
 
-
-
-
-
-
-
-
-
-.subtitle{
+.subtitle {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: -0.5px;
@@ -426,11 +412,11 @@ export default  {
   background: var(--main-important-color);
 }
 
-.backBoad{
+.backBoad {
   background: var(--backgroundTree);
   color: var(--Important-font-color);
 }
-.basicInfo{
+.basicInfo {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -438,75 +424,52 @@ export default  {
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
-.basicInfo p{
+.basicInfo p {
   /* width: 100px; */
   margin-top: 15px;
   margin-bottom: 5px;
   font-weight: 200;
 }
 
-
-.nowIDontKnowHerUsing{
+.nowIDontKnowHerUsing {
   height: 100px;
   border-bottom: solid 1px var(--Important-font-color);
 }
 
-
-.travelResume{
+.travelResume {
   width: 100%;
   display: flex;
 }
-.part{
+.part {
   width: 50%;
   display: flex;
   flex-direction: column;
   margin-left: 30px;
   /* align-items: center; */
 }
-.part p{
+.part p {
   margin: 5px 0px;
   margin-left: 15px;
 }
-.part span{
+.part span {
   font-weight: bold;
   color: #8e8f91;
 }
 
-
-
-
-
-
-
-
 /* FOR VOYAGE DECLARE */
-.backBoad-1 .part  p{
+.backBoad-1 .part p {
   margin: 10px 0px;
 }
 
 /* FOR VOYAGE DECLARE */
-.backBoad-2 .part  p{
+.backBoad-2 .part p {
   margin-left: 25px;
 }
 
-
-
-
-
-
-
-
-
-
-@media (min-width: 960px){
+@media (min-width: 960px) {
   .col-md-4 {
-    padding-bottom: 30px !important; 
+    padding-bottom: 30px !important;
     padding-top: 10px !important;
+  }
 }
-}
-
-
-
-
-
 </style>

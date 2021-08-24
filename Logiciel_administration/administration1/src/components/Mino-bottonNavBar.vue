@@ -1,116 +1,88 @@
 <template>
-
- 
-
-    <div class="bottonNavBar">
-      <p class="sectionTitle" style="background:#1e2126">Menu</p>
-      <v-container fluid>
-          <v-row>
-              <v-col cols="3" md="3" lg="3" class="box">
-                  <router-link :to="{name: 'UserManagement'}">
-                    <div class="boxWrapper">
-                        <span>GESTION <br> DES UTILISATEURS</span>
-                    </div>
-                  </router-link>
-              </v-col>
-              <v-col cols="3" md="3" lg="3" class="box">
-                  <router-link :to="{name: 'TravelManagement'}">                    
-                    <div class="boxWrapper">
-                        <span>GESTION <br> DES VOYAGES</span>
-                    </div>
-                  </router-link>
-              </v-col>
-                <v-col cols="3" md="3" lg="3" class="box">
-                  <router-link :to="{name: 'LostObjectManagement'}"> 
-                    <div class="boxWrapper">
-                        <span>HISTORIQUE <br> DES OBJETS EGARES</span>
-                    </div>
-                  </router-link>
-              </v-col>
-                <v-col cols="3" md="3" lg="3" class="box">
-                  <router-link :to="{name: 'ExpeditionManagement'}"> 
-                    <div class="boxWrapper">
-                        <span>HISTORIQUE <br> DES COLIS ENVOYES</span>
-                    </div>
-                  </router-link>
-              </v-col>
-          </v-row>
-      </v-container>
-    </div>
-       
-  
-  
+  <div class="bottonNavBar">
+    <p class="sectionTitle" style="background: #1e2126">Menu</p>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="3" md="3" lg="3" class="box">
+          <router-link :to="{ name: 'UserManagement' }">
+            <div class="boxWrapper">
+              <span
+                >GESTION <br />
+                DES UTILISATEURS</span
+              >
+            </div>
+          </router-link>
+        </v-col>
+        <v-col cols="3" md="3" lg="3" class="box">
+          <router-link :to="{ name: 'TravelManagement' }">
+            <div class="boxWrapper">
+              <span
+                >GESTION <br />
+                DES VOYAGES</span
+              >
+            </div>
+          </router-link>
+        </v-col>
+        <v-col cols="3" md="3" lg="3" class="box">
+          <router-link :to="{ name: 'LostObjectManagement' }">
+            <div class="boxWrapper">
+              <span
+                >HISTORIQUE <br />
+                DES OBJETS EGARES</span
+              >
+            </div>
+          </router-link>
+        </v-col>
+        <v-col cols="3" md="3" lg="3" class="box">
+          <router-link :to="{ name: 'ExpeditionManagement' }">
+            <div class="boxWrapper">
+              <span
+                >HISTORIQUE <br />
+                DES COLIS ENVOYES</span
+              >
+            </div>
+          </router-link>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
-
-
-
-
-
-
-
-
-
-
 
 <script>
 export default {
   name: "MinoBottonNavBar",
 
-  components: {
-    
-  },
+  components: {},
 
   data: () => ({
-    
     isActive: false,
     poulet: true,
-    
   }),
 
-  methods: {
-    
+  methods: {},
+
+  created() {
+    this.$store.dispatch("init_stations");
+    this.$store.dispatch("init_analytycs");
   },
-
-
-  created(){
-    this.$store.dispatch('init_stations')
-    this.$store.dispatch('init_analytycs')
-  }
-
 };
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-
 <style scoped>
+.bottonNavBar {
+  /* background: rgb(201, 102, 102); */
+  background: var(--main-black-color);
+  width: 100vw;
+  width: 74vw;
+  margin-left: 21%;
 
-
-.bottonNavBar{
-    /* background: rgb(201, 102, 102); */
-    background:  var(--main-black-color);
-    width: 100vw;
-    width: 74vw;
-    margin-left: 21%;
-
-    position: fixed;
-    top: 80vh;
-    /* left: 22vw; */
-
+  position: fixed;
+  top: 80vh;
+  /* left: 22vw; */
 }
 
-
-.boxWrapper{
-  background:  var(--backgroundTree);
+.boxWrapper {
+  background: var(--backgroundTree);
   height: 80px;
   display: flex;
   text-align: center;
@@ -121,20 +93,13 @@ export default {
   border-radius: 10px;
 }
 
-
-.router-link-exact-active > .boxWrapper{
-    /* border-radius: 10px 0 0 0; */
-   color: white;
-   background: var(--font-color);
+.router-link-exact-active > .boxWrapper {
+  /* border-radius: 10px 0 0 0; */
+  color: white;
+  background: var(--font-color);
 }
 
-
-
 /* 600px > < 960px */
-
-
-
-
 
 /* 
 @media (min-width: 600px) and (max-width: 960px){
@@ -142,5 +107,4 @@ export default {
     background: rgb(201, 102, 102);
   }
 } */
-
 </style>

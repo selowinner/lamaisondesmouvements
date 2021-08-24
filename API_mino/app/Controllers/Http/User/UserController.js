@@ -94,7 +94,6 @@ class UserController {
     }
 
 
-
     async updateProfil({request, response, auth}){
 
         // On pourra tester lors de l'intégration de l'API
@@ -189,6 +188,27 @@ class UserController {
    
     }
 
+
+
+    // FOR STATION
+    async listOfUser({params, response}){
+
+        const userListNotInJSON = await Users
+        .query()
+        .where('company_id', params.id)
+        .andWhereNot('role_id', 4)
+        .select('pseudo', 'role_id')
+        .fetch()
+
+        const userList = userListNotInJSON.toJSON()
+        
+
+        // RESPONSE
+         response.json({
+            message: 'success',
+            data: userList
+        })
+    }
 
 
 

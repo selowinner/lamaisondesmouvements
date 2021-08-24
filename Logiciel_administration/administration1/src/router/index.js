@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from '../store' // your vuex store 
+import store from "../store"; // your vuex store
 
 import Dashboard from "../views/Dashboard.vue";
 import UserManagement from "../views/UserManagement.vue";
@@ -12,24 +12,21 @@ import login from "../views/login.vue";
 
 Vue.use(VueRouter);
 
-
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
-    next()
-    return
+    next();
+    return;
   }
-  next('/')
-}
+  next("/");
+};
 
 const ifAuthenticated = (to, from, next) => {
   if (store.getters.isAuthenticated) {
-    next()
-    return
+    next();
+    return;
   }
-  next('/login')
-}
-
-
+  next("/login");
+};
 
 const routes = [
   {

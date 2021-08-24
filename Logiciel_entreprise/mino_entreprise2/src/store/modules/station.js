@@ -1,78 +1,79 @@
-
-import Vue from 'vue'
+import Vue from "vue";
 const state = {
-    stations : [],
-    mino_code : [],
-    stations_with_details : [],
-}
-
-
+  stations: [],
+  mino_code: [],
+  stations_with_details: [],
+};
 
 const getters = {
-    Stations: state => {
-        let station = state.stations
+  Stations: (state) => {
+    let station = state.stations;
 
-        return station
-    },
-    Mino_code: state => {
-        let code = state.mino_code
+    return station;
+  },
+  Mino_code: (state) => {
+    let code = state.mino_code;
 
-        return code
-    },
-    Stations_with_details: state => {
-        let stationw = state.stations_with_details
+    return code;
+  },
+  Stations_with_details: (state) => {
+    let stationw = state.stations_with_details;
 
-        return stationw
-    },
-
-}
-
+    return stationw;
+  },
+};
 
 const mutations = {
-
-    SET_STATION (state, data){
-        state.stations = data
-    },
-    SET_MINO_CODE (state, data){
-        state.mino_code = data
-    },
-    SET_STATION_WITH_DETAILS (state, data){
-        state.stations_with_details = data
-    },
-
-}
+  SET_STATION(state, data) {
+    state.stations = data;
+  },
+  SET_MINO_CODE(state, data) {
+    state.mino_code = data;
+  },
+  SET_STATION_WITH_DETAILS(state, data) {
+    state.stations_with_details = data;
+  },
+};
 
 const actions = {
-    init_stations: ({commit}) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/station/List/' + localStorage.getItem('user-central'))
-            .then(res => {
-                commit('SET_STATION', res.data.data)
-            })
-            .catch(error => console.log(error))
-    }, 
-    init_mino_code: ({commit}) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/minoCode/List/' + localStorage.getItem('user-central'))
-            .then(res => {
-                commit('SET_MINO_CODE', res.data.data)
-            })
-            .catch(error => console.log(error))
-    }, 
-    init_station_with_details: ({commit}) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/station/List/withDetatils/' + localStorage.getItem('user-central'))
-            .then(res => {
-                commit('SET_STATION_WITH_DETAILS', res.data.data)
-            })
-            .catch(error => console.log(error))
-    }  
-}
+  init_stations: ({ commit }) => {
+    Vue.prototype.$http
+      .get(
+        "http://127.0.0.1:3333/station/List/" +
+          localStorage.getItem("user-central")
+      )
+      .then((res) => {
+        commit("SET_STATION", res.data.data);
+      })
+      .catch((error) => console.log(error));
+  },
+  init_mino_code: ({ commit }) => {
+    Vue.prototype.$http
+      .get(
+        "http://127.0.0.1:3333/minoCode/List/" +
+          localStorage.getItem("user-central")
+      )
+      .then((res) => {
+        commit("SET_MINO_CODE", res.data.data);
+      })
+      .catch((error) => console.log(error));
+  },
+  init_station_with_details: ({ commit }) => {
+    Vue.prototype.$http
+      .get(
+        "http://127.0.0.1:3333/station/List/withDetatils/" +
+          localStorage.getItem("user-central")
+      )
+      .then((res) => {
+        commit("SET_STATION_WITH_DETAILS", res.data.data);
+      })
+      .catch((error) => console.log(error));
+  },
+};
 
-
-export default({
-    state,
-    mutations,
-    actions,
-    getters
-  });
+export default {
+  state,
+  mutations,
+  actions,
+  getters,
+};

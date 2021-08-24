@@ -1,44 +1,36 @@
-
-import Vue from 'vue'
+import Vue from "vue";
 const state = {
-    lostObjets : [],
-}
-
-
+  lostObjets: [],
+};
 
 const getters = {
-    LostObjets: state => {
-        let lostObjet = state.lostObjets
+  LostObjets: (state) => {
+    let lostObjet = state.lostObjets;
 
-        return lostObjet
-    },
-
-}
-
+    return lostObjet;
+  },
+};
 
 const mutations = {
-
-    SET_LOST_OBJET (state, data){
-        state.lostObjets = data
-    },
-
-}
+  SET_LOST_OBJET(state, data) {
+    state.lostObjets = data;
+  },
+};
 
 const actions = {
-    init_lostObjets: ({commit}, station) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/lostObjet/Liste/' + station)
-            .then(res => {
-                commit('SET_LOST_OBJET', res.data.data)
-            })
-            .catch(error => console.log(error))
-    } 
-}
+  init_lostObjets: ({ commit }, station) => {
+    Vue.prototype.$http
+      .get("http://127.0.0.1:3333/lostObjet/Liste/" + station)
+      .then((res) => {
+        commit("SET_LOST_OBJET", res.data.data);
+      })
+      .catch((error) => console.log(error));
+  },
+};
 
-
-export default({
-    state,
-    mutations,
-    actions,
-    getters
-  });
+export default {
+  state,
+  mutations,
+  actions,
+  getters,
+};

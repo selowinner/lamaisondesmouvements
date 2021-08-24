@@ -1,43 +1,39 @@
-
-import Vue from 'vue'
+import Vue from "vue";
 const state = {
-    analytics : '',
-}
-
+  analytics: "",
+};
 
 const getters = {
-    Analytics: state => {
-        let analytic = state.analytics
+  Analytics: (state) => {
+    let analytic = state.analytics;
 
-        return analytic
-    },
-
-}
-
+    return analytic;
+  },
+};
 
 const mutations = {
-
-    SET_ANALYTICS (state, data){
-        state.analytics = data
-    },
-
-}
+  SET_ANALYTICS(state, data) {
+    state.analytics = data;
+  },
+};
 
 const actions = {
-    init_analitic: ({commit}) => {
-        Vue.prototype.$http
-            .get('http://127.0.0.1:3333/analytics/' + localStorage.getItem('user-station'))
-            .then(res => {
-                commit('SET_ANALYTICS', res.data.data)
-            })
-            .catch(error => console.log(error))
-    } 
-}
+  init_analitic: ({ commit }) => {
+    Vue.prototype.$http
+      .get(
+        "http://127.0.0.1:3333/analytics/" +
+          localStorage.getItem("user-station")
+      )
+      .then((res) => {
+        commit("SET_ANALYTICS", res.data.data);
+      })
+      .catch((error) => console.log(error));
+  },
+};
 
-
-export default({
-    state,
-    mutations,
-    actions,
-    getters
-});
+export default {
+  state,
+  mutations,
+  actions,
+  getters,
+};

@@ -9,19 +9,15 @@ import expedition from "./modules/expedition";
 import analytycs from "./modules/analytycs";
 import auth from "./modules/auth";
 
-
-
-
 Vue.use(Vuex);
-
 
 export default new Vuex.Store({
   state: {
-    companiescomponentKey:0,
-    
+    companiescomponentKey: 0,
+
     // travel liste elelment
     OneSTation: 0,
-    forceRdeDeclared:1,
+    forceRdeDeclared: 1,
 
     // EXpedition liste elelment
     OneSTationForExp: 0,

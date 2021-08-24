@@ -1,24 +1,11 @@
 <template>
-
-    <div class="bodyBox">
-        <MinoLostObjetsHome></MinoLostObjetsHome>
-    </div>
-  
-  
+  <div class="bodyBox">
+    <MinoLostObjetsHome></MinoLostObjetsHome>
+  </div>
 </template>
 
-
-
-
-
-
-
-
-
-
-
 <script>
-import  MinoLostObjetsHome  from "../components/lostObjet/mino-lostObjetHome.vue";
+import MinoLostObjetsHome from "../components/lostObjet/mino-lostObjetHome.vue";
 
 export default {
   name: "LostObjetManagement",
@@ -27,35 +14,15 @@ export default {
   },
 
   // data: () => ({
-    
+
   //   poulet: true,
-   
-    
+
   // }),
 
   // methods: {
-    
+
   // },
-
-
 };
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-
-<style scoped>
-
-
-</style>
-
-
+<style scoped></style>
