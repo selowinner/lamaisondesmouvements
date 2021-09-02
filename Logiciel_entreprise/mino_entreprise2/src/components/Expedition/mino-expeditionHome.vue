@@ -73,10 +73,10 @@
                       <div>
                         <v-icon color="mainGreenColor">mdi-bus-marker</v-icon>
                         <p>{{ item.ExpeditionNumber }}</p>
-                        <p>{{ item.anagramme }}</p>
+                        <p>{{ item.neighborhood}}</p>
                       </div>
                       <div class="price">
-                        <v-icon>mdi-calendar</v-icon>
+                        <v-icon>mdi-jsfiddle</v-icon>
                         <p>{{ item.city }}</p>
                       </div>
                     </div>
@@ -410,7 +410,7 @@ export default {
   margin-left: 10px;
 }
 .statboxWrapper div {
-  height: 95%;
+  height: 94.5%;
   /* background: red; */
 }
 
@@ -499,4 +499,30 @@ export default {
 .theme--light.v-card {
   background-color: #ffffff00;
 }
+
+
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .InvBox {
+    height: 170px;
+    border-radius: 10px;
+    background: var(--main-important-color);
+    padding-left: 5px;
+  }
+  .price {
+    padding-top: 25px;
+    width: 100%;
+    z-index: 15px;
+  }
+  .price > p {
+    font-size: 10px;
+  }
+}
+/*-------END------------*/
 </style>

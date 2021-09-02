@@ -27,6 +27,12 @@ class CompaniesCentral extends Model {
     expeditions () {
         return this.manyThrough('App/Models/Company', 'expeditions')
     }
+    
+    Messages () {
+        return this.hasMany('App/Models/Message')
+    }
+
+    
 }
 
 module.exports = CompaniesCentral

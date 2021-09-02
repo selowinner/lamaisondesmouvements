@@ -49,7 +49,10 @@ class User extends Model {
 
   CompaniesCentral () {
     return this.hasMany('App/Models/CompaniesCentral')
-}
+  }
+
+
+  
 
 
 }

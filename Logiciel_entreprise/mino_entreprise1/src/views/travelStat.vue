@@ -16,7 +16,7 @@
       </div>
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="3" lg="3">
+          <v-col cols="12" md="4" lg="3">
             <div class="numberWrapper rightBox">
               <div
                 class="travelsum"
@@ -58,7 +58,7 @@
             </div>
           </v-col>
 
-          <v-col cols="12" md="3" lg="3" class="leftNumber">
+          <v-col cols="12" md="2" lg="3" class="leftNumber">
             <div class="stat1">
               <div class="N-icon">
                 <v-icon color="mainGreenColor">mdi-bus-multiple</v-icon>
@@ -228,6 +228,8 @@ export default {
 .leHerder {
   display: flex;
   justify-content: space-between;
+  margin-top: -15px;
+  padding: 0 15px;
 }
 .leHerder > div {
   display: flex;
@@ -252,14 +254,15 @@ export default {
 
 .rightBox,
 .middleBox {
-  height: 55vh;
+  height: 54vh;
 }
 .rightBox {
   padding: 10px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .rightBox::-webkit-scrollbar {
-  width: 20px;
+  width: 15px;
 }
 .rightBox::-webkit-scrollbar-track {
   background: #f9f9f9;
@@ -268,7 +271,7 @@ export default {
 .rightBox::-webkit-scrollbar-thumb {
   background-color: var(--main-green-color);
   border-radius: 30px;
-  border: 7px solid #ffffff;
+  border: 5px solid #ffffff;
 }
 
 .travelsum {
@@ -316,7 +319,7 @@ export default {
   background: white;
   padding: 5px;
   border-radius: 5px;
-  width: 85%;
+  width: 90%;
 }
 .sum > p {
   font-weight: bold;
@@ -324,18 +327,18 @@ export default {
 .sum p:first-child {
   margin-right: 15px;
 }
-/* .pufff{
-    background: white;
+.pufff{
+    /* background: white;
     padding: 5px;
     border-radius: 5px; */
-/* } */
+}
 
 .stat1 {
   background: white;
-  height: 27vh;
+  height: 26vh;
   border-radius: 10px;
   margin-bottom: 15px;
-
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -343,8 +346,8 @@ export default {
 }
 
 .N-icon {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -367,4 +370,20 @@ export default {
 .statWrapper1 h4{
     margin-left: 10px;
 } */
+
+
+
+/*------------------------
+    ---RESPONSIVE--- 
+--------------------------*/
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1264px){
+  .stat1 h1{
+    font-size: 20px;
+  }
+}
+/*-------END------------*/
 </style>

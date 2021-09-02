@@ -203,7 +203,7 @@ export default {
   font-weight: bold;
 }
 .numberWrapper {
-  height: 190px;
+  height: 170px;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -222,19 +222,19 @@ export default {
 }
 .numberWrapper h1 {
   margin-bottom: -15px;
-  font-size: 50px;
+  font-size: 45px;
 }
 .numberWrapper h5 {
   color: var(--font-color);
 }
 
 .statWrapper {
-  height: 270px;
+  height: 230px;
   border-radius: 10px;
   background: white;
 }
 .statWrapper1 {
-  height: 300px;
+  height: 270px;
   border-radius: 10px;
   padding-top: 10px;
   background: white;
@@ -246,4 +246,5 @@ export default {
   margin-top: 5%;
   height: 80%;
 }
+
 </style>

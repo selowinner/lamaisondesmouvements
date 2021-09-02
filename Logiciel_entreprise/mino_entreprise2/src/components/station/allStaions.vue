@@ -1,12 +1,11 @@
 <template>
   <div class="tableWrapperDiv">
-    <!-- EDIT TRAVEL DIALOG -->
+    <!-- EDIT STATION DIALOG -->
     <v-dialog v-model="dialogEdit" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
-            <div class="imgAndTitle deleteIMG editIMGO">
-              <p>MODIFICATION DES INFORMATION DE LA GARE</p>
+            <div class="imgAndTitle editIMGO">
               <!-- <p>Livreur</p> -->
             </div>
             <form class="updateForm">
@@ -161,28 +160,92 @@
       </v-card>
     </v-dialog>
 
+    <!-- EDIT STATION ADMIN DIALOG -->
+    <v-dialog v-model="dialogEditAdmin" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle stationAdminTitle">
+            </div>
+            <form class="updateForm updatestationAdminForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      height="45"
+                      solo
+                      label="pseudo"
+                      append-icon="mdi-account"
+                      v-model="editedadminModelItem.pseudo"
+                      ref="matri"
+                      type="text"
+                      value=""
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                    <v-text-field
+                      height="45"
+                      background-color="#3e886d4a"
+                      solo
+                      label="password"
+                      v-model="editedadminModelItem.password"
+                      append-icon="mdi-lead-pencil"
+                      ref="total_name"
+                      type="text"
+                      value=""
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </form>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="Titlecolor"
+            rounded
+            depressed
+            @click="closeEditstationAdmin"
+            style="color: white"
+            >Annuler</v-btn
+          >
+          <v-btn
+            color="mainGreenColor"
+            rounded
+            depressed
+            @click="editstattionAdminConfirm"
+            style="color: white"
+            >Enregistrer</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- SHOW DIALOG -->
     <v-dialog v-model="dialog" max-width="370">
       <v-card>
         <v-card-text>
           <v-container>
             <div class="imgAndTitle">
-              <p>{{ editedItem.other_denomination }}</p>
-              <p>Information - Bilan Des Livraisons</p>
+              <!-- <p>{{ editedItem.other_denomination }}</p>
+              <p>Information - Bilan Des Livraisons</p> -->
+            </div>
+            <div class="PopTiTle">
+                Nous sommes la
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>CONTACT</h2>
-                <h4>{{ editedItem.contact }}</h4>
-              </div>
+              <v-icon color="mainGreenColor"> mdi-phone </v-icon>
+              <h4>{{ editedItem.contact }}</h4>
             </div>
             <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>DESCRIPTION</h2>
-                <h4>{{ editedItem.description }}</h4>
-              </div>
+              <v-icon color="mainGreenColor"> mdi-bullhorn </v-icon>
+              <h4>{{ editedItem.description }}</h4>
             </div>
           </v-container>
         </v-card-text>
@@ -220,6 +283,9 @@
           >
           <v-btn icon color="mainGreenColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
+          >
+          <v-btn icon color="mainGreenColor" @click="editStationItem(item)"
+            ><v-icon small> mdi-account </v-icon></v-btn
           >
         </template>
         <template v-slot:[`item.city`]="{ item }">
@@ -265,8 +331,20 @@
   </div>
 </template>
 
+
+
+
+
+
+
+
+
+
+
+
 <script>
 import Vue from "vue";
+import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -285,7 +363,7 @@ export default {
       },
       { text: "QUATIER", value: "neighborhood" },
       {
-        text: "OPTION EXPEDITION",
+        text: "OPTION COLIS",
         align: "center",
         value: "package_service_use",
       },
@@ -441,6 +519,15 @@ export default {
     // For staion deleted
     dialogDelete: false,
     itemToDelete: "",
+
+
+    // For staion edited
+    dialogEditAdmin: false,
+    editedadminModelItem: {
+      pseudo: "",
+      password: "",
+      company_id: "",
+    },
   }),
 
   methods: {
@@ -453,7 +540,7 @@ export default {
     },
 
     // ------------------------
-    // For Profil Edited
+    // For STATION Edited
     // ------------------------
     editItem(item) {
       this.editedIndex = this.Stations_with_details.indexOf(item);
@@ -498,15 +585,67 @@ export default {
       this.dialogEdit = false;
     },
 
+    // ------------------------
+    // For STATION ADMIN ACOUNT Edited
+    // ------------------------
+    editStationItem(item) {
+      this.editedIndex = this.Stations_with_details.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.editedadminModelItem.company_id =  this.editedItem.id
+      //  Open the Edit Dialogue
+      this.dialogEditAdmin = true;
+    },
+
+    editstattionAdminConfirm() {
+      axios({ url: "user/station/profilUpdate", data: this.editedadminModelItem, method: "PUT" })
+        .then((response) => {
+          this.staionaAddingResponse = response.data;
+          if (this.staionaAddingResponse.message == "success") {
+            // Modification effectuée
+            this.staionaAddingResponse.message = "Accès modififié avec succès";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+              this.forceRerender2();
+            }, 3000);
+          } else if (this.staionaAddingResponse.message != "success") {
+            // Modification pas effectuée
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.staionaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEditstationAdmin();
+    },
+
+    closeEditstationAdmin() {
+      this.dialogEditAdmin = false;
+    },
+
+
+
     // For table re-render after delete or update an item
     forceRerender2() {
       this.$store.state.stationcomponentKey += 1;
     },
   },
 
+
+
+
+
   computed: {
     ...mapGetters(["Stations_with_details"]),
   },
+
+
+
 
   created() {
     this.$store.dispatch("init_station_with_details");
@@ -514,9 +653,19 @@ export default {
 };
 </script>
 
+
+
+
+
+
+
+
+
+
+
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 61vh;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -559,7 +708,7 @@ export default {
 }
 
 /* Show details */
-.imgAndTitle {
+/* .imgAndTitle {
   margin: 15px 0px;
   height: 220px;
   width: 297.5px;
@@ -577,8 +726,30 @@ export default {
     url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
   background-position: center;
   background-size: cover;
+} */
+.imgAndTitle {
+  margin: 0px 35%;
+  margin-top: 0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  border: solid 5px;
+  border-color: var(--main-important-color)var(--main-green-color);
+  background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/pexels-veerasak-piyawatanakul-1170187.jpg);
+  background-position:bottom;
+  background-size: cover;
 }
-.imgAndTitle > p:first-child {
+/* .imgAndTitle > p:first-child {
   font-size: 21px;
   font-weight: bold;
   margin: 0px;
@@ -590,11 +761,18 @@ export default {
   font-weight: bold;
   margin: 0px 0px 10px 20px;
   color: white;
+} */
+
+.PopTiTle{
+  text-align: center;
+  font-size: 15px;
 }
+
 
 .statElment {
   margin-bottom: 15px;
   display: flex;
+  justify-content: center;
 }
 .statElment > div {
   margin-left: 10px;
@@ -611,8 +789,15 @@ export default {
 
 /* Edit travel */
 .editIMGO {
-  margin-bottom: 35px;
-  width: 297.5px;
+  background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/pexels-demian-smit-449559.jpg);
+  background-position:bottom;
+  background-size: cover;
 }
 .updateForm {
   height: 250px;
@@ -638,6 +823,25 @@ export default {
   padding-top: 0px;
 }
 
+
+.updatestationAdminForm{
+  height: 120px;
+  width: 110%;
+  overflow-y: scroll;
+}
+
+.stationAdminTitle{
+   background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0%),
+      rgb(0 0 0 / 19%),
+      rgb(0 0 0)
+    ),
+    url(../../assets/img/pexels-felix-büsselmann-3515649.jpg);
+  background-position:top;
+  background-size: cover;
+}
+
 /* Delete travel */
 /* .deleteIMG{
   width: 350px;
@@ -656,4 +860,13 @@ export default {
 .verificationAction > button{
   width: 150px;
 } */
+
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .v-chip.v-size--default {
+    border-radius: 16px;
+    font-size: 0px;
+    height: 32px;
+    /* width: 70px; */
+  }
+}
 </style>

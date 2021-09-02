@@ -1,6 +1,6 @@
 <template>
   <div class="TheBoxBody">
-    <p class="sectionTitle">Statistiques</p>
+    <p class="sectionTitle">Voyages déclarés</p>
 
     <v-container fluid>
       <v-row>
@@ -84,11 +84,11 @@
                       <div>
                         <v-icon>mdi-bus-marker</v-icon>
                         <p>{{ item.travelNumber }}</p>
-                        <p>{{ item.denomination }}</p>
+                        <p>{{ item.city }}</p>
                       </div>
                       <div class="price">
-                        <v-icon>mdi-calendar</v-icon>
-                        <p>{{ item.anagramme }}</p>
+                        <v-icon>mdi-jsfiddle</v-icon>
+                        <p>{{ item.neighborhood }}</p>
                       </div>
                     </div>
                   </v-col>
@@ -366,4 +366,23 @@ export default {
 .theme--light.v-card {
   background-color: #ffffff00;
 }
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .InvBox {
+    height: 170px;
+    padding-left: 5px;
+  }
+  .price {
+    padding-top: 25px;
+    width: 100%;
+    z-index: 15px;
+    display: none;
+  }
+}
+/*-------END------------*/
 </style>

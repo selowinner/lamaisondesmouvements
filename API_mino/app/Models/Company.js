@@ -25,6 +25,11 @@ class Company extends Model {
         return this.hasMany('App/Models/Expedition')
     }
 
+    
+    Messages () {
+        return this.hasMany('App/Models/Message')
+    }
+
     // rating () {
     //     return this.hasMany('App/Models/Rating')
     // }

@@ -5,7 +5,7 @@
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper rightBox">
+            <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addluggage">
                   <v-row>
@@ -37,7 +37,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         background-color="#3e886d4a"
@@ -52,7 +52,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         solo
@@ -66,7 +66,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         background-color="#3e886d4a"
@@ -80,7 +80,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         solo
@@ -122,7 +122,7 @@
             </div>
           </v-col>
           <v-col cols="12" md="9" lg="9">
-            <div class="numberWrapper middleBox">
+            <div class="numberWrapper ">
               <allLuggageList :key="forceRerenderReturn"></allLuggageList>
             </div>
           </v-col>
@@ -233,6 +233,9 @@ export default {
 </script>
 
 <style scoped>
+.TheBoxBody{
+    
+}
 .sectionTitle {
   margin: 0;
   margin-bottom: 5px;
@@ -243,13 +246,27 @@ export default {
   border-radius: 10px;
   background: white;
 }
-.rightBox,
+/* .rightBox,
 .middleBox {
-  height: 60vh;
+  height: 57vh;
+} */
+/* .addluggage {
+  height: 57vh;
+  overflow-y: auto;
+} */
+.addluggage::-webkit-scrollbar {
+  width: 7px;
 }
-.addluggage {
-  height: 100%;
+.addluggage::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
 }
+
+.addluggage::-webkit-scrollbar-thumb {
+  background-color: var(--main-green-color);
+  border-radius: 30px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
 
 /* 
 .statWrapper{
@@ -272,5 +289,26 @@ export default {
     height: 90px;
     margin-bottom: -15px;
   }
+  .col-md-6 {
+    height: 90px;
+    margin-bottom: -15px;
+  }
+}
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1264px){
+  .addluggage {
+    height: 57vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .v-btn:not(.v-btn--round).v-size--large {
+    width: 100%;
+}
+    
 }
 </style>

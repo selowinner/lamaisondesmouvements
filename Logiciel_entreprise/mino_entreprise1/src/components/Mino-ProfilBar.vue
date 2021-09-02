@@ -10,9 +10,11 @@
       <p v-if="role == 3">Gestion des colis</p>
       <p v-if="role == 4">Administrateur mino de la gare</p>
       <p v-on:click.prevent="logOut">Deconnexion</p>
+      <router-link :to="{name: 'param'}">
       <div class="settingdiv">
         <v-icon>mdi-cog</v-icon>
       </div>
+      </router-link>
     </div>
     <router-link :to="{ name: 'Messagerie' }">
       <div class="timeBox">
@@ -85,7 +87,8 @@ export default {
 }
 
 .profilBox {
-  height: 32vh;
+  /* height: 32vh; */
+  height: 36vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -129,7 +132,7 @@ export default {
 }
 .settingdiv {
   position: absolute;
-  top: 95px;
+  top: 12%;
   left: 130px;
   height: 30px;
   width: 30px;
@@ -206,5 +209,18 @@ export default {
 }
 .locationBox div:nth-child(2) p:nth-child(1) {
   color: var(--font-color);
+}
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
+1100 -- 1190px --> avant
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1264px){
+  .profilBox {
+    /* height: 36vh; */
+  }
 }
 </style>

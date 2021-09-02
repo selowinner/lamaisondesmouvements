@@ -28,6 +28,7 @@
                     solo
                     height="70"
                     v-model="newTravel_1.departure_date"
+                    :rules="[() => !!newTravel_1.departure_date]"
                     ref="dep_date"
                     type="date"
                     value=""
@@ -42,6 +43,7 @@
                     append-icon="mdi-map-marker"
                     height="70"
                     v-model="newTravel_1.destination"
+                    :rules="[() => !!newTravel_1.destination]"
                     ref="dest_place"
                     type="text"
                     label="Destination"
@@ -55,6 +57,7 @@
                     solo
                     height="70"
                     v-model="newTravel_1.departure_time"
+                    :rules="[() => !!newTravel_1.departure_time]"
                     ref="dep_time"
                     type="time"
                     label="Heure départ"
@@ -68,6 +71,7 @@
                     append-icon="mdi-car-seat"
                     height="70"
                     v-model="newTravel_1.total_car_place_number"
+                    :rules="[() => !!newTravel_1.total_car_place_number]"
                     ref="pla_number"
                     type="number"
                     label="Nombre de place à disponible"
@@ -82,6 +86,7 @@
                     append-icon="mdi-clipboard-text"
                     height="70"
                     v-model="newTravel_1.car_informations"
+                    :rules="[() => !!newTravel_1.car_informations]"
                     ref="car_infos"
                     type="text"
                     label="type de car. ex: climatisé, dernière generation ..."
@@ -95,6 +100,7 @@
                     append-icon="mdi-numeric"
                     height="70"
                     v-model="newTravel_1.car_matriculation"
+                    :rules="[() => !!newTravel_1.car_matriculation]"
                     ref="car_matri"
                     type="text"
                     label="Matricule du car"
@@ -109,6 +115,7 @@
                     append-icon="mdi-cash-multiple"
                     height="70"
                     v-model="newTravel_1.place_price"
+                    :rules="[() => !!newTravel_1.place_price]"
                     ref="pl_price"
                     type="number"
                     label="Prix du ticket"
@@ -123,6 +130,7 @@
                     append-icon="mdi-bus-stop"
                     height="70"
                     v-model="newTravel_1.Intemediatestation"
+                    :rules="[() => !!newTravel_1.Intemediatestation]"
                     ref="st_inter"
                     type="text"
                     label="atation intermediaires"
@@ -360,7 +368,7 @@ export default {
 
 .stat1 {
   background: white;
-  height: 250px;
+  height: 225px;
   border-radius: 10px;
   margin-bottom: 15px;
 
@@ -371,8 +379,8 @@ export default {
 }
 
 .N-icon {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -389,7 +397,7 @@ export default {
 
 @media (min-width: 960px) {
   .col-md-6 {
-    height: 100px;
+    height: 90px;
   }
 }
 </style>

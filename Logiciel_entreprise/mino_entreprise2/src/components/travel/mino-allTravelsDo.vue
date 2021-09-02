@@ -7,7 +7,7 @@
           <v-container>
             <div class="imgAndTitle">
               <!-- <p>GESTION DES TICKETS</p> -->
-              <p>Bilan voyage éffectué</p>
+              <!-- <p>Bilan voyage éffectué</p> -->
             </div>
             <p class="subtitle">{{ editedItem.destination }}</p>
             <div class="backBoad backBoad-1">
@@ -86,6 +86,7 @@
       dense
       :headers="headers"
       :items="TravelsDo"
+      :items-per-page="-1"
       :search="Seach"
       hide-default-footer
       class="backgroundTree"
@@ -323,22 +324,25 @@ export default {
 
 /* Show details */
 .imgAndTitle {
-  margin-top: 15px;
-  height: 220px;
-  width: 297.5px;
-  border-radius: 7px 7px 0px 0px;
+  margin: 0px 35%;
+  margin-top: 0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
+  border: solid 5px;
+  border-color: var(--main-important-color)var(--main-green-color);
   background: linear-gradient(
       180deg,
       rgb(0 0 0 / 0%),
       rgb(0 0 0 / 19%),
       rgb(0 0 0)
     ),
-    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
-  background-position: center;
+    url(../../assets/img/travel.jpg);
+  background-position:bottom;
   background-size: cover;
 }
 .imgAndTitle > p:first-child {
@@ -386,8 +390,8 @@ export default {
   margin: 0px 0px;
   padding: 10px;
   border-radius: 0px 0px 7px 7px;
-  color: white;
-  background: var(--main-important-color);
+  /* color: white;
+  background: var(--main-important-color); */
 }
 
 .backBoad {

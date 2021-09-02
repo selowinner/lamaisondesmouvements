@@ -5,14 +5,14 @@
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="9" lg="9">
-            <div class="numberWrapper middleBox">
+            <div class="numberWrapper ">
               <allWithdrawalsList
                 :key="forceRerenderReturn"
               ></allWithdrawalsList>
             </div>
           </v-col>
           <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper rightBox">
+            <div class="numberWrapper">
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addwithdrawal">
                   <v-row>
@@ -44,7 +44,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         background-color="#3e886d4a"
@@ -59,7 +59,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         solo
@@ -73,7 +73,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         background-color="#3e886d4a"
@@ -87,7 +87,7 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="6">
                       <v-text-field
                         height="60"
                         solo
@@ -249,12 +249,24 @@ export default {
   border-radius: 10px;
   background: white;
 }
-.rightBox,
+/* ,
 .middleBox {
-  height: 60vh;
-}
+  height:58vh;
+} */
 .addwithdrawal {
   height: 100%;
+}
+.addwithdrawal::-webkit-scrollbar {
+  width: 7px;
+}
+.addwithdrawal::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+.addwithdrawal::-webkit-scrollbar-thumb {
+  background-color: var(--main-green-color);
+  border-radius: 30px;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 /* 
@@ -275,8 +287,21 @@ export default {
 
 @media (min-width: 960px) {
   .col-md-12 {
-    height: 90px;
+    height: 85px;
     margin-bottom: -15px;
   }
+}
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1264px){
+  .addwithdrawal {
+    height: 57vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .v-btn:not(.v-btn--round).v-size--large {
+    width: 100%;
+  } 
 }
 </style>

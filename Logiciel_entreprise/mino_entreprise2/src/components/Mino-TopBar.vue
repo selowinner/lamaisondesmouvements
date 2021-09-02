@@ -5,11 +5,11 @@
         </div> -->
 
     <div class="header2">
-      <router-link :to="{ name: 'Dashboard' }">
         <div class="Header2logoBox">
-          <img src="@/assets/icone/2-MinoA.png" alt="" srcset="" />
+          <router-link :to="{ name: 'Dashboard' }">
+            <img src="@/assets/icone/2-MinoA.png" alt="" srcset="" />
+          </router-link>
         </div>
-      </router-link>
     </div>
   </div>
 </template>

@@ -18,7 +18,7 @@
         :class="{ naVBox2Active: isActive }"
         v-if="role == 1 || role == 4"
       >
-        <img src="@/assets/icone/ticketsB.png" alt="" srcset="" />
+        <img src="@/assets/icone/destination.png" alt="" srcset="" />
         <p>Gestion des voyages</p>
         <div class="menuBox" v-if="travelMenuClick">
           <div class="menuTitle">
@@ -57,9 +57,9 @@
         v-if="role == 2 || role == 4"
       >
         <div class="navBox" v-on:click="UnactiveMenu">
-          <img src="@/assets/icone/targetB.png" alt="" srcset="" />
+          <img src="@/assets/icone/lost.png" alt="" srcset="" />
           <p>
-            Gestion des objets <br />
+            Objets
             égarés
           </p>
         </div>
@@ -70,7 +70,7 @@
         :class="{ naVBox2Active1: isActive2 }"
         v-if="role == 3 || role == 4"
       >
-        <img src="@/assets/icone/ticketsB.png" alt="" srcset="" />
+        <img src="@/assets/icone/box.png" alt="" srcset="" />
         <p>Gestion des colis</p>
         <div class="menuBox" v-if="expeditionMenuClick">
           <div class="menuTitle">
@@ -106,7 +106,7 @@
       </div>
       <router-link :to="{ name: 'TravelStat' }" v-if="role == 1 || role == 4">
         <div class="navBox navEnd" v-on:click="UnactiveMenu">
-          <img src="@/assets/icone/settingsB.png" alt="" srcset="" />
+          <img src="@/assets/icone/analytics.png" alt="" srcset="" />
           <p>statistique voyage</p>
         </div>
       </router-link>
@@ -192,8 +192,8 @@ export default {
   cursor: pointer;
 }
 .navBox > img {
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   margin-bottom: 3px;
 }
 .navBox > p {
@@ -345,11 +345,31 @@ export default {
   background: red;
 }
 
-/* For expedition menu */
 
-@media (min-width: 960px) and (max-width: 1264px) {
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media (min-width: 1100px) and (max-width: 1264px) {
   .navBox {
     width: 150px;
+  }
+  .BigWrapper {
+    margin-left: 250px;
+  }
+}
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .BigWrapper {
+    margin-left: 235px;
+  }
+  .navBox {
+    width: 125px;
+  }
+  .navBox > img {
+    height: 30px;
+    width: 30px;
+  }
+  .navBox > p {
+    font-size: 12px;
   }
 }
 </style>

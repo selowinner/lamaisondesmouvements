@@ -1,6 +1,6 @@
 <template>
   <div class="TheBoxBodyforpopUp ForTravelDeclaration">
-    <p class="MaintTitle">GESTION DES TICKETS</p>
+    <p class="MaintTitle">HISTORIQUE DES VOYAGES</p>
     <div>
       <div class="formRadio">
         <v-radio-group v-model="row" row dense mandatory>

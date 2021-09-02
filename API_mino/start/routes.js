@@ -145,10 +145,15 @@ Route.put('expedition/senderCancel', 'Expedition/DeliveryManController.CancelSen
 */
 
 // Add User for Blooraid Super Admin
-Route.post('user/add', 'User/UserController.add')
-Route.put('user/profilUpdate', 'User/UserController.updateProfil')
+Route.post('user/add', 'User/UserController.add').middleware("auth")
+Route.put('user/profilUpdate', 'User/UserController.updateProfil').middleware("auth")
 Route.post('user/login', 'User/UserController.login')
 Route.post('user/logout', 'User/UserController.logout')
+
+// For central
+Route.put('user/station/profilUpdate', 'User/UserController.updateStationAdminProfil').middleware("auth")
+
+
 
 
 /*
@@ -159,9 +164,9 @@ Route.post('user/logout', 'User/UserController.logout')
 // for Blooraid Super Admin .middleware("auth")
 Route.post('compangny/add', 'Companies/CompanyController.add').middleware("auth")
 Route.put('compangny/update', 'Companies/CompanyController.updateInfo').middleware("auth")
-Route.get('compangny/List', 'Companies/CompanyController.getCompaniesList').middleware("auth")
+Route.get('compangny/List', 'Companies/CompanyController.getCompaniesList')
 Route.put('compangny/abonnement', 'Companies/CompanyController.makeAbonnement').middleware("auth")
-Route.get('compangny/stationList', 'Companies/CompanyController.getCompanyStationList').middleware("auth")
+Route.get('compangny/stationList', 'Companies/CompanyController.getCompanyStationList')
 
 /*
 ----------------------------
@@ -175,6 +180,13 @@ Route.put('station/update', 'Stations/StationController.updateInfo')
 
 
 
+/*
+----------------------------
+-----ANALYTICS MANAGEMENT ----
+-----------------------------
+*/
+// For Admin
+Route.get('administration/analytics', 'General/AdministrationStatController.getDashboadStat').middleware("auth")
 
 
 /*
@@ -183,7 +195,7 @@ Route.put('station/update', 'Stations/StationController.updateInfo')
 -----------------------------
 */
 // For Admin
-Route.get('administration/analytics', 'General/AdministrationStatController.getDashboadStat').middleware("auth")
+Route.post('message/add', 'General/MessageController.addmessage')
 
 
 

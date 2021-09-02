@@ -70,6 +70,7 @@
       dense
       :headers="headers"
       :items="TravelsDo"
+      :items-per-page="-1"
       :search="Seach"
       hide-default-footer
       class="backgroundTree"

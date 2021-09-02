@@ -458,7 +458,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 450px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -516,7 +516,7 @@ export default {
       rgb(0 0 0 / 19%),
       rgb(0 0 0)
     ),
-    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+    url(../../assets/img/pexels-rodnae-productions-7363196.jpg);
   background-position: center;
   background-size: cover;
 }
@@ -598,4 +598,5 @@ export default {
 .verificationAction > button {
   width: 150px;
 }
+
 </style>

@@ -94,6 +94,7 @@
         dense
         :headers="headers"
         :items="Expeditions"
+        :items-per-page="-1"
         :search="search"
         hide-default-footer
         class="backgroundTree"

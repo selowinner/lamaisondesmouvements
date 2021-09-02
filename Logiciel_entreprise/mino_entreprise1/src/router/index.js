@@ -12,6 +12,7 @@ import Livreurs from "../views/Expedition1Management.vue";
 import ExpeditionSheet from "../views/Expedition2Management.vue";
 import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
 import Messagerie from "../views/messagerie.vue";
+import param from "../views/param.vue";
 
 import login from "../views/login.vue";
 
@@ -44,6 +45,12 @@ const routes = [
     path: "/Messagerie",
     name: "Messagerie",
     component: Messagerie,
+  },
+  {
+    path: "/param",
+    name: "param",
+    component: param,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/TravelDeclaration",

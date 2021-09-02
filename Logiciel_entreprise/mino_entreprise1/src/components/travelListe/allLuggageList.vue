@@ -448,12 +448,12 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 450px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
   padding: 25px;
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 }
 .dataWrapper {
   height: 100%;
@@ -506,7 +506,7 @@ export default {
       rgb(0 0 0 / 19%),
       rgb(0 0 0)
     ),
-    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+    url(../../assets/img/pexels-veerasak-piyawatanakul-1170187.jpg);
   background-position: center;
   background-size: cover;
 }
@@ -603,4 +603,5 @@ export default {
   /* width: 420px; */
   text-align: center;
 }
+
 </style>

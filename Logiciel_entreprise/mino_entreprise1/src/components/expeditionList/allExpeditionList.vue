@@ -417,7 +417,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 465px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -488,7 +488,7 @@ export default {
       rgb(0 0 0 / 19%),
       rgb(0 0 0)
     ),
-    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+    url(../../assets/img/pexels-ketut-subiyanto-4246120.jpg);
   background-position: center;
   background-size: cover;
 }

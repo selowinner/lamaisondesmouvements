@@ -1,11 +1,11 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Gestion Expédition</p>
+      <p class="sectionTitle">Gestion livreurs</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
-            <div class="numberWrapper rightBox">
+            <div class="numberWrapper">
               <v-form ref="form1">
                 <v-container fluid class="addSender">
                   <v-row>
@@ -95,7 +95,7 @@
             </div>
           </v-col>
           <v-col cols="12" md="8" lg="8">
-            <div class="numberWrapper middleBox">
+            <div class="numberWrapper">
               <allSendersList :key="forceRerenderReturn"></allSendersList>
             </div>
           </v-col>
@@ -247,20 +247,21 @@ export default {
   font-weight: bold;
 }
 .numberWrapper {
+  height: 100%; /*100% de Thebody qui est dans le CSS global*/
   border-radius: 10px;
   background: white;
 }
-.rightBox,
+/* ,
 .middleBox {
-  height: 60vh;
-}
-.addSender {
+  height: 57vh;
+} */
+/* .addSender {
   height: 150px;
-}
+} */
 
 .stat1 {
   background: white;
-  height: 60vh;
+  height: 100%;
   border-radius: 10px;
   margin-bottom: 15px;
 
@@ -298,7 +299,28 @@ export default {
 
 @media (min-width: 960px) {
   .col-md-12 {
-    height: 90px;
+    height: 78px;
   }
 }
+
+/*------------------------
+    ---RESPONSIVE--- 
+--------------------------*/
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1190px){
+  .stat1 {
+    font-size: 12px;
+  }
+  .N-icon {
+    height: 35px;
+    width: 35px;
+  }
+  .v-btn:not(.v-btn--round).v-size--large {
+    width: 100%;
+  }
+}
+/*-------END------------*/
 </style>

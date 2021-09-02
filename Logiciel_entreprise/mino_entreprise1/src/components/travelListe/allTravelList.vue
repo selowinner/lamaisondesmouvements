@@ -6,7 +6,7 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle">
-              <p>GESTION DES TICKETS</p>
+              <p>GESTION DES VOYAGES</p>
               <p>Bilan des voyages-détails</p>
             </div>
             <div class="statElment">
@@ -119,7 +119,7 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle deleteIMG">
-              <p>GESTION DES TICKETS</p>
+              <p>GESTION DES VOAGES</p>
               <p>Bilan des voyages-annulation</p>
             </div>
             <div class="CancelVerification">
@@ -330,13 +330,13 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreenColor" @click="showItem(item)"
+          <v-btn icon class="mino-icon" color="mainGreenColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-          <v-btn icon color="mainGreenColor" @click="editItem(item)"
+          <v-btn icon class="mino-icon" color="mainGreenColor" @click="editItem(item)"
             ><v-icon small> mdi-lead-pencil </v-icon></v-btn
           >
-          <v-btn icon color="mainGreenColor" @click="deleteItem(item)"
+          <v-btn icon class="mino-icon" color="mainGreenColor" @click="deleteItem(item)"
             ><v-icon small> mdi-trash-can </v-icon></v-btn
           >
         </template>
@@ -637,7 +637,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 465px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -798,5 +798,21 @@ export default {
 .col-md-12 {
   padding-bottom: 0px;
   padding-top: 0px;
+}
+
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1100px){
+    /* .mino-icon{
+        height: 18px;
+        width: 18px;
+    } */
+    /* Quand je voudrai changer la taille des icones */
+    
 }
 </style>

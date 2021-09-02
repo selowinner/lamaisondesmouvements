@@ -319,9 +319,23 @@ export default {
 } */
 
 .mainContentWraper {
-  height: 100%;
+  height: 85%;
   overflow-y: auto;
+  padding-bottom: 20px;
+  /* background: red; */
 }
+.mainContentWraper::-webkit-scrollbar{
+    width: 10px;
+  }
+.mainContentWraper::-webkit-scrollbar-track {
+    background: var(--backgroundTree);
+  }
+  
+.mainContentWraper::-webkit-scrollbar-thumb {
+    background-color: var(--font-color);
+    border-radius: 30px;
+    border: 7px solid var(--font-color);
+  }
 
 @media (min-width: 960px) {
   .col-md-4 {

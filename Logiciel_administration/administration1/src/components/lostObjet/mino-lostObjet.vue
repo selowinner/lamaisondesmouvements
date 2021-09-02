@@ -1,6 +1,6 @@
 <template>
   <div class="TheBoxBody">
-    <p class="sectionTitle">Statistiques</p>
+    <p class="sectionTitle">Historique</p>
 
     <v-container fluid>
       <v-row>
@@ -77,10 +77,10 @@
                       <div>
                         <v-icon>mdi-bus-marker</v-icon>
                         <p>{{ item.lostObjetNumber }}</p>
-                        <p>{{ item.denomination }}</p>
+                        <p>{{ item.city }}</p>
                       </div>
                       <div class="price">
-                        <v-icon>mdi-calendar</v-icon>
+                        <v-icon>mdi-jsfiddle</v-icon>
                         <p>{{ item.anagramme }}</p>
                       </div>
                     </div>
@@ -144,7 +144,7 @@ export default {
     filter: {},
     sortDesc: false,
     page: 1,
-    itemsPerPage: 8,
+    itemsPerPage: -1,
     sortBy: "name",
     keys: ["id", "Name", "Quantity", "price"],
     items: [

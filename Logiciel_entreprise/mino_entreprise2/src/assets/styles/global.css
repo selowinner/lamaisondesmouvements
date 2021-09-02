@@ -20,7 +20,6 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
     --main-white-color: #e1eceb;
     --main-very-important-color: #3d5654;
     --main-important-color: #476866;
-
     
     
     /* Important-color */
@@ -46,6 +45,18 @@ THIS IS THE PRICIPAL STYLE FILE OF THE APP
 -------------------------------*/
 html {
     overflow-y: auto;
+}
+html::-webkit-scrollbar {
+    width:16px;
+}
+html::-webkit-scrollbar-track {
+    background: var(--main-white-color);
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: var(--main-green-color);
+    border-radius: 30px;
+    border: 5px solid var(--main-white-color);
 }
 body{
     margin: 0;
@@ -100,7 +111,7 @@ transform: translateX(-20px)
     height: 59vh;
     margin-top: 150px;
     margin-bottom: 150px;
-    /* background: red; */
+    /* background: pink; */
 }
 .TheBoxBodyforpopUp{
     width: 75vw;
@@ -195,12 +206,12 @@ transform: translateX(-20px)
 
 
 /*-- Data Table Customisation --*/
-/* .v-data-table > .v-data-table__wrapper > table > thead > tr > th{
-    font-size: 15px;
+ .v-data-table > .v-data-table__wrapper > table > thead > tr > th{
+    font-size: 14px !important;
     font-weight: bold;
     
 }
-.theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+/*.theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
     color:  var(--font-color);
 }
 .theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row){
@@ -263,16 +274,57 @@ DES DIFFERENTS CONTENUS (BODY). CE QUI PERMET DE GARDER L'APECT CENTRER DU CONTE
 
 
 
-
+/* 
 @media (min-width: 960px) and (max-width: 1264px){
     
     .bodyBox{
         height: 60vh;
         width: 85vw;
         margin-left: 200px;
-        /* margin-bottom: 300px; */
+        padding: 0px 7vw;
+    }
+} */
+
+
+/*------------------------
+    ---RESPONSIVE--- 
+--------------------------*/
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+/* @media screen and (min-width: 1100px) and (max-width: 1190px){
+    .bodyBox{
+        width: 85vw;
+        margin-left: 16.5%;
+        padding: 0px 7vw;
+    }
+} */
+
+@media (min-width: 1100px) and (max-width: 1264px) {
+    .bodyBox{
+        width: 85vw;
+        margin-left: 16.5%;
         padding: 0px 7vw;
     }
 }
+@media screen and (min-width: 960px) and (max-width: 1100px){
+    .bodyBox{
+        width: 85vw;
+        margin-left: 18%;
+        padding: 0px 7vw;
+    }
+    /*-- Data Table Customisation --*/
+    /* .v-data-table > .v-data-table__wrapper > table > thead > tr > th{
+        font-size: 13px;
+        font-weight: bold;
+    }
+    .theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr:not(:last-child) > td:not(.v-data-table__mobile-row){
+        font-size: 12px;
+    } */
 
+
+    
+}
+/*-------END------------*/
 /*-------END------------*/

@@ -89,6 +89,7 @@
             </div>
           </v-col>
         </v-row>
+        <div style="height:120px;"></div>
       </v-container>
     </div>
   </div>
@@ -353,7 +354,7 @@ export default {
   font-weight: bold;
 }
 .numberWrapper {
-  height: 200px;
+  height: 170px;
   border-radius: 10px;
   background: white;
   /* display: flex;
@@ -367,16 +368,16 @@ export default {
   margin-left: 20px;
 }
 .numberWrapper div:nth-child(1) > h1 {
-  font-size: 50px;
+  font-size: 45px;
   margin-bottom: -15px;
 }
 .numberWrapper div:nth-child(2) {
-  height: 120px;
+  height: 90px;
   margin-left: -20px;
 }
 
 .Jumbultron {
-  height: 200px;
+  height: 170px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -392,12 +393,12 @@ export default {
 }
 
 .statWrapper {
-  height: 300px;
+  height: 260px;
   border-radius: 10px;
   background: white;
 }
 .statWrapper > div {
-  height: 82%;
+  height: 79%;
   width: 100%;
   /* background: red; */
 }
@@ -419,4 +420,22 @@ export default {
   /* width: 100%; */
   height: 100%;
 }
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .Jumbultron p {
+    font-size: 12px;
+  }
+  .numberWrapper {
+    font-size: 14px;
+  }
+  .numberWrapper div:nth-child(1) > h1 {
+    font-size: 28px;
+    margin-bottom: -7px;
+  }
+}
+/*-------END------------*/
 </style>

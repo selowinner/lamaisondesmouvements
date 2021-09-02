@@ -11,13 +11,15 @@
         <v-icon>mdi-cog</v-icon>
       </div>
     </div>
-    <div class="timeBox">
-      <div>35</div>
-      <v-icon color="mainGreenColor" x-large class="messgaeicon"
-        >mdi-email-outline</v-icon
-      >
-      <p>messagerie</p>
-    </div>
+    <router-link :to="{name: 'Messagerie'}">
+      <div class="timeBox">
+        <div>35</div>
+        <v-icon color="mainGreenColor" x-large class="messgaeicon"
+          >mdi-email-outline</v-icon
+        >
+        <p>messagerie</p>
+      </div>
+    </router-link>
     <div class="footerBox">
       <div class="locationBox">
         <div>
@@ -86,7 +88,7 @@ export default {
 }
 
 .profilBox {
-  height: 32vh;
+  height: 36vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -104,8 +106,8 @@ export default {
   align-items: center;
 }
 .profilImg > img {
-  height: 97%;
-  width: 97%;
+  height: 96px;
+  width: 96px;
   border-radius: 100px;
 }
 .profilBox p:nth-child(2) {
@@ -130,8 +132,10 @@ export default {
 }
 .settingdiv {
   position: absolute;
-  top: 95px;
+  top: 12%;
   left: 130px;
+  /* top: 95px;
+  left: 130px; */
   height: 30px;
   width: 30px;
   border: solid 3px var(--main-green-color);
@@ -207,5 +211,18 @@ export default {
 }
 .locationBox div:nth-child(2) p:nth-child(1) {
   color: var(--font-color);
+}
+
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 1100px) and (max-width: 1190px){
+    .profilBox {
+    /* height: 36vh; */
+  }
 }
 </style>

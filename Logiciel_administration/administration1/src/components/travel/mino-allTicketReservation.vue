@@ -69,6 +69,7 @@
       dense
       :headers="headers"
       :items="ClientReservations"
+      :items-per-page="-1"
       :search="Seach"
       hide-default-footer
       class="backgroundTree"

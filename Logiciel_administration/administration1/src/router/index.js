@@ -7,6 +7,7 @@ import UserManagement from "../views/UserManagement.vue";
 import TravelManagement from "../views/TravelManagement.vue";
 import LostObjectManagement from "../views/LostObjectManagement.vue";
 import ExpeditionManagement from "../views/ExpeditionManagement.vue";
+import Messagerie from "../views/messagerie.vue";
 
 import login from "../views/login.vue";
 
@@ -33,6 +34,12 @@ const routes = [
     path: "/",
     name: "Dashboard",
     component: Dashboard,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/Messagerie",
+    name: "Messagerie",
+    component: Messagerie,
     beforeEnter: ifAuthenticated,
   },
   {

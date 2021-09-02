@@ -9,10 +9,16 @@
               <v-form ref="form1">
                 <v-container fluid class="addSender">
                   <v-row>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="60"
-                        background-color="#3e886d4a"
+                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
+                      <v-switch
+                        inset
+                        v-model="switch1"
+                        :label="`ENVOYER A : ${dest}`"
+                      ></v-switch>
+                    </v-col>
+                    <v-col cols="12" md="12" lg="12" style="margin-top:-25px">
+                      <v-text-field height="60" 
+                        background-color="#3e886d4a" 
                         solo
                         label="Objet"
                         append-icon="mdi-matrix"
@@ -21,21 +27,25 @@
                         value=""
                         persistent-hint
                         required
-                        disabled
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
+                    <div style="width:100%; padding: 0px 10px">
+                      <v-textarea
                         solo
-                        label="Nom complet"
-                        v-model="new_Sender.complet_name"
-                        append-icon="mdi-account-details-outline"
-                        ref="total_name"
-                        textarea
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
+                        clearable
+                        clear-icon="mdi-close-circle"
+                        rows="10"
+                        name="input-7-4"
+                        label="Solo textarea"
+                      ></v-textarea>
+                    </div>
+                    <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center">
+                      <v-btn
+                        large
+                        depressed
+                        color="mainGreenColor"
+                        >Enregistrer</v-btn
+                      >
                     </v-col>
                   </v-row>
                 </v-container>
@@ -44,7 +54,7 @@
           </v-col>
           <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper middleBox">
-              <allSendersList :key="forceRerenderReturn"></allSendersList>
+              <allMessageList ></allMessageList>
             </div>
           </v-col>
         </v-row>
@@ -60,7 +70,7 @@
         class="alert"
         color="mainGreenColor"
       >
-        Livreur Enregistré avec succes</v-alert
+        Mail Envoyé avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -79,15 +89,19 @@
 </template>
 
 <script>
-import allSendersList from "../components/expeditionList/alleSendersList.vue";
+import allMessageList from "../components/messageList/alleMessagesList.vue";
 
 export default {
   name: "Messagerie",
   components: {
-    allSendersList,
+    allMessageList,
   },
 
   data: () => ({
+    // FOR DEST CHOSING
+    switch1: true,
+
+
     // FOR FORM SENDING
     new_Sender: {
       complet_name: "",
@@ -108,9 +122,14 @@ export default {
     // theNumberSender = 0,
   }),
 
-  methods: {},
+  methods: {
+  },
 
-  computed: {},
+  computed: {
+    dest() {
+      return this.switch1? 'MINO':'Central'
+    }
+  },
 };
 </script>
 

@@ -73,10 +73,20 @@
             </div>
           </v-col>
         </v-row>
+        <div style="height:160px"></div>
       </v-container>
     </div>
   </div>
 </template>
+
+
+
+
+
+
+
+
+
 
 <script>
 import { mapGetters } from "vuex";
@@ -279,15 +289,24 @@ export default {
 };
 </script>
 
+
+
+
+
+
+
+
+
 <style scoped>
 .bodyBox {
-  height: inherit;
+  /* height: inherit; */
+  /* background: red; */
 }
 
 .boxWrapper {
   background: var(--backgroundTree);
   text-align: center;
-  padding: 15px 25px;
+  padding: 5px 25px;
   border-radius: 10px;
 }
 .boxWrapper p:nth-child(1) {
@@ -301,16 +320,17 @@ export default {
   margin: 0px;
 }
 .boxWrapper p:nth-child(4) {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   margin: 0px;
-  margin-top: -20px;
+  margin-top: -10px;
+  margin-bottom: 5px;
 }
 .palabre {
   height: 250px;
   min-width: 100px;
   margin: 0 auto;
   /* background: #35373a; */
-  margin-bottom: 18px;
+  margin-bottom: 0px;
 }
 </style>

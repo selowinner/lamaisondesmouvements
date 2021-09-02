@@ -7,6 +7,8 @@ import expedition from "./modules/expedition";
 import senders from "./modules/senders";
 import analytics from "./modules/analytics";
 import auth from "./modules/auth";
+import gestion from "./modules/gestion";
+
 
 Vue.use(Vuex);
 
@@ -30,5 +32,6 @@ export default new Vuex.Store({
     expedition,
     senders,
     auth,
+    gestion,
   },
 });

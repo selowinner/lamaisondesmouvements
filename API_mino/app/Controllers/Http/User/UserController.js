@@ -94,17 +94,41 @@ class UserController {
     }
 
 
-    async updateProfil({request, response, auth}){
+    async updateProfil({request, response}){
 
-        // On pourra tester lors de l'intégration de l'API
+       // GET DATA
+       const body = request.all()
 
-        const updateData = request.all()
+       // DATA VALIDATION
+       const rules = {
+           pseudo: 'required',  
+           password: 'required',
+           id: 'required',
+       }
+       const bodyValidation = await validateAll(body, rules)
+       if (bodyValidation.fails()) {
+           return { message: 'vous avez manqué de remplir un champs obligation' }
+       }
+       const updateData = {
+           pseudo: body.pseudo,  
+           password: body.password,
+       }
 
-        auth.user.merge(updateData)
+        const userAdmin = await Users.find(body.id)
+        userAdmin.merge(updateData)
+        const newUserUpdate = await userAdmin.save()
 
-        await auth.user.save()
-
-        // return response.route('AdminAuthorView')
+        if (newUserUpdate) {
+            // response
+            response.json({
+                message: 'success',
+            }) 
+        }else{
+            // response
+            response.json({
+                message: 'Pseudo déjà utilisé',
+            }) 
+        }
     }
 
 
@@ -190,14 +214,61 @@ class UserController {
 
 
 
+
+    // FOR CENTRAL
+    async updateStationAdminProfil({request, response}){
+        // GET DATA
+        const body = request.all()
+
+        // DATA VALIDATION
+        const rules = {
+            pseudo: 'required',  
+            password: 'required',
+            company_id: 'required',
+        }
+        const bodyValidation = await validateAll(body, rules)
+        if (bodyValidation.fails()) {
+            return { message: 'vous avez manqué de remplir un champs obligation' }
+        }
+        const updateData = {
+            pseudo: body.pseudo,  
+            password: body.password,
+        }
+
+        const userAdmin  = await Users.query()
+        .where('company_id', body.company_id )
+        .where('role_id', 4 )
+        .first()
+
+        userAdmin.merge(updateData)
+        const newUserUpdate = await userAdmin.save()
+        if (newUserUpdate) {
+            // response
+            response.json({
+                message: 'success',
+            }) 
+        }else{
+            // response
+            response.json({
+                message: 'Pseudo déjà utilisé',
+            }) 
+        }
+         
+    }
+
+
+
+
+
     // FOR STATION
+    
     async listOfUser({params, response}){
 
         const userListNotInJSON = await Users
         .query()
         .where('company_id', params.id)
         .andWhereNot('role_id', 4)
-        .select('pseudo', 'role_id')
+        .select('pseudo', 'role_id', 'id')
         .fetch()
 
         const userList = userListNotInJSON.toJSON()

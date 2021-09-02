@@ -8,7 +8,7 @@
             <div class="boxWrapper">
               <span
                 >GESTION <br />
-                DES UTILISATEURS</span
+                DES COMPAGNIES</span
               >
             </div>
           </router-link>
@@ -17,7 +17,7 @@
           <router-link :to="{ name: 'TravelManagement' }">
             <div class="boxWrapper">
               <span
-                >GESTION <br />
+                >HISTORIQUE <br />
                 DES VOYAGES</span
               >
             </div>
@@ -68,16 +68,19 @@ export default {
 };
 </script>
 
+
+
 <style scoped>
 .bottonNavBar {
   /* background: rgb(201, 102, 102); */
   background: var(--main-black-color);
-  width: 100vw;
+  /* background: rgb(255, 0, 119); */
+  /* width: 100vw; */
   width: 74vw;
   margin-left: 21%;
-
+  padding: 0;
   position: fixed;
-  top: 80vh;
+  top: 81vh;
   /* left: 22vw; */
 }
 
@@ -99,12 +102,46 @@ export default {
   background: var(--font-color);
 }
 
-/* 600px > < 960px */
 
-/* 
-@media (min-width: 600px) and (max-width: 960px){
- .bottonNavBar{
-    background: rgb(201, 102, 102);
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 1100px) and (max-width: 1264px){
+  .bottonNavBar {
+    margin-left: 23%;
   }
-} */
+  .boxWrapper {
+  background: var(--backgroundTree);
+  height: 73px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+}
+
+
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .bottonNavBar {
+    margin-left: 24.5%;
+  }
+  .boxWrapper {
+  background: var(--backgroundTree);
+  height: 70px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 10px;
+}
+}
 </style>

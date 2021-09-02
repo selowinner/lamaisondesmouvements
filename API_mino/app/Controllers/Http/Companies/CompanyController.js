@@ -438,7 +438,7 @@ class CompanyController {
                 monthTable.push({'month': index + 1, 'data': [0,0]})
             }
          }else if (vague == 'mois') {
-            for (let index = 0; index < currentMonthPlusOne; index++) {
+            for (let index = 0; index < CurrentDate.getDate(); index++) {
                 monthTable[index] = {'month': index + 1, 'data': [0,0]}
             }
          }else if (vague == 'semaine') {

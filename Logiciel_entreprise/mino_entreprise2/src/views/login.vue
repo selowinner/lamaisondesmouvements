@@ -85,7 +85,7 @@ export default {
     // addingSuccess: false,
     addingfalse: false,
 
-    // for companies adding
+    // for Login
     userCredentials: {
       pseudo: "",
       password: "",

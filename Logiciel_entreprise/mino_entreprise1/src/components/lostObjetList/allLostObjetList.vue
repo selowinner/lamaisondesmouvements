@@ -277,7 +277,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 465px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -335,7 +335,7 @@ export default {
       rgb(0 0 0 / 19%),
       rgb(0 0 0)
     ),
-    url(../../assets/img/traffic-vehicle-urban-reflections-city.jpg);
+    url(../../assets/img/pexels-skitterphoto-63901.jpg);
   background-position: center;
   background-size: cover;
 }
@@ -395,4 +395,21 @@ export default {
   flex-direction: row;
   justify-content: space-around;
 }
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  .v-chip.v-size--default {
+    border-radius: 16px;
+    font-size: 8px;
+    height: 32px;
+    width: 70px;
+  }
+    
+}
+
 </style>

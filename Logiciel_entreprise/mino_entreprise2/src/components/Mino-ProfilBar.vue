@@ -11,7 +11,7 @@
         <v-icon>mdi-cog</v-icon>
       </div>
     </div>
-    <!-- <router-link :to="{name: ''}"> -->
+    <router-link :to="{name: 'Messagerie'}">
     <div class="timeBox">
       <div>35</div>
       <v-icon color="mainGreenColor" x-large class="messgaeicon"
@@ -19,7 +19,7 @@
       >
       <p>messagerie</p>
     </div>
-    <!-- </router-link> -->
+    </router-link>
     <div class="footerBox">
       <div class="locationBox">
         <div>
@@ -91,7 +91,7 @@ export default {
 }
 
 .profilBox {
-  height: 32vh;
+  height: 36vh;
   width: 100%;
   display: flex;
   background: var(--main-very-important-color);
@@ -136,7 +136,7 @@ export default {
 }
 .settingdiv {
   position: absolute;
-  top: 95px;
+  top: 12%;
   left: 130px;
   height: 30px;
   width: 30px;
@@ -146,6 +146,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .timeBox {
@@ -214,5 +215,18 @@ export default {
 }
 .locationBox div:nth-child(2) p:nth-child(1) {
   color: white;
+}
+
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 1100px) and (max-width: 1190px){
+  .profilBox {
+    /* height: 36vh; */
+  }
 }
 </style>

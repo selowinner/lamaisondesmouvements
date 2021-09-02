@@ -125,6 +125,7 @@
     <v-data-table
       dense
       :headers="headers"
+      :items-per-page="-1"
       :items="Companies"
       :search="search"
       hide-default-footer
@@ -298,6 +299,7 @@ export default {
 .tableWrapperDiv {
   height: 63%;
   overflow-y: auto;
+  padding-bottom: 20px;
 }
 .tableWrapperDiv::-webkit-scrollbar {
   width: 20px;
@@ -442,4 +444,7 @@ export default {
 .verificationAction > button {
   width: 150px;
 }
+
+
+
 </style>

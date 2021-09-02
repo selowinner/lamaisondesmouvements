@@ -294,14 +294,14 @@ export default {
 }
 .rightBox,
 .middleBox {
-  height: 62vh;
+  height: 61vh;
 }
 .addStation {
   height: 55vh;
   overflow: auto;
 }
 .addStation::-webkit-scrollbar {
-  width: 15px;
+  width: 7px;
 }
 .addStation::-webkit-scrollbar-track {
   background: #ffffff;
@@ -310,7 +310,7 @@ export default {
 .addStation::-webkit-scrollbar-thumb {
   background-color: var(--main-green-color);
   border-radius: 30px;
-  border: 5px solid #ffffff;
+  border: 1px solid #ffffff;
 }
 .element1 {
   display: flex;
@@ -321,10 +321,10 @@ export default {
 }
 .stat1 {
   background: white;
-  height: 60vh;
+  height: 61vh;
   border-radius: 10px;
   margin-bottom: 15px;
-
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -397,4 +397,15 @@ export default {
     height: 90px;
   }
 }
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 960px) and (max-width: 1264px){  
+  .v-btn:not(.v-btn--round).v-size--large {
+      width: 100%;
+      font-size: 12px;
+  }
+}
+
 </style>

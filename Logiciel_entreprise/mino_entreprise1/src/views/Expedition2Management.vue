@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody ForTravelDeclaration">
-      <p class="sectionTitle">Bilan des voyages</p>
+      <p class="sectionTitle">Bilan des expéditions</p>
       <v-row>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
@@ -83,7 +83,7 @@ export default {
 
 .stat1 {
   background: white;
-  height: 250px;
+  height: 225px;
   border-radius: 10px;
   margin-bottom: 15px;
 
@@ -93,8 +93,8 @@ export default {
   align-items: center;
 }
 .N-icon {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,7 +103,7 @@ export default {
 }
 .stat1 h1 {
   margin-bottom: -15px;
-  font-size: 50px;
+  font-size: 45px;
 }
 .stat1 h5 {
   color: var(--font-color);

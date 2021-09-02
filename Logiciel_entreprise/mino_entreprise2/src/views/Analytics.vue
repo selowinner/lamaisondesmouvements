@@ -20,7 +20,7 @@
               <v-col cols="12" md="3" lg="3">
                 <div class="numberWrapper">
                   <div>
-                    <v-icon color="#c99c33" large> mdi-bullseye-arrow </v-icon>
+                    <v-icon color="#c99c33" large> mdi-package-variant-closed</v-icon>
                   </div>
                   <div>
                     <h1>{{ Analytics.ExpeditionsDo }}</h1>
@@ -119,22 +119,7 @@
           </v-col>
         </v-row>
 
-        <!-- <v-row>
-                    <v-col cols="12" md="9" lg="9">
-                        <div class="statWrapper">
-                             <p class="sectionTitle">Statistique</p>
-
-                        </div>
-                    </v-col>
-                    <v-col cols="12" md="3" lg="3">
-                        <div class="statWrapper1">
-                            <h4>Notes clients</h4>
-                            <div class="noteWrapper">
-                               
-                            </div>
-                        </div>
-                    </v-col>
-                </v-row> -->
+        <div style="height:120px;"></div>
       </v-container>
     </div>
   </div>
@@ -273,7 +258,7 @@ export default {
 }
 .numberWrapper {
   padding: 15px 0px;
-  height: 200px;
+  height: 170px;
   border-radius: 10px;
   background: white;
   display: flex;
@@ -281,8 +266,8 @@ export default {
   justify-content: space-between;
 }
 .numberWrapper div:nth-child(1) {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   border-radius: 100px;
   background: var(--main-important-color);
   margin-left: 20px;
@@ -296,7 +281,7 @@ export default {
   margin-left: 20px;
 }
 .numberWrapper div:nth-child(2) > h1 {
-  font-size: 50px;
+  font-size: 45px;
   margin-bottom: -5px;
 }
 .numberWrapper div:nth-child(2) > p {
@@ -305,7 +290,7 @@ export default {
 }
 
 .statWrapper {
-  height: 330px;
+  height: 290px;
   /* padding: 5px; */
   border-radius: 10px;
   background: white;
@@ -350,7 +335,7 @@ export default {
   padding: 5px 5px 0px 5px !important;
 }
 .statWrapper1 {
-  height: 542px;
+  height: 465px;
   border-radius: 10px;
   padding-top: 10px;
   background: var(--main-important-color);
@@ -422,5 +407,41 @@ export default {
 .noteDefWrapper span {
   font-size: 20px;
   color: #ffffff96;
+}
+
+
+
+
+/*++++++++++++++++
+===> MEDIUM Large tablet to laptop	960px > < 1264px*<===
++++++++++++++++++*/
+@media screen and (min-width: 1100px) and (max-width: 1264px){
+  .numberWrapper div:nth-child(2) > h1 {
+    font-size: 40px;
+    margin-bottom: -5px;
+  }
+  /* Calculation part */
+  .noteTitle {
+    font-size: 14px;
+  }
+  .noteTitle p:nth-child(2) {
+    font-size: 11px;
+  }
+  .noteDefWrapper {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1100px){
+  /* Calculation part */
+  .noteTitle {
+    font-size: 12px;
+  }
+  .noteTitle p:nth-child(2) {
+    font-size:0px;
+  }
+  .noteDefWrapper {
+    font-size: 25px;
+  }
 }
 </style>
