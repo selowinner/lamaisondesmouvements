@@ -191,11 +191,17 @@ Route.get('administration/analytics', 'General/AdministrationStatController.getD
 
 /*
 ----------------------------
------ANALYTICS MANAGEMENT ----
+-----MESSAGE MANAGEMENT ----
 -----------------------------
 */
+// For Station
+Route.post('station/message/add', 'General/MessageController.addmessageforStation')
+// For Central
+Route.post('central/message/add', 'General/MessageController.addmessageforCentral')
 // For Admin
 Route.post('message/add', 'General/MessageController.addmessage')
+// For Admin
+Route.get('admin/message/list', 'General/MessageController.getmessageforAdmin')
 
 
 
@@ -308,4 +314,18 @@ Route.get('analytics/:id', 'General/ConpaniesStationStatController.getDashboadSt
 // For Companies Central
 Route.get('central/analytics/:id', 'General/CompaniesCentralStatController.getDashboadStat')
 Route.get('central/stat/:id/:period', 'Companies/CompanyController.getFinancialStat')
+
+
+
+/*
+----------------------------
+-----MESSAGE MANAGEMENT ----
+-----------------------------
+*/
+// For ALL
+Route.put('message/view/update/:id', 'General/MessageController.updateMessageVue')
+// For Station
+Route.get('station/message/list/:id', 'General/MessageController.getmessageforStation')
+// For Central
+Route.get('central/message/list/:id', 'General/MessageController.getmessageforCentral')
 

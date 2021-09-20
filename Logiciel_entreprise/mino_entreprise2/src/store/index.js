@@ -8,6 +8,7 @@ import travels from "./modules/travels";
 import expedition from "./modules/expedition";
 import lostObjet from "./modules/lostObjet";
 import auth from "./modules/auth";
+import message from "./modules/message";
 
 Vue.use(Vuex);
 
@@ -31,6 +32,13 @@ export default new Vuex.Store({
     seachAllTravel: "",
     seachAllExp: "",
     seachAllLost: "",
+
+    // For email response
+    ResponseTopic:"",
+    response_of_id: 0,
+
+    // After view updating
+    MessageListRerender:1,
   },
   mutations: {},
   actions: {},
@@ -43,5 +51,6 @@ export default new Vuex.Store({
     expedition,
     lostObjet,
     auth,
+    message,
   },
 });

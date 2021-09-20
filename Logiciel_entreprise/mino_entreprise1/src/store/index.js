@@ -8,7 +8,7 @@ import senders from "./modules/senders";
 import analytics from "./modules/analytics";
 import auth from "./modules/auth";
 import gestion from "./modules/gestion";
-
+import message from "./modules/message";
 
 Vue.use(Vuex);
 
@@ -20,6 +20,12 @@ export default new Vuex.Store({
     sendercomponentKey: 1,
     expeditioncomponentKey: 1,
     withdrawalcomponentKey: 1,
+
+    MessageListRerender:1,
+
+    // For email response
+    ResponseTopic:"",
+    response_of_id: 0,
   },
   getters: {},
   mutations: {},
@@ -33,5 +39,6 @@ export default new Vuex.Store({
     senders,
     auth,
     gestion,
+    message,
   },
 });

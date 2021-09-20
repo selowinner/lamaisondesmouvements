@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper">
-              <v-form ref="form1" class="forme1">
+              <v-form ref="form1">
                 <v-container fluid class="addluggage">
                   <v-row>
                     <v-col cols="12" md="12" lg="12">

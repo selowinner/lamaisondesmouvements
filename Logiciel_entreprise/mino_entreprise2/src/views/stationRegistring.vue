@@ -371,7 +371,7 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  font-size: 12px;
+  font-size: 9px;
   font-weight: bold;
   margin-bottom: 5px;
 }

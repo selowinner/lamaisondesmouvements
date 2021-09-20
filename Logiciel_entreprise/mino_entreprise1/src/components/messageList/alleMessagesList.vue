@@ -1,209 +1,30 @@
 <template>
   <div class="tableWrapperDiv">
-    <!-- DELETE TRAVEL DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="420">
+    <!-- SHOW DIALOG -->
+    <v-dialog v-model="dialog" max-width="700" @click:outside="close">
       <v-card>
         <v-card-text>
           <v-container>
-            <div class="imgAndTitle deleteIMG">
-              <p>GESTION DES LIVREUR</p>
-              <p>Désactivation</p>
+            <div class="imgAndTitle">
+              <p v-if="!editedItem.station_creator_id">Message - lecture</p>
+              <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id == 0)">Envoyé <br> à <br> MINO</p>
+              <p v-if="(editedItem.station_creator_id) && (editedItem.central_dest_id > 0)">Envoyé <br> à <br> CENTRALE</p>
             </div>
-            <div class="CancelVerification">
-              voulez-vous déactiver <br />
-              ce livreur ?
-            </div>
-            <div class="verificationAction">
-              <v-btn
-                color="Titlecolor"
-                rounded
-                depressed
-                @click="closeDelete"
-                style="color: white"
-                >Non</v-btn
-              >
-              <v-btn
-                color="mainGreenColor"
-                rounded
-                depressed
-                @click="deleteItemConfirm"
-                style="color: white"
-                >Oui</v-btn
-              >
+            <div class="TheMessage">
+              <p> {{editedItem.content}} </p>
             </div>
           </v-container>
         </v-card-text>
-      </v-card>
-    </v-dialog>
-
-    <!-- EDIT TRAVEL DIALOG -->
-    <v-dialog v-model="dialogEdit" max-width="420">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle deleteIMG editIMGO">
-              <p>MODIFICATION DE PROFIL</p>
-              <p>Livreur</p>
-            </div>
-            <form class="updateForm">
-              <v-container fluid>
-                <v-row>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      solo
-                      label="Matricule"
-                      append-icon="mdi-matrix"
-                      ref="matri"
-                      type="text"
-                      value=""
-                      persistent-hint
-                      required
-                      disabled
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      background-color="#3e886d4a"
-                      solo
-                      label="Nom complet"
-                      v-model="editedItem.complet_name"
-                      append-icon="mdi-account-details-outline"
-                      ref="total_name"
-                      type="text"
-                      value=""
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      solo
-                      append-icon="mdi-map-marker"
-                      ref="location"
-                      type="text"
-                      v-model="editedItem.city"
-                      value=""
-                      label="Lieu d'habitation"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      background-color="#3e886d4a"
-                      solo
-                      append-icon="mdi-motorbike"
-                      v-model="editedItem.conveyance"
-                      ref="transport"
-                      type="text"
-                      label="Moyen de transport"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="12" lg="12">
-                    <v-text-field
-                      height="60"
-                      solo
-                      append-icon="mdi-phone"
-                      ref="pla_number"
-                      type="number"
-                      v-model="editedItem.contact"
-                      label="Numero de téléphone"
-                      persistent-hint
-                      required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </form>
-          </v-container>
-        </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             color="Titlecolor"
             rounded
             depressed
-            @click="closeEdit"
+            @click="mailResponse"
             style="color: white"
-            >Annuler</v-btn
-          >
-          <v-btn
-            color="mainGreenColor"
-            rounded
-            depressed
-            @click="editItemConfirm"
-            style="color: white"
-            >Enregistrer</v-btn
-          >
+            >Répondre</v-btn>
         </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- SHOW DIALOG -->
-    <v-dialog v-model="dialog" max-width="400">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <div class="imgAndTitle">
-              <p v-if="editedItem.activation_state == 1">
-                GESTION DES LIVREURS
-              </p>
-              <p style="color: #b71c1c" v-if="editedItem.activation_state == 0">
-                COMPTE DESACTIVE
-              </p>
-              <p>Information - Bilan Des Livraisons</p>
-            </div>
-            <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>{{ editedItem.DeliveryNumber }}</h2>
-                <h4>NOMBRE DE LIVRAISON</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>{{ editedItem.complet_name }}</h2>
-                <h4>NOM COMPLET</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>{{ editedItem.city }}</h2>
-                <h4>LIEU D'HABITATION</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>{{ editedItem.matriculation }}</h2>
-                <h4>MATRICULE</h4>
-              </div>
-            </div>
-            <div class="statElment">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>{{ editedItem.created_at }}</h2>
-                <h4>DATE D'ENREGISTREMENT</h4>
-              </div>
-            </div>
-            <div class="statElment" v-if="editedItem.activation_state == 0">
-              <v-icon color="mainGreenColor"> mdi-arrow-right </v-icon>
-              <div>
-                <h2>{{ editedItem.updated_at }}</h2>
-                <h4>DATE DE DESACTIVATION</h4>
-              </div>
-            </div>
-          </v-container>
-        </v-card-text>
       </v-card>
     </v-dialog>
 
@@ -226,7 +47,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="desserts"
+        :items="Messages"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -240,17 +61,22 @@
           <v-btn
             icon
             color="mainGreenColor"
-            @click="editItem(item)"
+            @click="showItem(item)"
             ><v-icon small> mdi-email-send </v-icon></v-btn
           >
         </template>
-        <!-- <template v-slot:[`item.contact`]="{ item }"> 
-        <v-icon dense color="mainGreenColor"> mdi-phone </v-icon> <span style="color: mainGreenColor;">{{item.contact}}</span>
-        </template> -->
-        <template v-slot:[`item.sernder`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-icon color="mainGreenColor" small> mdi-account </v-icon>
-          {{ item.sernder }}
+        <template v-slot:[`item.central_dest_id`]="{ item }"> 
+          <div v-if="item.station_creator_id">
+            <v-icon color="secondary" small> mdi-send-outline </v-icon> <span style="color: mainGreenColor;">VOUS</span>
+          </div>
+          <div v-if="(!item.station_creator_id) && (item.central_creator_id == 0)">
+            <v-icon small color="primary" style="transform: rotateY(192deg)" v-if="item.view"> mdi-send-outline </v-icon> 
+            <v-icon small color="red" style="transform: rotateY(192deg)" v-if="!item.view"> mdi-send-outline </v-icon> <span style="color: mainGreenColor;">MINO</span>
+          </div>
+          <div v-if="(!item.station_creator_id) && (item.central_creator_id > 0)">
+            <v-icon small color="primary" style="transform: rotateY(192deg)" v-if="item.view"> mdi-send-outline </v-icon>
+            <v-icon small color="#b71c1c" style="transform: rotateY(192deg)" v-if="!item.view"> mdi-send-outline </v-icon> <span style="color: mainGreenColor;">CENTRALE</span>
+          </div>
         </template>
       </v-data-table>
     </div>
@@ -311,7 +137,6 @@
 
 
 <script>
-import Vue from "vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -326,43 +151,43 @@ export default {
         text: "DE",
         align: "start",
         sortable: false,
-        value: "sernder",
+        value: "central_dest_id",
       },
-      { text: "OBJET", value: "objet" },
-      { text: "DATE", value: "date" },
+      { text: "OBJET", value: "topic" },
+      { text: "DATE", value: "created_at" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     desserts: [
-      {
-        sernder: "MINO",
-        objet: "scipit voluptatibus corrupti dolorem laborum laudantium ...",
-        date: "09:00",
+      // {
+      //   sernder: "MINO",
+      //   objet: "scipit voluptatibus co orum laudantium ...",
+      //   date: "09:00",
         
-      },
-      {
-        sernder: "CENTRALE",
-        objet: "25-03-2021 scipit voluptatibus corrupti dolorem laborum lalaborum...",
-        date: "09:00",
+      // },
+      // {
+      //   sernder: "CENTRALE",
+      //   objet: "25-03-2021 scipit voluptatibus co orum lalaborum...",
+      //   date: "09:00",
        
-      },
-      {
-        sernder: "VOUS",
-        objet: " voluptatibus corrupti dolorem laborum laudantium as...",
-        date: "09:00",
+      // },
+      // {
+      //   sernder: "VOUS",
+      //   objet: " voluptatibus co orum laudantiljeijopj nzpijpum as...",
+      //   date: "09:00",
         
-      },
-      {
-        sernder: "MINO",
-        objet: "scipit voluptatibus corrupti dolorem laborum laudantium as...",
-        date: "09:00",
+      // },
+      // {
+      //   sernder: "MINO",
+      //   objet: "scipit voluptatibus co orum laudqjk^fq pqp dantium as...",
+      //   date: "09:00",
         
-      },
-      {
-        sernder: "VOUS",
-        objet: "RE:: scipit voluptatibus corrupti dolorem laborum laudantium as...",
-        date: "09:00",
+      // },
+      // {
+      //   sernder: "VOUS",
+      //   objet: "RE:: scipit voluptatibus corrups<opti dum as...",
+      //   date: "09:00",
         
-      },
+      // },
     ],
 
     // for alerte
@@ -372,13 +197,7 @@ export default {
     // For Sender detail
     dialog: false,
     editedItem: {
-      complet_name: "",
-      contact: "",
-      conveyance: "",
-      city: "",
-      DeliveryNumber: "",
-      created_at: "",
-      matriculation: "",
+      content: "",
     },
 
     // For Sender edit
@@ -389,6 +208,11 @@ export default {
     // For Sender deleted
     dialogDelete: false,
     itemToDelete: "",
+
+
+
+    // For message viewing
+    viewHasBeenUpdate:false,
   }),
 
   methods: {
@@ -397,110 +221,38 @@ export default {
     // ------------------------
     showItem(item) {
       this.editedItem = Object.assign({}, item);
+      this.viewHasBeenUpdate = false
+      if ((!item.station_creator_id) && (!this.editedItem.view)) {
+        console.log(this.editedItem.id);
+        this.$store.dispatch("message_view", this.editedItem.id)
+        this.viewHasBeenUpdate = true
+      }
+
       this.dialog = true;
     },
 
-    // ------------------------
-    // For Profil Edited
-    // ------------------------
-    editItem(item) {
-      this.editedIndex = this.Senders.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      //  Open the Edit Dialogue
-      this.dialogEdit = true;
+    close() {
+      if (this.viewHasBeenUpdate) {
+        this.$store.state.MessageListRerender += 1
+      }
+      this.dialog = false;
     },
 
-    editItemConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/expedition/senderUpdate", this.editedItem)
-        .then((response) => {
-          this.senderaAddingResponse = response.data;
-          if (this.senderaAddingResponse.message == "success") {
-            // Modification effectuée
-            this.senderaAddingResponse.message = "modification effectuée";
-            this.addingSuccess = !this.addingSuccess;
-            setTimeout(() => {
-              this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
-            }, 3000);
-          } else if (this.senderaAddingResponse.message != "success") {
-            console.log(
-              "des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés"
-            );
-            // Modification effectuée
-            this.addingfalse = !this.addingfalse;
-            setTimeout(() => {
-              this.addingfalse = !this.addingfalse;
-            }, 3000);
-          }
-        })
-        .catch((error) => {
-          this.senderaAddingResponse = error.message;
-          console.error("There was an error!", error);
-        });
-
-      this.closeEdit();
-    },
-
-    closeEdit() {
-      this.dialogEdit = false;
-    },
-
-    // --------------------
-    // delete a travel
-    // --------------------
-    deleteItem(item) {
-      this.editedIndex = this.Senders.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.id };
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      Vue.prototype.$http
-        .put("http://127.0.0.1:3333/expedition/senderCancel", this.itemToDelete)
-        .then((response) => {
-          this.senderaAddingResponse = response.data;
-
-          if (this.senderaAddingResponse.message == "success") {
-            // Annulation effectuée
-            this.senderaAddingResponse.message = "Desactivation effectuée";
-            this.addingSuccess = !this.addingSuccess;
-            setTimeout(() => {
-              this.addingSuccess = !this.addingSuccess;
-              this.forceRerender2();
-            }, 3000);
-          } else if (this.senderaAddingResponse.message != "success") {
-            this.addingfalse = !this.addingfalse;
-            setTimeout(() => {
-              this.addingfalse = !this.addingfalse;
-            }, 3000);
-          }
-        })
-        .catch((error) => {
-          this.senderaAddingResponse = error.message;
-          console.error("There was an error!", error);
-        });
-
-      this.closeDelete();
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-    },
 
     // For table re-render after delete or update an item
-    forceRerender2() {
-      this.$store.state.sendercomponentKey += 1;
+    mailResponse() {
+      this.close()
+      this.$store.state.ResponseTopic = "RE::" + this.editedItem.topic;
+      this.$store.state.response_of_id = this.editedItem.id;
     },
   },
 
   computed: {
-    ...mapGetters(["Senders"]),
+    ...mapGetters(["Messages"]),
   },
 
   created() {
-    this.$store.dispatch("init_sender");
+    this.$store.dispatch("init_message");
   },
 };
 </script>
@@ -531,7 +283,7 @@ export default {
 
 <style scoped>
 .tableWrapperDiv {
-  height: 514px;
+  height: 450px;
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -576,13 +328,13 @@ export default {
 /* Show details */
 .imgAndTitle {
   margin: 15px 0px;
-  height: 220px;
-  width: 330px;
+  height: 100px;
+  width: 620px;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center;
   background: linear-gradient(
       180deg,
       rgb(0 0 0 / 0%),
@@ -598,6 +350,7 @@ export default {
   font-weight: bold;
   margin: 0px;
   margin-left: 20px;
+  text-align: center;
   color: white;
 }
 .imgAndTitle > p:last-child {
@@ -607,16 +360,10 @@ export default {
   color: white;
 }
 
-.statElment {
+.TheMessage {
   margin-bottom: 15px;
+  padding: 0px 40px;
   display: flex;
-}
-.statElment > div {
-  margin-left: 10px;
-}
-.statElment h2 {
-  font-size: 21px;
-  color: var(--main-green-color);
 }
 
 .statusChange {
@@ -624,51 +371,4 @@ export default {
   justify-content: center;
 }
 
-/* Edit travel */
-.editIMGO {
-  margin-bottom: 35px;
-  width: 100%;
-}
-.updateForm {
-  height: 250px;
-  width: 110%;
-  overflow-y: scroll;
-}
-.updateForm::-webkit-scrollbar {
-  width: 20px;
-}
-.updateForm::-webkit-scrollbar-track {
-  background: rgb(255, 255, 255);
-}
-
-.updateForm::-webkit-scrollbar-thumb {
-  background-color: var(--main-green-color);
-  border-radius: 30px;
-  border: 7px solid rgb(255, 255, 255);
-}
-
-.updateForm .col-lg-12,
-.col-md-12 {
-  padding-bottom: 0px;
-  padding-top: 0px;
-}
-
-/* Delete travel */
-.deleteIMG {
-  width: 350px;
-}
-.CancelVerification {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 5px;
-  margin-bottom: 30px;
-}
-.verificationAction {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.verificationAction > button {
-  width: 150px;
-}
 </style>
